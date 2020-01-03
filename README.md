@@ -1,7 +1,6 @@
-# roster_management_system
+# Bonafide
 
-Roster Management System
-
+Bonafide
 ## Getting Started
 
 This project is a starting point for a Flutter application.
