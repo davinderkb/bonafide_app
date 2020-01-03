@@ -1,4 +1,4 @@
-package daku.hyb.app.dev.roster_management_system
+package daku.hyb.app.dev.bonafide_app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
