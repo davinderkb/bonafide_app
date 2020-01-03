@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bonafide_app/main.dart';
@@ -10,18 +11,13 @@ class OrganizationProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-    final String imgUrl =
-        'https://bonafidetech.com/wp-content/uploads/logo.png';
 
     return new Stack(
       children: <Widget>[
         new Container(
           color: Colors.blue,
         ),
-        new Image.network(
-          imgUrl,
-          fit: BoxFit.fill,
-        ),
+
         new BackdropFilter(
             filter: new ui.ImageFilter.blur(
               sigmaX: 6.0,
@@ -51,7 +47,7 @@ class OrganizationProfile extends StatelessWidget {
                   ),
                   new CircleAvatar(
                     radius: _width < _height ? _width / 4 : _height / 4,
-                    backgroundImage: NetworkImage(imgUrl),
+                    backgroundImage: AssetImage('assets/images/ic_profile.png'),
                   ),
                   new SizedBox(
                     height: _height / 25.0,
@@ -125,4 +121,6 @@ class OrganizationProfile extends StatelessWidget {
                   color: Colors.white, fontWeight: FontWeight.normal))
         ],
       ));
+
+
 }
