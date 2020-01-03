@@ -56,7 +56,7 @@ class MainNavigationDrawer extends StatelessWidget {
             accountName: Text('Kamaldeep'),
             accountEmail: Text('kamal8iweb@gmail.com'),
             currentAccountPicture:
-            Image.network('https://i.stack.imgur.com/YQu5k.png'),
+            Image.asset('assets/images/ic_profile.png'),
             decoration: BoxDecoration(color: Colors.blueAccent),
           ),
           ListTile(
