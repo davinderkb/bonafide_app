@@ -1,6 +1,6 @@
+import 'package:bonafide_app/manageleaves.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
 
@@ -70,6 +70,22 @@ class MainNavigationDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: Text(Constants.MY_REWARDS),
+            leading: Icon(Icons.card_giftcard),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>OrganizationProfile()));
+            },
+          ),
+          ListTile(
+            title: Text(Constants.MANAGE_LEAVES),
+            leading: Icon(Icons.calendar_view_day),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>ManageLeaves()));
+            },
+          ),
+          ListTile(
             title: Text(Constants.ORGANIZATION_PROFILE),
             leading: Icon(Icons.business),
             onTap: () {
@@ -77,6 +93,23 @@ class MainNavigationDrawer extends StatelessWidget {
                   builder: (BuildContext context) =>OrganizationProfile()));
             },
           ),
+          ListTile(
+            title: Text(Constants.CHANGE_PASSWORD),
+            leading: Icon(Icons.settings),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>OrganizationProfile()));
+            },
+          ),
+          ListTile(
+            title: Text(Constants.LOGOUT),
+            leading: Icon(Icons.launch),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>OrganizationProfile()));
+            },
+          ),
+
         ],
       ),
     );

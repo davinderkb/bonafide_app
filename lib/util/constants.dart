@@ -1,6 +1,10 @@
 class Constants{
   static const ORGANIZATION_PROFILE = 'Organization Profile';
+  static const MANAGE_LEAVES = 'Manage Leaves';
   static const MY_TIMESHEET = 'My Timesheet';
+  static const MY_REWARDS = 'My Rewards';
+  static const CHANGE_PASSWORD = 'Change Password';
+  static const LOGOUT = 'Logout';
   static const DRAWER_HEADER = '';
   static const FEEDBACK = 'PROVIDE FEEDBACK';
   static const EMPLOYEES = 'EMPLOYEES';
