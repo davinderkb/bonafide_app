@@ -84,16 +84,19 @@ class MainNavigationDrawer extends StatelessWidget {
                 Image.asset('assets/images/ic_profile.png'),
                 decoration: BoxDecoration(color: Color(0xffab110c)),
               ),
-              ListTile(
-                title: Text(Constants.MY_TIMESHEET,style: TextStyle(fontWeight: FontWeight.w500),),
-                leading: Icon(Icons.calendar_today),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>HomePage()));
-                },
+              Column(
+                children: [ListTile(
+                  title: Text(Constants.MY_TIMESHEET,style: TextStyle(fontWeight: FontWeight.w500),),
+                  leading: Icon(Icons.calendar_today),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>HomePage()));
+                  },
+                ),
+                new Divider(height: 1.0, color: Colors.white,)]
               ),
               ListTile(
                 title: Text(Constants.MY_REWARDS,style: TextStyle(fontWeight: FontWeight.w500),),
