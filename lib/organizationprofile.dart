@@ -53,7 +53,8 @@ class OrganizationProfile extends StatelessWidget {
                           : _height /
                           4,
                       backgroundImage:
-                      AssetImage('assets/images/ic_profile.png'),
+                      AssetImage('assets/images/ic_bonafide_profile.png'),
+                      backgroundColor: Colors.white,
                     ),
                     new SizedBox(
                       height: _height / 25.0,
