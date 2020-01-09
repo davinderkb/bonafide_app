@@ -13,6 +13,7 @@ class Constants{
   static const ORGANIZATION_TAG_LINE = 'Door to Success !!';
   static const ORGANIZATION_TAG_DESC = 'Committed to provide optimal IT solutions';
   static const ORGANIZATION_TITLE = 'Bonafide Technologies';
+  static const BONAFIDE_COLOR = '0xffab110c';
 
 
 

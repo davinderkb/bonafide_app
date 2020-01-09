@@ -37,7 +37,7 @@ class OrganizationProfile extends StatelessWidget {
               elevation: 0.0,
               backgroundColor: Colors.transparent,
             ),
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.black,
             body: new Center(
               child: SingleChildScrollView(
                 child: new Column(
@@ -54,7 +54,7 @@ class OrganizationProfile extends StatelessWidget {
                           4,
                       backgroundImage:
                       AssetImage('assets/images/ic_bonafide_profile.png'),
-                      backgroundColor: Colors.white,
+                      backgroundColor: Colors.black,
                     ),
                     new SizedBox(
                       height: _height / 25.0,
@@ -100,20 +100,23 @@ class OrganizationProfile extends StatelessWidget {
                       padding: new EdgeInsets.only(
                           left: _width / 8, right: _width / 8),
                       child: new FlatButton(
+                        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                        color: const Color(0xffab110c),
                         onPressed: () {},
                         child: new Container(
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment
                                   .center,
                               children: <Widget>[
-                                new Icon(Icons.contact_mail),
+                                new Icon(Icons.contact_mail,color: Colors.white,),
                                 new SizedBox(
                                   width: _width / 30,
                                 ),
-                                new Text(Constants.FEEDBACK)
+                                new Text(Constants.FEEDBACK,style: TextStyle(color: Colors.white),)
                               ],
-                            )),
-                        color: Colors.blue[50],
+                            ),
+                        ),
+
                       ),
                     ),
                   ],
