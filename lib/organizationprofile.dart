@@ -49,7 +49,7 @@ class OrganizationProfile extends StatelessWidget {
                     ),
                     new CircleAvatar(
                       radius: _width < _height
-                          ? _width / 5
+                          ? _width / 4.8
                           : _height /
                           5,
 

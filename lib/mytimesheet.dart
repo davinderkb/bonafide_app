@@ -25,7 +25,7 @@ class MyTimesheet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
-                  'assets/images/bonafide_logo.png',
+                  'assets/images/bonafide-b.png',
                   fit: BoxFit.contain,
                   height: 48,
                 )
