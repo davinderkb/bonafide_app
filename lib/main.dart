@@ -1,4 +1,5 @@
 import 'package:bonafide_app/manageleaves.dart';
+import 'package:bonafide_app/mytimesheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bonafide_app/organizationprofile.dart';
@@ -24,33 +25,11 @@ class MainActivity extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: MyTimesheet(true),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-          Image.asset(
-          'assets/images/bonafide_logo.png',
-          fit: BoxFit.contain,
-          height: 48,
-        )]),
-        centerTitle: true,
-        elevation: 0.0,
-        backgroundColor: Colors.black,
-      ),
-      drawer: MainNavigationDrawer(),
-    );
-  }
-}
 
 class MainNavigationDrawer extends StatelessWidget {
   const MainNavigationDrawer({
@@ -62,15 +41,15 @@ class MainNavigationDrawer extends StatelessWidget {
 
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: Colors.black, //This will change the drawer background to blue.
+        canvasColor: Colors.blue[50], //This will change the drawer background to blue.
         //other styles
       ),
       child: new Drawer(
         child: ListTileTheme(
 
-          textColor: Colors.white,
-          iconColor: Colors.white,
-
+          textColor: Colors.black,
+          iconColor: Colors.black,
+          dense:true,
 
 
           child: ListView(
@@ -82,24 +61,22 @@ class MainNavigationDrawer extends StatelessWidget {
                 accountEmail: Text('nakumar@bonafide.com',style: TextStyle(fontWeight: FontWeight.bold)),
                 currentAccountPicture:
                 Image.asset('assets/images/ic_profile.png'),
-                decoration: BoxDecoration(color: Color(0xffab110c)),
-              ),
-              Column(
-                children: [ListTile(
-                  title: Text(Constants.MY_TIMESHEET,style: TextStyle(fontWeight: FontWeight.w500),),
-                  leading: Icon(Icons.calendar_today),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>HomePage()));
-                  },
-                ),
-                new Divider(height: 1.0, color: Colors.white,)]
+                decoration: BoxDecoration(color: Colors.blue),
               ),
               ListTile(
-                title: Text(Constants.MY_REWARDS,style: TextStyle(fontWeight: FontWeight.w500),),
+                title: Text(Constants.MY_TIMESHEET,style: TextStyle(fontWeight: FontWeight.normal),),
+                leading: Icon(Icons.calendar_today),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>MyTimesheet(true)));
+                },
+              ),
+              //new Divider(height: 1.0, color: Colors.white,),
+              ListTile(
+                title: Text(Constants.MY_REWARDS,style: TextStyle(fontWeight: FontWeight.normal),),
                 leading: Icon(Icons.card_giftcard),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -107,42 +84,36 @@ class MainNavigationDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(Constants.MANAGE_LEAVES,style: TextStyle(fontWeight: FontWeight.w500),),
+                title: Text(Constants.MANAGE_LEAVES,style: TextStyle(fontWeight: FontWeight.normal),),
                 leading: Icon(Icons.calendar_view_day),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>ManageLeaves()));
                 },
               ),
-              Column(
-                children: [ListTile(
-                  title: Text(Constants.ORGANIZATION_PROFILE,style: TextStyle(fontWeight: FontWeight.w500),),
-                  leading: Icon(Icons.business),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>OrganizationProfile()));
-                  },
-                ),
-                new Divider(height: 1.0,color: Colors.white,)]
+              ListTile(
+                title: Text(Constants.ORGANIZATION_PROFILE,style: TextStyle(fontWeight: FontWeight.normal),),
+                leading: Icon(Icons.business),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>OrganizationProfile()));
+                },
               ),
               ListTile(
-                title: Text(Constants.CHANGE_PASSWORD,style: TextStyle(fontWeight: FontWeight.w500),),
+                title: Text(Constants.CHANGE_PASSWORD,style: TextStyle(fontWeight: FontWeight.normal),),
                 leading: Icon(Icons.settings),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>OrganizationProfile()));
                 },
               ),
-              Column(
-                children: [ListTile(
-                  title: Text(Constants.LOGOUT,style: TextStyle(fontWeight: FontWeight.w500),),
-                  leading: Icon(Icons.launch),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>OrganizationProfile()));
-                  },
-                ),
-                new Divider(height: 1.0,color: Colors.white,)]
+              ListTile(
+                title: Text(Constants.LOGOUT,style: TextStyle(fontWeight: FontWeight.normal),),
+                leading: Icon(Icons.launch),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>OrganizationProfile()));
+                },
               ),
 
             ],

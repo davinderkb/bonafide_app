@@ -37,7 +37,7 @@ class OrganizationProfile extends StatelessWidget {
               elevation: 0.0,
               backgroundColor: Colors.transparent,
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.indigoAccent,
             body: new Center(
               child: SingleChildScrollView(
                 child: new Column(
@@ -49,12 +49,14 @@ class OrganizationProfile extends StatelessWidget {
                     ),
                     new CircleAvatar(
                       radius: _width < _height
-                          ? _width / 4
+                          ? _width / 5
                           : _height /
-                          4,
+                          5,
+
                       backgroundImage:
-                      AssetImage('assets/images/ic_bonafide_profile.png'),
-                      backgroundColor: Colors.black,
+                      AssetImage('assets/images/bonafide-b.png'),
+                      backgroundColor: Colors.blue[50]
+                      ,
                     ),
                     new SizedBox(
                       height: _height / 25.0,
@@ -64,7 +66,7 @@ class OrganizationProfile extends StatelessWidget {
                       style: new TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: _width / 15,
-                          color: Colors.white),
+                          color: Colors.blue[50]),
                     ),
                     new Padding(
                       padding: new EdgeInsets.only(
@@ -78,7 +80,7 @@ class OrganizationProfile extends StatelessWidget {
                         style: new TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: _width / 25,
-                            color: Colors.white),
+                            color: Colors.blue[50]),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -88,7 +90,7 @@ class OrganizationProfile extends StatelessWidget {
                     ),
                     new Row(
                       children: <Widget>[
-                        rowCell(212, Constants.EMPLOYEES),
+                        rowCell(212, Constants.EMPLOYEES,),
                         rowCell(67, Constants.CLIENT),
                         rowCell(375, Constants.PROJECTS),
                       ],
@@ -101,18 +103,18 @@ class OrganizationProfile extends StatelessWidget {
                           left: _width / 8, right: _width / 8),
                       child: new FlatButton(
                         shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                        color: const Color(0xffab110c),
+                        color: Colors.blue[50],
                         onPressed: () {},
                         child: new Container(
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment
                                   .center,
                               children: <Widget>[
-                                new Icon(Icons.contact_mail,color: Colors.white,),
+                                new Icon(Icons.contact_mail,color: Colors.black,),
                                 new SizedBox(
                                   width: _width / 30,
                                 ),
-                                new Text(Constants.FEEDBACK,style: TextStyle(color: Colors.white),)
+                                new Text(Constants.FEEDBACK,style: TextStyle(color: Colors.black),)
                               ],
                             ),
                         ),
@@ -132,11 +134,11 @@ class OrganizationProfile extends StatelessWidget {
         children: <Widget>[
           new Text(
             '$count',
-            style: new TextStyle(color: Colors.white),
+            style: new TextStyle(color: Colors.blue[50]),
           ),
           new Text(type,
               style: new TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.normal))
+                  color: Colors.blue[50], fontWeight: FontWeight.normal))
         ],
       ));
 }
