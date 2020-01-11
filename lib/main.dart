@@ -1,4 +1,5 @@
 import 'package:bonafide_app/manageleaves.dart';
+import 'package:bonafide_app/myrewards.dart';
 import 'package:bonafide_app/mytimesheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -82,7 +83,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 leading: Icon(Icons.card_giftcard),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>OrganizationProfile()));
+                      builder: (BuildContext context) =>MyRewards(true)));
                 },
               ),
               ListTile(

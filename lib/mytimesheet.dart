@@ -200,13 +200,13 @@ class MyTimesheet extends StatelessWidget {
     final red = charts.MaterialPalette.red.makeShades(1);
     final green = charts.MaterialPalette.green.makeShades(1);
     final data = [
-      new TimesheetEntry('MON', 8.0),
-      new TimesheetEntry('TUE', 7.0),
-      new TimesheetEntry('WED', 6.15),
-      new TimesheetEntry('THU', 4.5),
-      new TimesheetEntry('FRI', 8),
-      new TimesheetEntry('SAT', 7.7),
-      new TimesheetEntry('SUN', 2),
+      new TimesheetEntry('Mon', 8.0),
+      new TimesheetEntry('Tue', 7.0),
+      new TimesheetEntry('Wed', 6.15),
+      new TimesheetEntry('Thu', 4.5),
+      new TimesheetEntry('Fri', 8),
+      new TimesheetEntry('Sat', 7.7),
+      new TimesheetEntry('Sun', 2),
     ];
 
     return [
