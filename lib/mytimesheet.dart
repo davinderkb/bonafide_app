@@ -58,48 +58,38 @@ class MyTimesheet extends StatelessWidget {
                   height: 4.0,
 
                 ),
-                SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  height: ((MediaQuery
-                      .of(context)
-                      .size
-                      .height) - (MediaQuery
-                      .of(context)
-                      .size
-                      .height / 1.35)) / 2,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10.0, right: 10.0),
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text("", style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 17,
-                                color: Colors.blueAccent),),
-                            Card(
-                              elevation: 1.0,
-                              child: Text("Jan 10 - Jan 16", style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.indigo)),
-                            ),
-                            FlatButton(onPressed: () {},
-                                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                                color: Colors.indigoAccent,
+                Card(
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(5.0)),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                            children: [
+                              Container(color: Colors.indigoAccent,width: 32,height: 48,),
+                              Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Image(image: AssetImage(
+                                          "assets/images/date_icon.png"),
+                                        height: 48,
+                                        width: 48,),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Text(" Jan 10, 2020 to \n Jan 16, 2020",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.indigo)),
+                                      ),
 
-                                child: Text("See More", style: TextStyle( fontWeight: FontWeight.bold,
-                                    color: Colors.blue[50],)))
-                          ],
-                        ),
-                      ),
-                      ]
-                  ),
+                                    ],
+                                  ),
+                                ),
+                            ]),
+                      ]),
                 ),
                 Center(
                   child: SizedBox(
@@ -145,7 +135,7 @@ class MyTimesheet extends StatelessWidget {
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(left:45.0,top: 15.0, right: 45.0, bottom: 15.0),
+                    padding: const EdgeInsets.only(left:45.0,top: 15.0, right: 45.0, bottom: 0.0),
                     child: new FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
@@ -163,6 +153,35 @@ class MyTimesheet extends StatelessWidget {
                               padding: const EdgeInsets.only(left:8.0, top: 5.0, bottom: 5.0),
                               child: new Text(
                                 Constants.LOG_MISSING_HOURS, style: TextStyle(
+                                  color: Colors.blue[50]),),
+                            )
+                          ],
+                        ),
+                      ),
+
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left:45.0,top: 0.0, right: 45.0, bottom: 0.0),
+                    child: new FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      color: Colors.indigoAccent,
+                      onPressed: () {},
+                      child: new Container(
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .center,
+                          children: <Widget>[
+                            new Icon(
+                              Icons.history, color: Colors.white,),
+
+                            Padding(
+                              padding: const EdgeInsets.only(left:8.0, top: 5.0, bottom: 5.0),
+                              child: new Text(
+                                Constants.CHECK_HISTORY, style: TextStyle(
                                   color: Colors.blue[50]),),
                             )
                           ],

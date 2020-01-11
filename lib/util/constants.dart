@@ -8,6 +8,7 @@ class Constants{
   static const DRAWER_HEADER = '';
   static const FEEDBACK = 'PROVIDE FEEDBACK';
   static const LOG_MISSING_HOURS = 'Log Missing Hours';
+  static const CHECK_HISTORY = 'Check Old Weeks';
   static const EMPLOYEES = 'EMPLOYEES';
   static const PROJECTS = 'PROJECTS';
   static const CLIENT = 'CLIENT';
