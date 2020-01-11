@@ -69,7 +69,7 @@ class MyTimesheet extends StatelessWidget {
                       .height) - (MediaQuery
                       .of(context)
                       .size
-                      .height / 1.25)) / 2.5,
+                      .height / 1.35)) / 2,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [Padding(
@@ -110,13 +110,13 @@ class MyTimesheet extends StatelessWidget {
                     height: MediaQuery
                         .of(context)
                         .size
-                        .height / 1.5,
+                        .height / 3,
                     child: Padding(
                       padding: EdgeInsets.only(left:10.0,right: 10.0),
                       child: new charts.BarChart(
                         timesheetEntriesList,
                         animate: animate,
-                        vertical: false,
+                        vertical: true,
                         domainAxis: new charts.OrdinalAxisSpec(
                             renderSpec: new charts.SmallTickRendererSpec(
 
@@ -144,45 +144,32 @@ class MyTimesheet extends StatelessWidget {
                   ),
                 ),
                 Center(
-                  child: SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      height: ((MediaQuery
-                          .of(context)
-                          .size
-                          .height) - (MediaQuery
-                          .of(context)
-                          .size
-                          .height / 1.25)) / 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left:45.0,top: 15.0, right: 45.0, bottom: 15.0),
-                        child: new FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          color: Colors.indigoAccent,
-                          onPressed: () {},
-                          child: new Container(
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment
-                                  .center,
-                              children: <Widget>[
-                                new Icon(
-                                  Icons.timelapse, color: Colors.white,),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left:45.0,top: 15.0, right: 45.0, bottom: 15.0),
+                    child: new FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      color: Colors.indigoAccent,
+                      onPressed: () {},
+                      child: new Container(
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .center,
+                          children: <Widget>[
+                            new Icon(
+                              Icons.timelapse, color: Colors.white,),
 
-                                Padding(
-                                  padding: const EdgeInsets.only(left:8.0),
-                                  child: new Text(
-                                    Constants.LOG_MISSING_HOURS, style: TextStyle(
-                                      color: Colors.blue[50]),),
-                                )
-                              ],
-                            ),
-                          ),
-
+                            Padding(
+                              padding: const EdgeInsets.only(left:8.0, top: 5.0, bottom: 5.0),
+                              child: new Text(
+                                Constants.LOG_MISSING_HOURS, style: TextStyle(
+                                  color: Colors.blue[50]),),
+                            )
+                          ],
                         ),
                       ),
+
+                    ),
                   ),
                 ),
               ]),
@@ -194,13 +181,13 @@ class MyTimesheet extends StatelessWidget {
     final red = charts.MaterialPalette.red.makeShades(1);
     final green = charts.MaterialPalette.green.makeShades(1);
     final data = [
-      new TimesheetEntry('Monday', 8.0),
-      new TimesheetEntry('Tuesday', 8.0),
-      new TimesheetEntry('Wednesday', 8.0),
-      new TimesheetEntry('Thursday', 6.0),
-      new TimesheetEntry('Friday', 7.0),
-      new TimesheetEntry('Saturday', 0),
-      new TimesheetEntry('Sunday', 0),
+      new TimesheetEntry('MON', 8.0),
+      new TimesheetEntry('TUE', 7.0),
+      new TimesheetEntry('WED', 6.15),
+      new TimesheetEntry('THU', 4.5),
+      new TimesheetEntry('FRI', 8),
+      new TimesheetEntry('SAT', 7.7),
+      new TimesheetEntry('SUN', 2),
     ];
 
     return [
