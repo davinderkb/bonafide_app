@@ -109,9 +109,26 @@ class MyRewards extends StatelessWidget {
                         .height / 2,
                     child: Padding(
                       padding: EdgeInsets.all(20),
-                      child: new charts.PieChart(
-                        seriesList,
-                        animate: animate,
+                      child: new charts.PieChart(seriesList,
+                          animate: animate,
+                          // Configure the width of the pie slices to 60px. The remaining space in
+                          // the chart will be left as a hole in the center.
+                          //
+                          // [ArcLabelDecorator] will automatically position the label inside the
+                          // arc if the label will fit. If the label will not fit, it will draw
+                          // outside of the arc with a leader line. Labels can always display
+                          // inside or outside using [LabelPosition].
+                          //
+                          // Text style for inside / outside can be controlled independently by
+                          // setting [insideLabelStyleSpec] and [outsideLabelStyleSpec].
+                          //
+                          // Example configuring different styles for inside/outside:
+                          //       new charts.ArcLabelDecorator(
+                          //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
+                          //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
+                          defaultRenderer: new charts.ArcRendererConfig(
+                              arcWidth: 60,
+                              arcRendererDecorators: [new charts.ArcLabelDecorator()]),
                         // Add the legend behavior to the chart to turn on legends.
                         // This example shows how to change the position and justification of
                         // the legend, in addition to altering the max rows and padding.
@@ -133,7 +150,7 @@ class MyRewards extends StatelessWidget {
                             horizontalFirst: false,
                             // By setting this value to 2, the legend entries will grow up to two
                             // rows before adding a new column.
-                            desiredMaxRows: 4,
+                            desiredMaxRows: 3,
                             // This defines the padding around each legend entry.
                             cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
                             // Render the legend entry text with custom styles.
@@ -168,7 +185,7 @@ class MyRewards extends StatelessWidget {
         measureFn: (RewardItem sales, _) => sales.amount,
         data: data,
         // Set a label accessor to control the text of the arc label.
-        labelAccessorFn: (RewardItem row, _) => '${row.amount}INR',
+        labelAccessorFn: (RewardItem row, _) => '${row.amount}',
       )
     ];
   }

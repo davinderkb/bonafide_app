@@ -1,5 +1,6 @@
 class Constants{
   static const ORGANIZATION_PROFILE = 'Organization';
+  static const RESET_PASSWORD = 'Reset Password';
   static const MANAGE_LEAVES = 'Manage Leaves';
   static const MY_TIMESHEET = 'My Timesheet';
   static const MY_REWARDS = 'My Rewards';

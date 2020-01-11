@@ -1,6 +1,7 @@
 import 'package:bonafide_app/manageleaves.dart';
 import 'package:bonafide_app/myrewards.dart';
 import 'package:bonafide_app/mytimesheet.dart';
+import 'package:bonafide_app/resetpassword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bonafide_app/organizationprofile.dart';
@@ -107,7 +108,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 leading: Icon(Icons.settings),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>OrganizationProfile()));
+                      builder: (BuildContext context) =>ResetPassword()));
                 },
               ),
               ListTile(
