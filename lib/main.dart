@@ -41,14 +41,14 @@ class MainNavigationDrawer extends StatelessWidget {
 
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: Colors.blue[50], //This will change the drawer background to blue.
+        canvasColor: Colors.white, //This will change the drawer background to blue.
         //other styles
       ),
       child: new Drawer(
         child: ListTileTheme(
 
-          textColor: Colors.black,
-          iconColor: Colors.black,
+          textColor: Colors.indigoAccent,
+          iconColor: Colors.indigoAccent,
           dense:true,
 
 
@@ -57,14 +57,16 @@ class MainNavigationDrawer extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text('Naresh Kumar',style: TextStyle(fontWeight: FontWeight.bold)),
-                accountEmail: Text('nakumar@bonafide.com',style: TextStyle(fontWeight: FontWeight.bold)),
+                accountName: Text('Naresh Kumar',style: TextStyle(color:Colors.indigoAccent,fontWeight: FontWeight.bold)),
+                accountEmail: Text('naresh@bonafidetech.com',style: TextStyle(color:Colors.indigoAccent,fontWeight: FontWeight.normal)),
                 currentAccountPicture:
                 Image.asset('assets/images/ic_profile.png'),
-                decoration: BoxDecoration(color: Colors.blue),
+                decoration: BoxDecoration(color: Colors.blue[50], backgroundBlendMode: BlendMode.color, image: DecorationImage(
+                    image: AssetImage("assets/images/nav_header_bg.png"),
+                    fit: BoxFit.cover)),
               ),
               ListTile(
-                title: Text(Constants.MY_TIMESHEET,style: TextStyle(fontWeight: FontWeight.normal),),
+                title: Text(Constants.MY_TIMESHEET,style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Icon(Icons.calendar_today),
                 onTap: () {
                   // Update the state of the app
@@ -76,7 +78,7 @@ class MainNavigationDrawer extends StatelessWidget {
               ),
               //new Divider(height: 1.0, color: Colors.white,),
               ListTile(
-                title: Text(Constants.MY_REWARDS,style: TextStyle(fontWeight: FontWeight.normal),),
+                title: Text(Constants.MY_REWARDS,style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Icon(Icons.card_giftcard),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -84,7 +86,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(Constants.MANAGE_LEAVES,style: TextStyle(fontWeight: FontWeight.normal),),
+                title: Text(Constants.MANAGE_LEAVES,style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Icon(Icons.calendar_view_day),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -92,7 +94,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(Constants.ORGANIZATION_PROFILE,style: TextStyle(fontWeight: FontWeight.normal),),
+                title: Text(Constants.ORGANIZATION_PROFILE,style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Icon(Icons.business),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -100,7 +102,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(Constants.CHANGE_PASSWORD,style: TextStyle(fontWeight: FontWeight.normal),),
+                title: Text(Constants.CHANGE_PASSWORD,style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Icon(Icons.settings),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -108,7 +110,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text(Constants.LOGOUT,style: TextStyle(fontWeight: FontWeight.normal),),
+                title: Text(Constants.LOGOUT,style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Icon(Icons.launch),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(

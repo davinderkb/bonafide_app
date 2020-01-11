@@ -42,49 +42,63 @@ class MyTimesheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Card(
-                  margin: EdgeInsets.only(top: 5.0),
-                  elevation:5,
-                  color: Colors.transparent,
+                SizedBox(
+                  width:MediaQuery
+                      .of(context)
+                      .size
+                      .width ,
+                  height: 1.0,
+                  child: Container(color: Colors.indigoAccent,),
+                ),
+                SizedBox(
+                  width:MediaQuery
+                      .of(context)
+                      .size
+                      .width ,
+                  height: 4.0,
 
-                  child: SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    height: ((MediaQuery
-                        .of(context)
-                        .size
-                        .height) - (MediaQuery
-                        .of(context)
-                        .size
-                        .height / 1.25)) / 2,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10.0, right: 10.0),
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text("", style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: Colors.blueAccent)),
-                              Text("Jan 10 - Jan 16", style: TextStyle(
+                ),
+                SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: ((MediaQuery
+                      .of(context)
+                      .size
+                      .height) - (MediaQuery
+                      .of(context)
+                      .size
+                      .height / 1.25)) / 2.5,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Padding(
+                        padding: const EdgeInsets.only(
+                            left: 10.0, right: 10.0),
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text("", style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Colors.blueAccent),),
+                            Card(
+                              elevation: 1.0,
+                              child: Text("Jan 10 - Jan 16", style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: Colors.blue[50])),
-                              FlatButton(onPressed: () {},
+                                  fontSize: 18,
+                                  color: Colors.indigo)),
+                            ),
+                            FlatButton(onPressed: () {},
+                                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                                color: Colors.indigoAccent,
 
-                                  color: Colors.transparent,
-                                  child: Text("See More", style: TextStyle( fontWeight: FontWeight.bold,
-                                      color: Colors.indigoAccent,)))
-                            ],
-                          ),
+                                child: Text("See More", style: TextStyle( fontWeight: FontWeight.bold,
+                                    color: Colors.blue[50],)))
+                          ],
                         ),
-                        ]
-                    ),
+                      ),
+                      ]
                   ),
                 ),
                 Center(
@@ -98,7 +112,7 @@ class MyTimesheet extends StatelessWidget {
                         .size
                         .height / 1.5,
                     child: Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.only(left:10.0,right: 10.0),
                       child: new charts.BarChart(
                         timesheetEntriesList,
                         animate: animate,
@@ -181,10 +195,10 @@ class MyTimesheet extends StatelessWidget {
     final green = charts.MaterialPalette.green.makeShades(1);
     final data = [
       new TimesheetEntry('Monday', 8.0),
-      new TimesheetEntry('Tuesday', 4.0),
+      new TimesheetEntry('Tuesday', 8.0),
       new TimesheetEntry('Wednesday', 8.0),
-      new TimesheetEntry('Thursday', 10.0),
-      new TimesheetEntry('Friday', 8.0),
+      new TimesheetEntry('Thursday', 6.0),
+      new TimesheetEntry('Friday', 7.0),
       new TimesheetEntry('Saturday', 0),
       new TimesheetEntry('Sunday', 0),
     ];
