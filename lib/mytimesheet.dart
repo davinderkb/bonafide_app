@@ -100,13 +100,13 @@ class MyTimesheet extends StatelessWidget {
                     height: MediaQuery
                         .of(context)
                         .size
-                        .height / 3,
+                        .height / 1.75,
                     child: Padding(
                       padding: EdgeInsets.only(left:10.0,right: 10.0),
                       child: new charts.BarChart(
                         timesheetEntriesList,
                         animate: animate,
-                        vertical: true,
+                        vertical: false,
                         domainAxis: new charts.OrdinalAxisSpec(
                             renderSpec: new charts.SmallTickRendererSpec(
 
@@ -203,7 +203,7 @@ class MyTimesheet extends StatelessWidget {
       new TimesheetEntry('Mon', 8.0),
       new TimesheetEntry('Tue', 7.0),
       new TimesheetEntry('Wed', 6.15),
-      new TimesheetEntry('Thu', 4.5),
+      new TimesheetEntry('Thu', 8.0),
       new TimesheetEntry('Fri', 8),
       new TimesheetEntry('Sat', 7.7),
       new TimesheetEntry('Sun', 2),
@@ -216,20 +216,26 @@ class MyTimesheet extends StatelessWidget {
           measureFn: (TimesheetEntry sales, _) => sales.hours,
           data: data,
           colorFn: (TimesheetEntry entry, _) {
-            switch (entry.hours >= 8.0) {
-              case true:
-                {
-                  return green[1];
-                }
-              case false:
-                {
-                  return red[1];
-                }
-              default:
-                {
-                  return red[0];
-                }
+            if(entry.day=="Sun"){
+              return green[1];
             }
+            else{
+              switch (entry.hours >= 8.0) {
+                case true:
+                  {
+                    return green[1];
+                  }
+                case false:
+                  {
+                    return red[1];
+                  }
+                default:
+                  {
+                    return red[0];
+                  }
+              }
+            }
+
           }
       )
     ];
