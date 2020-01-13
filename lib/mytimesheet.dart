@@ -67,7 +67,7 @@ class MyTimesheet extends StatelessWidget {
                       children: [
                         Row(
                             children: [
-                              Container(color: Colors.indigoAccent,width: 32,height: 48,),
+                              Container(color: Colors.indigoAccent,width: 32,height: 64,),
                               Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: new Row(

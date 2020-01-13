@@ -4,7 +4,7 @@ class Constants{
   static const MANAGE_LEAVES = 'Manage Leaves';
   static const MY_TIMESHEET = 'My Timesheet';
   static const MY_REWARDS = 'My Rewards';
-  static const CHANGE_PASSWORD = 'Change Password';
+  static const CHANGE_PASSWORD = 'Reset Password';
   static const LOGOUT = 'Logout';
   static const DRAWER_HEADER = '';
   static const FEEDBACK = 'PROVIDE FEEDBACK';

@@ -75,9 +75,9 @@ class _ResetPasswordState extends State<ResetPassword> {
           title: new Text(Constants.RESET_PASSWORD),
           centerTitle: false,
           elevation: 0.0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.indigoAccent,
         ),
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Center(
             child: Container(
@@ -105,9 +105,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       height: 35.0,
                     ),
                     resetPassword,
-                    SizedBox(
-                      height: 15.0,
-                    ),
+
                   ],
                 ),
               ),
