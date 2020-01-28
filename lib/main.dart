@@ -1,3 +1,4 @@
+import 'package:bonafide_app/homepage.dart';
 import 'package:bonafide_app/manageleaves.dart';
 import 'package:bonafide_app/myrewards.dart';
 import 'package:bonafide_app/mytimesheet.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
+
+import 'login.dart';
 
 void main() => runApp(MainActivity());
 
@@ -27,7 +30,7 @@ class MainActivity extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyTimesheet(true),
+      home: LoginPage(),
     );
   }
 }
