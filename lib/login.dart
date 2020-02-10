@@ -1,13 +1,18 @@
+import 'package:bonafide_app/homepage.dart';
 import 'package:bonafide_app/main.dart';
+import 'package:bonafide_app/myrewards.dart';
+import 'package:bonafide_app/mytimesheet.dart';
+import 'package:bonafide_app/organizationprofile.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 14.0);
 
-  HomePage() {}
 
   @override
   Widget build(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
     final companyTitle = Text(
       'Bonafide Technologies',
       textAlign: TextAlign.center,
@@ -50,52 +55,62 @@ class LoginPage extends StatelessWidget {
       child: MaterialButton(
         minWidth: 265,
         padding: EdgeInsets.fromLTRB(20.0, 18.0, 20.0, 18.0),
-        onPressed: () {},
+        onPressed: () {
+          onLoginPress(context);
+        },
         child: Text("Login",
             textAlign: TextAlign.center,
             style: style.copyWith(color: Colors.white, fontSize: 14)),
       ),
     );
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/login_background.png"),
-            fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Container(
+          height: _height>_width? _height : _height*2,
+          width: _width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/login_background.png"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 158.0,
-              width: 158.0,
-              child: Image.asset(
-                "assets/images/bonafide-b.png",
-                fit: BoxFit.contain,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 158.0,
+                width: 158.0,
+                child: Image.asset(
+                  "assets/images/bonafide-b.png",
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 16.0,
-              width: MediaQuery.of(context).size.width,
-            ),
-            companyTitle,
-            SizedBox(height: 2.0),
-            companyTagline,
-            SizedBox(height: 34.0),
-            Container(height: 54, width: 265, child: userName),
-            SizedBox(height: 12.0),
-            Column(children: [
-              Container(height: 54, width: 265, child: passwordField),
-              SizedBox(height: 14.0),
-              Container( width: 265, child: forgotPassword)
-            ]),
-            SizedBox(height: 9.0),
-            loginButton,
-          ],
-        ), /* add child content here */
+              SizedBox(
+                height: 16.0,
+                width: MediaQuery.of(context).size.width,
+              ),
+              companyTitle,
+              SizedBox(height: 2.0),
+              companyTagline,
+              SizedBox(height: 34.0),
+              Container(height: 54, width: 265, child: userName),
+              SizedBox(height: 12.0),
+              Column(children: [
+                Container(height: 54, width: 265, child: passwordField),
+                SizedBox(height: 14.0),
+                Container( width: 265, child: forgotPassword)
+              ]),
+              SizedBox(height: 9.0),
+              loginButton,
+            ],
+          ), /* add child content here */
+        ),
       ),
     );
+  }
+
+  void onLoginPress(BuildContext context) {
+     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>HomePage()));
   }
 }
