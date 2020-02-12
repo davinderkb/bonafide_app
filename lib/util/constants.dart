@@ -1,5 +1,6 @@
 class Constants{
-  static const ORGANIZATION_PROFILE = 'Organization';
+  static const ORGANIZATION_PROFILE = 'Organization Details';
+  static const HOME = 'Home';
   static const RESET_PASSWORD = 'Reset Password';
   static const MANAGE_LEAVES = 'Manage Leaves';
   static const MY_TIMESHEET = 'My Timesheet';
@@ -18,6 +19,8 @@ class Constants{
   static const ORGANIZATION_TITLE = 'Bonafide Technologies';
   static const BONAFIDE_LOGO_COLOR = '0xffab110c';
   static const BONAFIDE_COLOR = '0xfff7443e';
+  static const MENU_ITEM_APPLY_LEAVE = 'Apply Leave';
+  static const List<String> MANAGE_LEAVE_MENU_CHOICES = <String>[MENU_ITEM_APPLY_LEAVE];
 
 
 

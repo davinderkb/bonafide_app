@@ -1,4 +1,5 @@
 import 'package:bonafide_app/main.dart';
+import 'package:bonafide_app/manageleaves.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -62,29 +63,29 @@ class HomePage extends StatelessWidget {
                 child: new FlatButton(
                   shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
                   color: Color(0xff0072FF),
-                  onPressed: () {},
+                  onPressed: () {
+                    onManageLeavePress(context);
+                  },
                   child: new Container(
                     height: 70,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(25,0,25,0),
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
 
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        new SizedBox(width: 51,height: 70,),
-                        Container(
-                          width: 156,
-                          child: new Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                          new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                  new SizedBox(height: 15.15,),
                                   new Text("Manage Leaves",style: TextStyle(fontFamily:'AvenirNext', fontSize:14,color: Colors.white)),
                                   new SizedBox(height: 6.15,),
                                   new Text("View/ Edit/ Apply Leaves",style: TextStyle(fontFamily:'AvenirNext', fontSize:11,color: Color(0xff9BC7FF))),
                           ]),
-                        ),
-                        new SizedBox(width: 51,height: 70,),
-                        new Image.asset("assets/images/ic_leaves.png", height: 35, width: 35,),
-                      ],
+                            new Image.asset("assets/images/ic_leaves.png", height: 35, width: 35,),
+
+                        ],
+                      ),
                     ),
                   ),
 
@@ -99,25 +100,22 @@ class HomePage extends StatelessWidget {
                   child: new Container(
                     height: 70,
 
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        new SizedBox(width: 51,height: 70,),
-                        Container(
-
-                          child: new Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(25,0,25,0),
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                new SizedBox(height: 15.15,),
                                 new Text("Timesheet",style: TextStyle(fontFamily:'AvenirNext', fontSize:14,color: Colors.white)),
                                 new SizedBox(height: 6.15,),
                                 new Text("View & Add/Edit Missing Hours",style: TextStyle(fontFamily:'AvenirNext', fontSize:11,color: Color(0xffF7BBBB))),
                               ]),
-                        ),
-                        new SizedBox(width: 51,height: 70,),
-                        new Image.asset("assets/images/ic_timesheet.png", height: 35, width: 35,),
-                      ],
+                          new Image.asset("assets/images/ic_timesheet.png", height: 35, width: 35,),
+                        ],
+                      ),
                     ),
                   ),
 
@@ -151,7 +149,7 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
+                        scrollDirection: Axis.vertical,
                         itemCount: 4,
                         itemBuilder: (BuildContext context, int index) => Card(
                           shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(16.0),),
@@ -161,7 +159,7 @@ class HomePage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(5.0,5.0,0,0),
+                              padding: const EdgeInsets.fromLTRB(15.0,15.0,0,0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +179,7 @@ class HomePage extends StatelessWidget {
                                 Image.asset("assets/images/dummy_image.png",),
                               ],),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(5.0,5.0,0,0),
+                                padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,25.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,5 +200,9 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  void onManageLeavePress(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>ManageLeaves()));
   }
 }
