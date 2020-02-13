@@ -1,251 +1,207 @@
-import 'package:bonafide_app/util/constants.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/material.dart';
+import 'package:bonafide_app/applyleave.dart';
 import 'package:bonafide_app/main.dart';
-
+import 'package:bonafide_app/organizationprofile.dart';
+import 'package:bonafide_app/updatetimesheet.dart';
+import 'package:bonafide_app/util/constants.dart';
+import 'package:flutter/material.dart';
 
 class MyTimesheet extends StatelessWidget {
-  List<charts.Series> timesheetEntriesList;
-  bool animate;
-
-  MyTimesheet(bool animate) {
-    this.timesheetEntriesList = _getTimesheetEntries();
-    this.animate = animate;
-  }
-
-
+  BuildContext context;
   @override
   Widget build(BuildContext context) {
+    this.context = context;
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xffEB5050),
         appBar: new AppBar(
-          iconTheme: new IconThemeData(color: Color(0xffab110c)),
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  'assets/images/bonafide-b.png',
-                  fit: BoxFit.contain,
-                  height: 48,
-                )
+                new Text(
+                  "Timesheet",
+                  style: new TextStyle(
+                      fontFamily: 'AvenirNext',
+                      fontSize: 18,
+                      color: Color(0xffFFFFFF)),
+                  textAlign: TextAlign.center,
+                ),
               ]),
           centerTitle: true,
-
           elevation: 0.0,
-          backgroundColor: Colors.blue[50],
+          backgroundColor: Color(0xffEB5050),
+
         ),
         drawer: MainNavigationDrawer(),
         body: SingleChildScrollView(
-
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                SizedBox(
-                  width:MediaQuery
-                      .of(context)
-                      .size
-                      .width ,
-                  height: 1.0,
-                  child: Container(color: Colors.indigoAccent,),
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(36.0),
+                      topRight: Radius.circular(0.0)),
+                  color: Color(0xffFFFFFF),
                 ),
-                SizedBox(
-                  width:MediaQuery
-                      .of(context)
-                      .size
-                      .width ,
-                  height: 4.0,
+                height: _height,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Column(
 
-                ),
-                Card(
-                  elevation: 5.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(5.0)),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                            children: [
-                              Container(color: Colors.indigoAccent,width: 32,height: 64,),
-                              Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: new Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Image(image: AssetImage(
-                                          "assets/images/date_icon.png"),
-                                        height: 48,
-                                        width: 48,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
-                                        child: Text(" Jan 10, 2020 to \n Jan 16, 2020",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                color: Colors.indigo)),
-                                      ),
-
-                                    ],
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(36.0)),
+                              color: Color(0xffFFFFFF),
+                              border: Border.all(color: Color(0xffD9C3CF)),
+                            ),
+                            height: 70,
+                            width: _width - 32,
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  FlatButton(onPressed: null, child: new Text(
+                                    "<",
+                                    style: new TextStyle(
+                                        fontFamily: 'AvenirNext',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color(0xff8E7E7E)),
+                                    textAlign: TextAlign.center,
+                                  )),
+                                  new Text(
+                                    "Feb 10, 2020 - Feb 16, 2020",
+                                    style: new TextStyle(
+                                        fontFamily: 'AvenirNext',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color(0xff8E7E7E)),
+                                    textAlign: TextAlign.center,
                                   ),
+                                  FlatButton(onPressed: null, child: new Text(
+                                    ">",
+                                    style: new TextStyle(
+                                        fontFamily: 'AvenirNext',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color(0xff8E7E7E)),
+                                    textAlign: TextAlign.center,
+                                  )),
+                                ],
+                              )
+                            )),
+                      ),
+                      Container(
+                        height: _height/1.7,
+                        child: Column(
+                          children: <Widget>[
+                            Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: 7,
+                                itemBuilder: (BuildContext context, int index) => Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Card(
+                                      child: Container(
+                                        width: _width - 32,
+                                        height: _width / 7.5,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                    height: 24,
+                                                    width: 24,
+                                                    child: Image.asset(
+                                                        "assets/images/ic_date_blue.png")),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(
+                                                      10, 0, 0, 0),
+                                                  child: Text(
+                                                    "Monday, Feb 10, 2020",
+                                                    style: TextStyle(
+                                                        color: Color(0xff019C9D),
+                                                        fontSize: 12,
+                                                        fontFamily: 'AvenirNext'),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                    height: 24,
+                                                    width: 24,
+                                                    child: Image.asset(
+                                                        "assets/images/ic_time.png")),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(
+                                                      10, 0, 0, 0),
+                                                  child: Text(
+                                                    "8.0 Hours",
+                                                    style: TextStyle(
+                                                        color: Color(0xff019C9D),
+                                                        fontSize: 12,
+                                                        fontFamily: 'AvenirNext'),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                            ]),
-                      ]),
-                ),
-                Center(
-                  child: SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height / 1.75,
-                    child: Padding(
-                      padding: EdgeInsets.only(left:10.0,right: 10.0),
-                      child: new charts.BarChart(
-                        timesheetEntriesList,
-                        animate: animate,
-                        vertical: false,
-                        domainAxis: new charts.OrdinalAxisSpec(
-                            renderSpec: new charts.SmallTickRendererSpec(
-
-                              // Tick and Label styling here.
-                                labelStyle: new charts.TextStyleSpec(
-                                    fontSize: 12, // size in Pts.
-                                    color: charts.MaterialPalette.black),
-
-                                // Change the line colors to match text color.
-                                lineStyle: new charts.LineStyleSpec(
-                                    color: charts.MaterialPalette.white))),
-                        primaryMeasureAxis: new charts.NumericAxisSpec(
-                            renderSpec: new charts.GridlineRendererSpec(
-
-                              // Tick and Label styling here.
-                                labelStyle: new charts.TextStyleSpec(
-                                    fontSize: 12, // size in Pts.
-                                    color: charts.MaterialPalette.black),
-
-                                // Change the line colors to match text color.
-                                lineStyle: new charts.LineStyleSpec(
-                                    color: charts.MaterialPalette.black))),
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:45.0,top: 15.0, right: 45.0, bottom: 0.0),
-                    child: new FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      color: Colors.indigoAccent,
-                      onPressed: () {},
-                      child: new Container(
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment
-                              .center,
-                          children: <Widget>[
-                            new Icon(
-                              Icons.timelapse, color: Colors.white,),
-
-                            Padding(
-                              padding: const EdgeInsets.only(left:8.0, top: 5.0, bottom: 5.0),
-                              child: new Text(
-                                Constants.LOG_MISSING_HOURS, style: TextStyle(
-                                  color: Colors.blue[50]),),
-                            )
+                              ),
+                            ),
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0,8,0,0),
+                        child: Container(
+                          height: 56,
+                          width: _width/1.2,
 
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:45.0,top: 0.0, right: 45.0, bottom: 0.0),
-                    child: new FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      color: Colors.indigoAccent,
-                      onPressed: () {},
-                      child: new Container(
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment
-                              .center,
-                          children: <Widget>[
-                            new Icon(
-                              Icons.history, color: Colors.white,),
-
-                            Padding(
-                              padding: const EdgeInsets.only(left:8.0, top: 5.0, bottom: 5.0),
-                              child: new Text(
-                                Constants.CHECK_HISTORY, style: TextStyle(
-                                  color: Colors.blue[50]),),
-                            )
-                          ],
+                          child: FlatButton.icon(
+                            label: Text('Add Mssing Hours',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Colors.white),),
+                            onPressed: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>UpdateTimesheet()));
+                            },
+                            icon: Icon(Icons.access_time, color: Colors.white,),
+                            disabledColor: Color(0xffEB5050),
+                            color: Color(0xffEB5050),
+                            shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(32.0),side: BorderSide(color: Colors.white)),
+                          ),
                         ),
                       ),
-
-                    ),
+                    ],
                   ),
                 ),
-              ]),
+              )
+            ],
+          ),
         ));
   }
 
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimesheetEntry, String>> _getTimesheetEntries() {
-    final red = charts.MaterialPalette.red.makeShades(1);
-    final green = charts.MaterialPalette.green.makeShades(1);
-    final data = [
-      new TimesheetEntry('Mon', 8.0),
-      new TimesheetEntry('Tue', 7.0),
-      new TimesheetEntry('Wed', 6.15),
-      new TimesheetEntry('Thu', 8.0),
-      new TimesheetEntry('Fri', 8),
-      new TimesheetEntry('Sat', 7.7),
-      new TimesheetEntry('Sun', 2),
-    ];
 
-    return [
-      new charts.Series<TimesheetEntry, String>(
-          id: 'Billing Hours',
-          domainFn: (TimesheetEntry sales, _) => sales.day,
-          measureFn: (TimesheetEntry sales, _) => sales.hours,
-          data: data,
-          colorFn: (TimesheetEntry entry, _) {
-            if(entry.day=="Sun"){
-              return green[1];
-            }
-            else{
-              switch (entry.hours >= 8.0) {
-                case true:
-                  {
-                    return green[1];
-                  }
-                case false:
-                  {
-                    return red[1];
-                  }
-                default:
-                  {
-                    return red[0];
-                  }
-              }
-            }
-
-          }
-      )
-    ];
-  }
-}
-
-/// Sample ordinal data type.
-class TimesheetEntry {
-  final String day;
-  final double hours;
-
-  TimesheetEntry(this.day, this.hours);
 }

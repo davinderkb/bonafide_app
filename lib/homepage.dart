@@ -1,5 +1,6 @@
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/manageleaves.dart';
+import 'package:bonafide_app/mytimesheet.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -96,7 +97,9 @@ class HomePage extends StatelessWidget {
                 child: new FlatButton(
                   shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
                   color: Color(0xffEB5050),
-                  onPressed: () {},
+                  onPressed: () {
+                    onTimesheetPress(context);
+                  },
                   child: new Container(
                     height: 70,
 
@@ -143,7 +146,7 @@ class HomePage extends StatelessWidget {
                   ]),
               new SizedBox(height: 16,),
               Container(
-                height: _width - 100,
+                height: _width ,
                 width: _width - 50,
                 child: Column(
                   children: <Widget>[
@@ -204,5 +207,8 @@ class HomePage extends StatelessWidget {
 
   void onManageLeavePress(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>ManageLeaves()));
+  }
+  void onTimesheetPress(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>MyTimesheet()));
   }
 }

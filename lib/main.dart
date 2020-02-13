@@ -75,7 +75,7 @@ class MainNavigationDrawer extends StatelessWidget {
                   // ...
                   // Then close the drawer
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>MyTimesheet(true)));
+                      builder: (BuildContext context) =>HomePage()));
                 },
               ),
               //new Divider(height: 1.0, color: Colors.white,),
@@ -109,7 +109,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 leading: Icon(Icons.launch),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>OrganizationProfile()));
+                      builder: (BuildContext context) =>LoginPage()));
                 },
               ),
 
