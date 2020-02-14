@@ -68,8 +68,8 @@ class MainNavigationDrawer extends StatelessWidget {
 
               ),
               ListTile(
-                title: Text(Constants.HOME,style: TextStyle(color:Color(0xff0072FF),fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.home),
+                title: Text(Constants.HOME,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
+                leading: Icon(Icons.home,color:Colors.black54),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -80,8 +80,8 @@ class MainNavigationDrawer extends StatelessWidget {
               ),
               //new Divider(height: 1.0, color: Colors.white,),
               ListTile(
-                title: Text(Constants.MY_REWARDS,style: TextStyle(color:Color(0xff0072FF),fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.card_giftcard),
+                title: Text(Constants.MY_REWARDS,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
+                leading: Icon(Icons.card_giftcard,color:Colors.black54),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>MyRewards(true)));
@@ -89,24 +89,24 @@ class MainNavigationDrawer extends StatelessWidget {
               ),
 
               ListTile(
-                title: Text(Constants.ORGANIZATION_PROFILE,style: TextStyle(color:Color(0xff0072FF),fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.business),
+                title: Text(Constants.ORGANIZATION_PROFILE,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
+                leading: Icon(Icons.business,color:Colors.black54),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>OrganizationProfile()));
                 },
               ),
               ListTile(
-                title: Text(Constants.CHANGE_PASSWORD,style: TextStyle(color:Color(0xff0072FF),fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.settings),
+                title: Text(Constants.CHANGE_PASSWORD,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
+                leading: Icon(Icons.settings,color:Colors.black54),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>ResetPassword()));
                 },
               ),
               ListTile(
-                title: Text(Constants.LOGOUT,style: TextStyle(color:Color(0xff0072FF),fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.launch),
+                title: Text(Constants.LOGOUT,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
+                leading: Icon(Icons.launch,color:Colors.black54),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>LoginPage()));

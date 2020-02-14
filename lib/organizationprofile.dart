@@ -30,14 +30,28 @@ class OrganizationProfile extends StatelessWidget {
             )),
         new Scaffold(
 
-            drawer: MainNavigationDrawer(),
             appBar: new AppBar(
-              title: new Text(Constants.ORGANIZATION_PROFILE),
-              centerTitle: false,
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    new Text(
+                      "Organization Details",
+                      style: new TextStyle(
+                          fontFamily: 'AvenirNext',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffFFFFFF)),
+                      textAlign: TextAlign.center,
+                    ),
+
+                  ]),
+              centerTitle: true,
               elevation: 0.0,
-              backgroundColor: Colors.transparent,
-            ),
-            backgroundColor: Colors.indigoAccent,
+              backgroundColor: Color(0xffEB5050),
+        ),
+            drawer: MainNavigationDrawer(),
+            backgroundColor:  Color(0xffEB5050),
             body: new Center(
               child: SingleChildScrollView(
                 child: new Column(
@@ -49,7 +63,7 @@ class OrganizationProfile extends StatelessWidget {
                     ),
                     new CircleAvatar(
                       radius: _width < _height
-                          ? _width / 4.8
+                          ? _width / 4.5
                           : _height /
                           5,
 

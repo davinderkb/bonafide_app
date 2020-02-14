@@ -24,6 +24,7 @@ class MyTimesheet extends StatelessWidget {
                   style: new TextStyle(
                       fontFamily: 'AvenirNext',
                       fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xffFFFFFF)),
                   textAlign: TextAlign.center,
                 ),
@@ -43,7 +44,7 @@ class MyTimesheet extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(36.0),
-                      topRight: Radius.circular(0.0)),
+                      topRight: Radius.circular(36.0)),
                   color: Color(0xffFFFFFF),
                 ),
                 height: _height,
@@ -61,41 +62,40 @@ class MyTimesheet extends StatelessWidget {
                               color: Color(0xffFFFFFF),
                               border: Border.all(color: Color(0xffD9C3CF)),
                             ),
-                            height: 70,
+                            height: 60,
                             width: _width - 32,
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  FlatButton(onPressed: null, child: new Text(
-                                    "<",
-                                    style: new TextStyle(
-                                        fontFamily: 'AvenirNext',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Color(0xff8E7E7E)),
-                                    textAlign: TextAlign.center,
-                                  )),
-                                  new Text(
-                                    "Feb 10, 2020 - Feb 16, 2020",
-                                    style: new TextStyle(
-                                        fontFamily: 'AvenirNext',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Color(0xff8E7E7E)),
-                                    textAlign: TextAlign.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                FlatButton(onPressed: null, child: new Text(
+                                  "<",
+                                  style: new TextStyle(
+                                      fontFamily: 'AvenirNext',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Colors.red),
+                                  textAlign: TextAlign.center,
+                                )),
+                                new Text(
+                                  "Feb 10, 2020 - Feb 16, 2020",
+                                  style: new TextStyle(
+                                      fontFamily: 'AvenirNext',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                     color:  Colors.black54,
                                   ),
-                                  FlatButton(onPressed: null, child: new Text(
-                                    ">",
-                                    style: new TextStyle(
-                                        fontFamily: 'AvenirNext',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Color(0xff8E7E7E)),
-                                    textAlign: TextAlign.center,
-                                  )),
-                                ],
-                              )
+                                  textAlign: TextAlign.center,
+                                ),
+                                FlatButton(onPressed: null, child: new Text(
+                                  ">",
+                                  style: new TextStyle(
+                                      fontFamily: 'AvenirNext',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color:  Colors.red),
+                                  textAlign: TextAlign.center,
+                                )),
+                              ],
                             )),
                       ),
                       Container(
@@ -135,7 +135,8 @@ class MyTimesheet extends StatelessWidget {
                                                     "Monday, Feb 10, 2020",
                                                     style: TextStyle(
                                                         color: Color(0xff019C9D),
-                                                        fontSize: 12,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.bold,
                                                         fontFamily: 'AvenirNext'),
                                                   ),
                                                 ),
@@ -159,7 +160,8 @@ class MyTimesheet extends StatelessWidget {
                                                     "8.0 Hours",
                                                     style: TextStyle(
                                                         color: Color(0xff019C9D),
-                                                        fontSize: 12,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.bold,
                                                         fontFamily: 'AvenirNext'),
                                                   ),
                                                 ),

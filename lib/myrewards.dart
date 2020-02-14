@@ -27,23 +27,25 @@ class MyRewards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: new AppBar(
-          iconTheme: new IconThemeData(color: Color(0xffab110c)),
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  'assets/images/bonafide-b.png',
-                  fit: BoxFit.contain,
-                  height: 48,
-                )
+                new Text(
+                  "My Rewards",
+                  style: new TextStyle(
+                      fontFamily: 'AvenirNext',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xffFFFFFF)),
+                  textAlign: TextAlign.center,
+                ),
+
               ]),
           centerTitle: true,
-
           elevation: 0.0,
-          backgroundColor: Colors.blue[50],
+          backgroundColor: Color(0xffEB5050),
         ),
         drawer: MainNavigationDrawer(),
         body: SingleChildScrollView(
@@ -58,7 +60,7 @@ class MyRewards extends StatelessWidget {
                       .size
                       .width ,
                   height: 1.0,
-                  child: Container(color: Colors.indigoAccent,),
+                  child: Container(color: Color(0xffEB5050),),
                 ),
                 SizedBox(
                   width:MediaQuery
@@ -77,7 +79,7 @@ class MyRewards extends StatelessWidget {
                       children: [
                         Row(
                             children: [
-                              Container(color: Colors.indigoAccent,width: 32,height: 64,),
+                              Container(color: Color(0xffEB5050),width: 32,height: 64,),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: new Row(
@@ -85,13 +87,13 @@ class MyRewards extends StatelessWidget {
                                   children: <Widget>[
 
                                     new Icon(
-                                      Icons.card_giftcard, color: Colors.indigoAccent, size: 48,),
+                                      Icons.card_giftcard, color: Color(0xffEB5050), size: 48,),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: Text("Compensation",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.indigo)),
+                                              color: Color(0xffEB5050))),
                                     ),
 
                                   ],

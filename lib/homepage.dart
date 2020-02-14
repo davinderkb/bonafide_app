@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
                   style: new TextStyle(
                       fontFamily: 'AvenirNext',
                       fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xff262B31)),
                   textAlign: TextAlign.center,
                 )

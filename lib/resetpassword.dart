@@ -1,117 +1,164 @@
+import 'package:bonafide_app/main.dart';
+import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
-import 'main.dart';
-
-
-class ResetPassword extends StatefulWidget {
-  ResetPassword();
-
-
-  @override
-  _ResetPasswordState createState() => _ResetPasswordState();
-}
-
-class _ResetPasswordState extends State<ResetPassword> {
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 14.0);
-
+class ResetPassword extends StatelessWidget {
+  BuildContext context;
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-
-    final currentPasswordField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Current Password",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-
-    final newPasswordField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "New Password",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-
-    final confirmNewPasswordField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Confirm New Password",
-          border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-    
-    final resetPassword = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {},
-        child: Text("Reset Password",
-            textAlign: TextAlign.center,
-            style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
-      ),
-    );
-
+    this.context = context;
+    final _width = MediaQuery.of(context).size.width;
+    final _height = MediaQuery.of(context).size.height;
     return Scaffold(
-        drawer: MainNavigationDrawer(),
-        appBar: new AppBar(
-          title: new Text(Constants.RESET_PASSWORD),
-          centerTitle: false,
-          elevation: 0.0,
-          backgroundColor: Colors.indigoAccent,
-        ),
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(36.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 155.0,
-                      child: Image.asset(
-                        "assets/images/bonafide-b.png",
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    SizedBox(height: 45.0),
-                    currentPasswordField,
-                    SizedBox(height: 25.0),
-                    newPasswordField,
-                    SizedBox(height: 25.0),
-                    confirmNewPasswordField,
-                    SizedBox(
-                      height: 35.0,
-                    ),
-                    resetPassword,
-
-                  ],
+        appBar: new AppBar(
+          title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                new Text(
+                  "Reset Password",
+                  style: new TextStyle(
+                      fontFamily: 'AvenirNext',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xffFFFFFF)),
+                  textAlign: TextAlign.center,
                 ),
-              ),
+
+              ]),
+          centerTitle: true,
+          elevation: 0.0,
+          backgroundColor: Color(0xffEB5050),
+        ),
+        drawer: MainNavigationDrawer(),
+        body: SingleChildScrollView(
+
+            child:   Container(
+              height: _height-80,
+              color: Color(0xffEB5050),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Container(
+                      height:_height/5  ,
+
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0,0,8,16),
+                        child: Center(child: Image.asset("assets/images/ic_reset_password.png")),
+                      )
+                  ),
+                  Container(
+                    height: _height-_height/5-80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(80.0),
+                          bottomRight: Radius.circular(80.0),
+                        topLeft: Radius.circular(80.0),
+                        topRight: Radius.circular(0.0),
+
+                      ),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(12,48,12,12),
+                        ),
+                        Center(
+                          child: Container(
+                            width: _width-72,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              color: Color(0xffF4F6F7),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(12,0,0,0),
+                                  child: Text('Current Password',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ) ,
+
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                        ),
+                        Center(
+                          child: Container(
+                            width: _width-72,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              color: Color(0xffF4F6F7),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(12,0,0,0),
+                                  child: Text('New Password',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                        ),
+                        Center(
+                          child: Container(
+                            width: _width-72,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              color: Color(0xffF4F6F7),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(12,0,0,0),
+                                  child: Text('Confirm New Password',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                        ),
+                        SizedBox(
+                          height: 60,
+                          width: _width-72,
+                          child: FlatButton.icon(
+                            label: Text('Reset Password',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Colors.white),),
+                            icon: Icon(
+                              Icons.threesixty,
+                              color: Colors.white,
+                            ),
+                            onPressed: null,
+                            disabledColor: Color(0xffEB5050),
+                            shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0),side: BorderSide(color: Colors.white)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],),
             ),
-          ),
-        )
-    );
+
+        ));
   }
+
+
 }

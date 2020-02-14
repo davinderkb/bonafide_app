@@ -27,6 +27,7 @@ class ApplyLeave extends StatelessWidget {
                   style: new TextStyle(
                       fontFamily: 'AvenirNext',
                       fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xffFFFFFF)),
                   textAlign: TextAlign.center,
                 ),

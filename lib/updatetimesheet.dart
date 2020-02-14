@@ -1,3 +1,4 @@
+import 'package:bonafide_app/addtimeentry.dart';
 import 'package:bonafide_app/applyleave.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/organizationprofile.dart';
@@ -34,17 +35,18 @@ class UpdateTimesheet extends StatelessWidget {
                         color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(360.0)),
-                      color: Color(0xffEB5050),
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Center(
-                      child: FlatButton(
-                          onPressed: null,
+                  Center(
+                    child: Container(
+                      height: 48,
+                      width: 48,
+                      child: RaisedButton(
+                        disabledColor:Color(0xffEB5050) ,
+                          color: Color(0xffEB5050) ,
+
+                          elevation: 1.0,
+                          onPressed: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>AddTimesheetEntry()));
+                          },
                           child: new Text(
                             "+",
                             style: new TextStyle(
@@ -121,7 +123,8 @@ class UpdateTimesheet extends StatelessWidget {
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xff656D71),
-                                                        fontSize: 12,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.bold,
                                                         fontFamily:
                                                             'AvenirNext'),
                                                   ),
@@ -148,7 +151,8 @@ class UpdateTimesheet extends StatelessWidget {
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xff656D71),
-                                                        fontSize: 12,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.bold,
                                                         fontFamily:
                                                             'AvenirNext'),
                                                   ),
@@ -165,8 +169,8 @@ class UpdateTimesheet extends StatelessWidget {
                                         width: _width / 7.5,
                                         child: Center(
                                           child: Container(
-                                            height: 16,
-                                            width: 16,
+                                            height: 22,
+                                            width: 22,
                                             child: Image.asset(
                                                 "assets/images/ic_delete.png"),
                                           ),

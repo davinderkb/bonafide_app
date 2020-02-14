@@ -23,6 +23,7 @@ class ManageLeaves extends StatelessWidget {
                   style: new TextStyle(
                       fontFamily: 'AvenirNext',
                       fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xffFFFFFF)),
                   textAlign: TextAlign.center,
                 ),
@@ -93,7 +94,7 @@ class ManageLeaves extends StatelessWidget {
                                           Container(height:24, width: 24,child: Image.asset("assets/images/ic_date.png")),
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                                            child: Text("Feb 11, 2020 - Feb 12, 2020",style: TextStyle(color:Color(0xff656D71),fontSize: 12, fontFamily: 'AvenirNext'),),
+                                            child: Text("Feb 11, 2020 - Feb 12, 2020",style: TextStyle(color:Color(0xff656D71),  fontWeight: FontWeight.bold,fontSize: 14, fontFamily: 'AvenirNext'),),
                                           ),
 
                                       ],),
