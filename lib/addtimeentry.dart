@@ -3,7 +3,6 @@ import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 
 
 class AddTimesheetEntry extends StatefulWidget {
@@ -24,13 +23,22 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
 
   BuildContext context;
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showRoundedDatePicker(
+    final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         firstDate:DateTime(selectedDate.year ),
         lastDate: new DateTime.now().add(new Duration(days: 0)),
-      borderRadius: 16,
-      theme: ThemeData(primarySwatch: Colors.red),
+        builder: (BuildContext context, Widget child){
+          return Theme(
+            data: ThemeData.light().copyWith(
+             // primarySwatch: const Color(0xffEB5050),//OK/Cancel button text color
+              primaryColor: const Color(0xffEB5050),//Head background
+                accentColor: const Color(0xffEB5050),//selection color
+              //dialogBackgroundColor: Colors.white,//Background color
+            ),
+            child: child,
+          );
+        }
     );
 
     if (picked != null && picked != selectedDate)
