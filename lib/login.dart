@@ -28,9 +28,7 @@ class LoginPage extends StatelessWidget {
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
           hintText: "Username",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          )),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0),)),
     );
 
     final passwordField = TextField(

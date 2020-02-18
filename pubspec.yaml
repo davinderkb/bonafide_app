@@ -18,8 +18,9 @@ environment:
 
 dependencies:
   charts_flutter: ^0.8.1
-  flutter:
+  flutter_localizations:
     sdk: flutter
+  flutter_rounded_date_picker: 1.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
