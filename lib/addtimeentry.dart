@@ -8,8 +8,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 class AddTimesheetEntry extends StatefulWidget {
 
   @override
-
-  @override
   AddTimesheetEntryState createState() {
     return new AddTimesheetEntryState();
 }

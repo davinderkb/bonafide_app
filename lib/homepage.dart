@@ -63,12 +63,13 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(25.0,18,25.0,12),
                 child: new FlatButton(
-                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0),side: BorderSide(color: Color(0xffF4F6F7))),
                   color: Color(0xff0072FF),
                   onPressed: () {
                     onManageLeavePress(context);
                   },
                   child: new Container(
+
                     height: 70,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(25,0,25,0),
@@ -96,7 +97,7 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(25.0,0,25.0,22),
                 child: new FlatButton(
-                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0)),
+                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0),side: BorderSide(color: Color(0xffF4F6F7))),
                   color: Color(0xffEB5050),
                   onPressed: () {
                     onTimesheetPress(context);
