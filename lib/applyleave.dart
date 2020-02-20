@@ -21,7 +21,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
         context: context,
         initialDate: fromDate,
         firstDate:DateTime(fromDate.year ),
-        lastDate: new DateTime.now().add(new Duration(days: 0)),
+        lastDate: new DateTime.now().add(new Duration(days: 365)),
         builder: (BuildContext context, Widget child){
           return Theme(
             data: ThemeData.light().copyWith(
@@ -44,7 +44,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
         context: context,
         initialDate: toDate,
         firstDate:DateTime(toDate.year ),
-        lastDate: new DateTime.now().add(new Duration(days: 0)),
+        lastDate: new DateTime.now().add(new Duration(days: 365)),
         builder: (BuildContext context, Widget child){
           return Theme(
             data: ThemeData.light().copyWith(
