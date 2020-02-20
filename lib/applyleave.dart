@@ -113,11 +113,11 @@ class ApplyLeaveState extends State<ApplyLeave> {
               alignment: AlignmentDirectional.center,
               children: <Widget>[
                 Container(
-                  height:_height>_width? _height:_height + 50 ,
+                  height:_height>_width? _height:_height/0.75+62 ,
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: _height>_width? _height/1.2 :_height+12,
+                        height: _height>_width? _height/1.2 :_height/0.75+12,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(32.0),
@@ -140,7 +140,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
                               padding: const EdgeInsets.all(10.0),
                               child: Container(
                                 width: _width - 24,
-                                height:_height>_width?_height/2 : _height/1.5  ,
+                                height:_height>_width?_height/2 : _height,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                                   color: Color(0xffF7B9B9),
@@ -153,7 +153,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(6,0,0,6),
-                                        child: Text('From Date (dd/mm/yyyy)',textAlign: TextAlign.start,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 14, color: Color(0xff707070)),),
+                                        child: Text('From Date (Year-Month-Day)',textAlign: TextAlign.start,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 14, color: Color(0xff707070)),),
                                       ),
                                       Center(
                                         child: GestureDetector(
@@ -171,7 +171,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
                                               children: <Widget>[
                                                 Padding(
                                                   padding: const EdgeInsets.fromLTRB(8,0,0,0),
-                                                  child: Text('Click to choose ...',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
+                                                  child: Text("${fromDate.toLocal()}".split(' ')[0],textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
                                                 ),
                                                 Padding(
                                                     padding: const EdgeInsets.fromLTRB(0,0,8,0),
@@ -190,7 +190,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
 
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(6,12,0,6),
-                                        child: Text('To Date (dd/mm/yyyy)',textAlign: TextAlign.start,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 14, color: Color(0xff707070)),),
+                                        child: Text('To Date (Year-Month-Day)',textAlign: TextAlign.start,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 14, color: Color(0xff707070)),),
                                       ),
                                       Center(
                                         child: GestureDetector(
@@ -208,7 +208,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
                                               children: <Widget>[
                                                 Padding(
                                                   padding: const EdgeInsets.fromLTRB(8,0,0,0),
-                                                  child: Text('Click to choose ...',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
+                                                  child: Text("${toDate.toLocal()}".split(' ')[0],textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
                                                 ),
                                                 Padding(
                                                     padding: const EdgeInsets.fromLTRB(0,0,8,0),
@@ -249,7 +249,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
                   ),
                 ),
                 Positioned(
-                  top: _height>_width?_height/1.2 -35 : _height/1.07,
+                  top: _height>_width?_height/1.2 -35 : _height/.75 -12,
                   bottom:_height>_width?90 : 10,
                   left: (_width - _width/1.2)/2,
                   child: SizedBox(

@@ -63,38 +63,47 @@ class MyTimesheet extends StatelessWidget {
                               border: Border.all(color: Color(0xffD9C3CF)),
                             ),
                             height: 60,
-                            width: _width - 32,
+                            width:  _width,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                FlatButton(onPressed: null, child: new Text(
-                                  "<",
-                                  style: new TextStyle(
-                                      fontFamily: 'AvenirNext',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Colors.red),
-                                  textAlign: TextAlign.center,
-                                )),
-                                new Text(
-                                  "Feb 10, 2020 - Feb 16, 2020",
-                                  style: new TextStyle(
-                                      fontFamily: 'AvenirNext',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                     color:  Colors.black54,
-                                  ),
-                                  textAlign: TextAlign.center,
+                                Container(
+                                  width: 20,
+                                  child: FlatButton(onPressed: null, child: new Text(
+                                    "<",
+                                    style: new TextStyle(
+                                        fontFamily: 'AvenirNext',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: Colors.red),
+                                    textAlign: TextAlign.center,
+                                  )),
                                 ),
-                                FlatButton(onPressed: null, child: new Text(
-                                  ">",
-                                  style: new TextStyle(
-                                      fontFamily: 'AvenirNext',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color:  Colors.red),
-                                  textAlign: TextAlign.center,
-                                )),
+                                Container(
+                                  width: _width/2.0,
+                                  child: new Text(
+                                    "Feb 10, 2020 - Feb 16, 2020",
+                                    style: new TextStyle(
+                                        fontFamily: 'AvenirNext',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                       color:  Colors.black54,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Container(
+                                  width: 20,
+                                  child: FlatButton(onPressed: null, child: new Text(
+                                    ">",
+                                    style: new TextStyle(
+                                        fontFamily: 'AvenirNext',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color:  Colors.red),
+                                    textAlign: TextAlign.center,
+                                  )),
+                                ),
                               ],
                             )),
                       ),

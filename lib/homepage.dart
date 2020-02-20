@@ -1,16 +1,23 @@
+import 'package:bonafide_app/announcements.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/manageleaves.dart';
 import 'package:bonafide_app/mytimesheet.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 
 class HomePage extends StatelessWidget {
+
   HomePage() {}
+  var announcementUrl = 'http://boostmart.com/apiproject/announcement.php';
+  int announcementListSize  ;
 
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+    final listAnnouncement = _announcements();
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: new AppBar(
@@ -154,8 +161,9 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: ListView.builder(
+                        
                         scrollDirection: Axis.vertical,
-                        itemCount: 4,
+                        itemCount: 3,
                         itemBuilder: (BuildContext context, int index) => Card(
                           shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(16.0),),
                           child: Column(
@@ -212,5 +220,16 @@ class HomePage extends StatelessWidget {
   }
   void onTimesheetPress(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>MyTimesheet()));
+  }
+
+  Future<List<Announcement>>_announcements() async {
+    final list = List<Announcement>();
+    dynamic response = await http.get(announcementUrl);
+    List<dynamic> responseList= (response.cast<Map<String, dynamic>>()).values;
+    announcementListSize = responseList.length;
+    for(dynamic item in responseList){
+      list.add(Announcement.fromJson(item));
+    }
+    return list;
   }
 }

@@ -64,7 +64,7 @@ class ResetPassword extends StatelessWidget {
         body: SingleChildScrollView(
 
             child:   Container(
-              height: _height>_width?_height-80:_height+150,
+              height: _height>_width?_height-80:_height+200,
               color: Color(0xffEB5050),
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +79,7 @@ class ResetPassword extends StatelessWidget {
                       )
                   ),
                   Container(
-                    height: _height>_width?_height-_height/5-85: _height-_height/3+140,
+                    height: _height>_width?_height-_height/5-85: _height-_height/3+190,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(80.0),
