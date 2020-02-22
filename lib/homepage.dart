@@ -4,11 +4,8 @@ import 'package:bonafide_app/announcements.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/manageleaves.dart';
 import 'package:bonafide_app/mytimesheet.dart';
-import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:dynamic_widget/dynamic_widget.dart';
-import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'dart:async';
 
 class HomePage extends StatefulWidget {
@@ -32,8 +29,8 @@ var announcementUrl = 'http://boostmart.com/apiproject/announcement.php';
 Future<List<Announcement>>_announcements() async {
   final list = List<Announcement>();
   dynamic response = await http.get(announcementUrl);
-  Map<String,dynamic> responseList = json.decode(response.body);
-  for(dynamic item in responseList.values){
+  Map<String,dynamic> responseList = jsonDecode(response.body);
+  for(dynamic item in responseList["data"]){
     list.add(Announcement.fromJson(item));
   }
   return list;
@@ -212,7 +209,7 @@ class HomePageState extends State<HomePage>{
                             case ConnectionState.active:
                               return Container(
                                 alignment: Alignment.center,
-                                child: Text("Loading"),
+                                child: Text("Loading announcements..."),
                               );
                               break;
                             case ConnectionState.done:
@@ -254,6 +251,7 @@ class HomePageState extends State<HomePage>{
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Image.asset("assets/images/dummy_image.png",),
+                                          //data[index].image,
                                         ],),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,25.0),
