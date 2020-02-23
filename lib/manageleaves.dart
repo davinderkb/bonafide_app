@@ -6,37 +6,36 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:toast/toast.dart';
+import 'package:bonafide_app/util/customdialog.dart';
+import 'package:bonafide_app/util/util.dart';
+
+
 
 class ManageLeaves extends StatefulWidget {
-
-
-
-
   @override
   ManageLeavesState createState() {
     return ManageLeavesState();
   }
 }
 
-
 var manageLeavesUrl = 'http://boostmart.com/apiproject/manage-leave.php';
-Future<List<ManageLeavesSchema>>_appliedLeaves() async {
+Future<List<ManageLeavesSchema>> _appliedLeaves() async {
   final list = List<ManageLeavesSchema>();
   var dio = Dio();
   FormData formData = new FormData.fromMap({
     "user_id": "1",
   });
   dynamic response = await dio.post(manageLeavesUrl, data: formData);
-  Map<String,dynamic> responseList = jsonDecode(response.toString());
-  for(dynamic item in responseList["data"]){
+  Map<String, dynamic> responseList = jsonDecode(response.toString());
+  for (dynamic item in responseList["data"]) {
     list.add(ManageLeavesSchema.fromJson(item));
   }
   return list;
 }
 
-class ManageLeavesState extends State<ManageLeaves>{
+class ManageLeavesState extends State<ManageLeaves> {
   Future<List<ManageLeavesSchema>> futureListOfAppliedLeaves;
-
 
   @override
   void initState() {
@@ -66,7 +65,6 @@ class ManageLeavesState extends State<ManageLeaves>{
                       color: Color(0xffFFFFFF)),
                   textAlign: TextAlign.center,
                 ),
-
               ]),
           centerTitle: true,
           elevation: 0.0,
@@ -74,15 +72,15 @@ class ManageLeavesState extends State<ManageLeaves>{
           actions: <Widget>[
             PopupMenuButton<String>(
                 onSelected: choiceAction,
-                itemBuilder: (BuildContext context){
-                  return Constants.MANAGE_LEAVE_MENU_CHOICES.map((String choice){
+                itemBuilder: (BuildContext context) {
+                  return Constants.MANAGE_LEAVE_MENU_CHOICES
+                      .map((String choice) {
                     return PopupMenuItem<String>(
                       value: choice,
                       child: Text(choice),
                     );
                   }).toList();
-                }
-            )
+                })
           ],
         ),
         drawer: MainNavigationDrawer(),
@@ -92,27 +90,27 @@ class ManageLeavesState extends State<ManageLeaves>{
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Container(
-                  height:_height/5  ,
+                  height: _height / 5,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0,0,8,16),
-                    child: Center(child: Image.asset("assets/images/manage_leaves_header.png")),
-                  )
-              ),
+                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 16),
+                    child: Center(
+                        child: Image.asset(
+                            "assets/images/manage_leaves_header.png")),
+                  )),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)
-                  ),
+                      topRight: Radius.circular(20.0)),
                   color: Color(0xffFFF8F8),
                 ),
-                height: _height - (_height/5) - 80,
+                height: _height - (_height / 5) - 80,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0,8,0,0),
+                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                   child: Column(
                     children: <Widget>[
                       Expanded(
-                        child:FutureBuilder(
+                        child: FutureBuilder(
                           future: futureListOfAppliedLeaves,
                           builder: (context, snapshot) {
                             switch (snapshot.connectionState) {
@@ -136,63 +134,93 @@ class ManageLeavesState extends State<ManageLeaves>{
                                 return new ListView.builder(
                                   scrollDirection: Axis.vertical,
                                   itemCount: data.length,
-                                  itemBuilder: (BuildContext context, int index) => Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  itemBuilder:
+                                      (BuildContext context, int index) => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       Card(
-                                        child:
-                                        Container(
-                                          width: _width/1.5,
-                                          height: _width/7.5,
+                                        child: Container(
+                                          width: _width / 1.5,
+                                          height: _width / 7.5,
                                           child: Center(
                                             child: Container(
-                                              height: _width/7,
+                                              height: _width / 7,
                                               child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Container(height:24, width: 24,child: Image.asset("assets/images/ic_date.png")),
+                                                  Container(
+                                                      height: 24,
+                                                      width: 24,
+                                                      child: Image.asset(
+                                                          "assets/images/ic_date.png")),
                                                   Padding(
-                                                    padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                                                    child: Text(data[index].fromDate +" - "+data[index].toDate,style: TextStyle(color:Color(0xff656D71),  fontWeight: FontWeight.bold,fontSize: 14, fontFamily: 'AvenirNext'),),
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(10, 0, 0, 0),
+                                                    child: Text(
+                                                      data[index].fromDate +
+                                                          " - " +
+                                                          data[index].toDate,
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xff656D71),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 14,
+                                                          fontFamily:
+                                                              'AvenirNext'),
+                                                    ),
                                                   ),
-
-                                                ],),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                       Card(
                                         color: quickDescBackgroundColor(data[index].status),
-                                        child:
-                                        Container(
-                                          height: _width/7.5,
-                                          width: _width/7.5,
-                                          child: Center(
-                                            child: Container(
-                                              height: 16,
-                                              width: 16,
-                                              child: Image.asset("assets/images/ic_short_desc.png"),
+                                        child: InkWell(
+                                          onTap: () {
+                                            _showLeaveDetails(data[index].status,data[index].fromDate, data[index].toDate, data[index].reason );
+                                          },
+                                          child: Container(
+                                            height: _width / 7.5,
+                                            width: _width / 7.5,
+                                            child: Center(
+                                              child: Container(
+                                                height: 16,
+                                                width: 16,
+                                                child: Image.asset(
+                                                    "assets/images/ic_short_desc.png"),
+                                              ),
                                             ),
                                           ),
                                         ),
+
                                       ),
                                       Card(
-                                        child:
-                                        Container(
-                                          height: _width/7.5,
-                                          width: _width/7.5,
-                                          child: Center(
-                                            child: Container(
-                                              height: 16,
-                                              width: 16,
-                                              child: Image.asset("assets/images/ic_delete.png"),
+                                        child: InkWell(
+                                          onTap: () {
+                                            _deleteLeave(data[index].id);
+                                          },
+                                          child: Container(
+                                            height: _width / 7.5,
+                                            width: _width / 7.5,
+                                            child: Center(
+                                              child: Container(
+                                                height: 16,
+                                                width: 16,
+                                                child: Image.asset(
+                                                    "assets/images/ic_delete.png"),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ],
-
                                   ),
                                 );
                                 break;
@@ -209,27 +237,49 @@ class ManageLeavesState extends State<ManageLeaves>{
         ));
   }
 
-  Color quickDescBackgroundColor(String status) {
-    switch(int.parse(status)) {
-      case 1: {
-        return Color(0xff13D178);
-      }
-      break;
-      case 2: {
-        return Color(0xffD1133A);
-      }
-      break;
-      default: {
-        return Color(0xffFF950A);
-      }
-      break;
-    }
-}
-
 
   void choiceAction(String choice) {
-    if(choice == Constants.MENU_ITEM_APPLY_LEAVE){
-      Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>ApplyLeave()));
+    if (choice == Constants.MENU_ITEM_APPLY_LEAVE) {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (BuildContext context) => ApplyLeave()));
     }
   }
+
+  Future<void> _deleteLeave(String id) async {
+    var dio = Dio();
+    var deleteLeavesUrl = 'http://boostmart.com/apiproject/delete_leave.php';
+    FormData formData = new FormData.fromMap({
+      "leave_id": id,
+    });
+    dynamic response = await dio.post(deleteLeavesUrl, data: formData);
+    if (response.toString() == "Delete Successful") {
+      Toast.show("Leave deleted successfully", context,
+          textColor: Colors.white,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Color(0xffEB5050),
+          backgroundRadius: 16);
+      Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => ManageLeaves()));
+    } else {
+      Toast.show("Problem while deleting Leave, Try again !!", context,
+          textColor: Colors.white,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Color(0xffEB5050),
+          backgroundRadius: 16);
+    }
+  }
+
+  Widget _showLeaveDetails(status, fromDate, toDate, reason) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => CustomDialog(
+        date: "$fromDate - $toDate",
+        reason:reason,
+        buttonText: "CLOSE",
+        status: status,
+      ),
+    );
+  }
+
 }
