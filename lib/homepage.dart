@@ -63,13 +63,16 @@ class HomePageState extends State<HomePage>{
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: new AppBar(
-          iconTheme: new IconThemeData(color: Color(0xff262B31)),
+          //iconTheme: new IconThemeData(color: Color(0xff262B31)),
+          iconTheme: new IconThemeData(color: Color(0xffEB5050)),
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
+                Icon(Icons.home, size: 40,color: Color(0xffEB5050),),
+                SizedBox(width: 0,),
                 new Text(
-                  "Home",
+                  "",
                   style: new TextStyle(
                       fontFamily: 'AvenirNext',
                       fontSize: 18,
@@ -88,7 +91,7 @@ class HomePageState extends State<HomePage>{
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              new SizedBox(height: 5,),
+              new SizedBox(height: 05,),
               new Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
@@ -99,19 +102,21 @@ class HomePageState extends State<HomePage>{
                       height: 30,
                       width: 22,
                     ),
-                    new SizedBox(width: 15,),
+                    new SizedBox(width: 15),
                     new Text(
                       "Employee Services",
                       style: new TextStyle(
                           fontFamily: 'AvenirNext',
-                          fontSize: 14,
-                          color: Color(0xff7F7F7F)),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff696969)),
                       textAlign: TextAlign.center,
                     )
                   ]),
               Padding(
                 padding: const EdgeInsets.fromLTRB(25.0,18,25.0,12),
-                child: new FlatButton(
+                child: new RaisedButton(
+                  elevation: 2,
                   shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0),side: BorderSide(color: Color(0xffF4F6F7))),
                   color: Color(0xff0072FF),
                   onPressed: () {
@@ -130,9 +135,9 @@ class HomePageState extends State<HomePage>{
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                new Text("Manage Leaves",style: TextStyle(fontFamily:'AvenirNext', fontSize:14,color: Colors.white)),
+                                new Text("Manage Leaves",style: TextStyle(fontFamily:'AvenirNext', fontWeight:FontWeight.bold, fontSize:14,color: Colors.white)),
                                 new SizedBox(height: 6.15,),
-                                new Text("View/ Edit/ Apply Leaves",style: TextStyle(fontFamily:'AvenirNext', fontSize:11,color: Color(0xff9BC7FF))),
+                                new Text("View/ Edit/ Apply Leaves",style: TextStyle(fontFamily:'AvenirNext', fontWeight:FontWeight.bold,fontSize:13,color: Color(0xff9BC7FF))),
                               ]),
                           new Image.asset("assets/images/ic_leaves.png", height: 35, width: 35,),
 
@@ -145,7 +150,8 @@ class HomePageState extends State<HomePage>{
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(25.0,0,25.0,22),
-                child: new FlatButton(
+                child: new RaisedButton(
+                  elevation: 2,
                   shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0),side: BorderSide(color: Color(0xffF4F6F7))),
                   color: Color(0xffEB5050),
                   onPressed: () {
@@ -163,9 +169,9 @@ class HomePageState extends State<HomePage>{
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                new Text("Timesheet",style: TextStyle(fontFamily:'AvenirNext', fontSize:14,color: Colors.white)),
+                                new Text("Timesheet",style: TextStyle(fontFamily:'AvenirNext',fontWeight:FontWeight.bold, fontSize:14,color: Colors.white)),
                                 new SizedBox(height: 6.15,),
-                                new Text("View & Add/Edit Missing Hours",style: TextStyle(fontFamily:'AvenirNext', fontSize:11,color: Color(0xffF7BBBB))),
+                                new Text("Manage Missing Hours",style: TextStyle(fontFamily:'AvenirNext', fontWeight:FontWeight.bold,fontSize:13,color: Color(0xffF7BBBB))),
                               ]),
                           new Image.asset("assets/images/ic_timesheet.png", height: 35, width: 35,),
                         ],
@@ -190,8 +196,9 @@ class HomePageState extends State<HomePage>{
                       "Announcements",
                       style: new TextStyle(
                           fontFamily: 'AvenirNext',
-                          fontSize: 14,
-                          color: Color(0xff7F7F7F)),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff696969)),
                       textAlign: TextAlign.center,
                     )
                   ]),
@@ -231,6 +238,7 @@ class HomePageState extends State<HomePage>{
                                 scrollDirection: Axis.vertical,
                                 itemCount: data.length,
                                 itemBuilder: (BuildContext context, int index) => Card(
+                                  elevation: 3,
                                   shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(16.0),),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -243,8 +251,8 @@ class HomePageState extends State<HomePage>{
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            Text(data[index].title,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
-                                            Text(data[index].subjectLine,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 12,color: Colors.black,fontWeight: FontWeight.normal)),
+                                            Text(data[index].title,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 14,color: Color(0xff393939),fontWeight: FontWeight.bold)),
+                                            Text(data[index].subjectLine,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 14,color: Color(0xff666666),fontWeight: FontWeight.normal)),
                                             new SizedBox(width: _width-55,height: 15),
 
                                           ],
@@ -285,7 +293,7 @@ class HomePageState extends State<HomePage>{
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: <Widget>[
                                             new SizedBox(width: _width-50,height: 15),
-                                            Container(width: _width - 65,child: Text(data[index].description,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 12,color: Colors.black,fontWeight: FontWeight.normal))),
+                                            Container(width: _width - 65,child: Text(data[index].description,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 13,color:Color(0xff666666),fontWeight: FontWeight.normal))),
                                           ],
                                         ),
                                       ),

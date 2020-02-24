@@ -10,6 +10,8 @@ import 'package:toast/toast.dart';
 import 'package:bonafide_app/util/customdialog.dart';
 import 'package:bonafide_app/util/util.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'dart:ui' show ImageFilter;
+
 
 
 
@@ -171,7 +173,7 @@ class ManageLeavesState extends State<ManageLeaves> {
                                                           data[index].fromDate ,
                                                           style: TextStyle(
                                                               color:
-                                                              Color(0xff656D71),
+                                                              Color(0xff666666),
                                                               fontWeight:
                                                               FontWeight.bold,
                                                               fontSize: 14,
@@ -179,9 +181,9 @@ class ManageLeavesState extends State<ManageLeaves> {
                                                               'AvenirNext'),
                                                         ),
                                                         Text(
-                                                          " — " +data[index].toDate ,
+                                                          " - " +data[index].toDate ,
                                                           style: TextStyle(
-                                                              color:data[index].toDate == data[index].fromDate?Colors.white:Color(0xff656D71),
+                                                              color:data[index].toDate == data[index].fromDate?Colors.white:Color(0xff666666),
                                                               fontWeight:
                                                               FontWeight.bold,
                                                               fontSize: 14,
@@ -201,7 +203,7 @@ class ManageLeavesState extends State<ManageLeaves> {
                                         color: quickDescBackgroundColor(data[index].status),
                                         child: InkWell(
                                           onTap: () {
-                                            _showLeaveDetails(data[index].status,data[index].fromToDate, data[index].reason );
+                                                child: _showLeaveDetails(data[index].status,data[index].fromToDate, data[index].reason );
                                           },
                                           child: Container(
                                             height: _width / 7.5,
@@ -290,11 +292,13 @@ class ManageLeavesState extends State<ManageLeaves> {
   Widget _showLeaveDetails(status, fromToDate, reason) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => CustomDialog(
-        date: fromToDate,
-        reason:reason,
-        buttonText: "CLOSE",
-        status: status,
+      builder: (BuildContext context) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX:2.0,sigmaY:2.0),
+        child: CustomDialog(
+          date: fromToDate,
+          reason:reason,
+          status: status,
+        ),
       ),
     );
   }

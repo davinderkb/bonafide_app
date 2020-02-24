@@ -4,12 +4,11 @@ import 'package:bonafide_app/util/util.dart';
 import 'package:flutter/material.dart';
 
 class CustomDialog extends StatelessWidget {
-  final String date, reason, buttonText, status;
+  final String date, reason, status;
 
   CustomDialog(
       {@required this.date,
       @required this.reason,
-      @required this.buttonText,
       @required this.status});
 
   @override
@@ -28,6 +27,7 @@ class CustomDialog extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
+
           padding: EdgeInsets.only(
             top: Consts.avatarRadius + Consts.padding,
             bottom: Consts.padding,
@@ -52,35 +52,28 @@ class CustomDialog extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 8.0),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    "Date:       ",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black26,
-                        fontWeight: FontWeight.bold),
-                  ),
+
                   Text(
                     date,
                     textAlign: TextAlign.start,
                     style:
-                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    TextStyle(color: Color(0xff696969),fontSize: 14.0, fontWeight: FontWeight.normal),
                   ),
                 ],
               ),
               SizedBox(height: 16.0),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     "Reason:  ",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         color: Colors.black26,
                         fontWeight: FontWeight.bold),
                   ),
@@ -88,50 +81,40 @@ class CustomDialog extends StatelessWidget {
                     reason == '' || reason ==' ' ? "Not Available" : reason,
                     textAlign: TextAlign.start,
                     style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 14.0,  color:Color(0xff696969),fontWeight: FontWeight.normal),
                   ),
                 ],
               ),
               SizedBox(height: 12.0),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FlatButton(
-                  disabledColor: Color(0xffEB5050),
-                  color: Colors.red,
-                  onPressed: () {
-                    Navigator.of(context).pop(); // To close the dialog
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(16.0),
-                      side: BorderSide(
-                        color: Colors.white,
-                      )),
-                  child: Text(
-                    buttonText,
-                    style: TextStyle(fontSize: 14, color: Colors.white),
-                  ),
-                ),
-              ),
+
             ],
           ),
         ),
         Positioned(
           left: Consts.padding,
           right: Consts.padding,
-          child: Container(
-            height: 60,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(64.0),
-                  bottomRight: Radius.circular(64.0),
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16)
-              ),
-
-              color: quickDescBackgroundColor(status),
-            ),
+          child: CircleAvatar(
+            radius: Consts.avatarRadius,
+            backgroundColor: quickDescBackgroundColor(status),
             child: Center(child: convertLeaveStatusToText(status)),
           ),
+        ),
+        Positioned(
+          left: Consts.padding,
+          right: 0,
+          child:Align(
+            alignment: Alignment.topRight,
+            child: FlatButton(
+
+              onPressed: () {
+                Navigator.of(context).pop(); // To close the dialog
+              },
+              child:  Icon(Icons.cancel, size: 50,color: quickDescBackgroundColor(status),
+              ),
+
+            ),
+          ),
+
         ),
       ],
     );
@@ -142,5 +125,5 @@ class Consts {
   Consts._();
 
   static const double padding = 16.0;
-  static const double avatarRadius = 30.0;
+  static const double avatarRadius = 80.0;
 }

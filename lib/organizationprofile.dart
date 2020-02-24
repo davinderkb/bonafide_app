@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:bonafide_app/main.dart';
 import 'dart:ui' as ui;
 import 'package:bonafide_app/util/constants.dart';
+import 'package:bonafide_app/util/util.dart';
+
 
 class OrganizationProfile extends StatelessWidget {
   @override
@@ -49,7 +51,7 @@ class OrganizationProfile extends StatelessWidget {
               centerTitle: true,
               elevation: 0.0,
               backgroundColor: Color(0xffEB5050),
-        ),
+            ),
             drawer: MainNavigationDrawer(),
             backgroundColor:  Color(0xffEB5050),
             body: new Center(
@@ -79,6 +81,7 @@ class OrganizationProfile extends StatelessWidget {
                       Constants.ORGANIZATION_TITLE,
                       style: new TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'AvenirNext',
                           fontSize: _width / 15,
                           color: Colors.blue[50]),
                     ),
@@ -93,7 +96,8 @@ class OrganizationProfile extends StatelessWidget {
                             Constants.ORGANIZATION_TAG_DESC,
                         style: new TextStyle(
                             fontWeight: FontWeight.normal,
-                            fontSize: _width / 25,
+                            fontFamily: 'AvenirNext',
+                            fontSize: _width/26,
                             color: Colors.blue[50]),
                         textAlign: TextAlign.center,
                       ),
@@ -104,9 +108,9 @@ class OrganizationProfile extends StatelessWidget {
                     ),
                     new Row(
                       children: <Widget>[
-                        rowCell(212, Constants.EMPLOYEES,),
-                        rowCell(67, Constants.CLIENT),
-                        rowCell(375, Constants.PROJECTS),
+                        rowCell("212", Constants.EMPLOYEES,),
+                        rowCell("67", Constants.CLIENT),
+                        rowCell("375", Constants.PROJECTS),
                       ],
                     ),
                     new Divider(
@@ -128,7 +132,7 @@ class OrganizationProfile extends StatelessWidget {
                                 new SizedBox(
                                   width: _width / 30,
                                 ),
-                                new Text(Constants.FEEDBACK,style: TextStyle(color: Colors.black),)
+                                new Text(Constants.FEEDBACK,style: TextStyle(color: Colors.black, fontFamily: 'AvenirNext',fontWeight: ui.FontWeight.bold),)
                               ],
                             ),
                         ),
@@ -143,16 +147,5 @@ class OrganizationProfile extends StatelessWidget {
     );
   }
 
-  Widget rowCell(int count, String type) => new Expanded(
-          child: new Column(
-        children: <Widget>[
-          new Text(
-            '$count',
-            style: new TextStyle(color: Colors.blue[50]),
-          ),
-          new Text(type,
-              style: new TextStyle(
-                  color: Colors.blue[50], fontWeight: FontWeight.normal))
-        ],
-      ));
+
 }

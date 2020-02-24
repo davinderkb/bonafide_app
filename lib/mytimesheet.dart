@@ -41,7 +41,7 @@ class MyTimesheet extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Container(
-                  height: _height / 5,
+                  height:_height>_width? _height / 5: _width/5,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 16),
                     child: Center(
@@ -55,7 +55,7 @@ class MyTimesheet extends StatelessWidget {
                       topRight: Radius.circular(24.0)),
                   color: Color(0xffFFFFFF),
                 ),
-                height: _height - _height/5 ,
+                height: _height>_width?_height - _height/5 : _width - _width/5,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                   child: Column(
@@ -71,7 +71,7 @@ class MyTimesheet extends StatelessWidget {
                           children: <Widget>[
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
+                                borderRadius: BorderRadius.circular(32.0),
                                   side: BorderSide(width:2,color: Color(0xffEB5050))
                               ),
                               color:Color(0xffFFFFFF ),
@@ -96,8 +96,8 @@ class MyTimesheet extends StatelessWidget {
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                                  side: BorderSide(width:2,color: Color(0xffEB5050))
+                                borderRadius: BorderRadius.circular(10.0),
+                                  side: BorderSide(width:1,color: Color(0xffEB5050))
                               ),
                               color:Color(0xffFFFFFF),
                               child: Container(
@@ -153,7 +153,7 @@ class MyTimesheet extends StatelessWidget {
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
+                                borderRadius: BorderRadius.circular(32.0),
                                   side: BorderSide(width:2,color: Color(0xffEB5050))
                               ),
                               color: Color(0xffFFFFFF),
@@ -179,7 +179,7 @@ class MyTimesheet extends StatelessWidget {
                           ],
                         ),
                       ),
-                      new SizedBox(height: 16,),
+                      new SizedBox(height: 0,),
                       Container(
                         height: _height/2.3,
                         child: Column(
@@ -274,7 +274,7 @@ class MyTimesheet extends StatelessWidget {
                             icon: Icon(Icons.access_time, color: Color(0xffFFFFFF),),
                             disabledColor: Color(0xffEB5050),
                             color: Color(0xffEB5050),
-                            shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(16.0),side: BorderSide(width:2,color: Color(0xffEB5050))),
+                            shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(32.0),side: BorderSide(width:2,color: Color(0xffFFFFFF))),
                           ),
                         ),
                       ),

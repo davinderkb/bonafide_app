@@ -78,98 +78,101 @@ class ResetPassword extends StatelessWidget {
                         child: Center(child: Image.asset("assets/images/ic_reset_password.png")),
                       )
                   ),
-                  Container(
-                    height: _height>_width?_height-_height/5-85: _height-_height/3+190,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(80.0),
-                          bottomRight: Radius.circular(80.0),
-                        topLeft: Radius.circular(80.0),
-                        topRight: Radius.circular(0.0),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8,0,0,8),
+                    child: Container(
+                      height: _height>_width?_height-_height/5-90: _height-_height/3+190,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50.0),
+                            bottomRight: Radius.circular(0.0),
+                          topLeft: Radius.circular(50.0),
+                          topRight: Radius.circular(0.0),
 
+                        ),
+                        color: Colors.white,
                       ),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(12,48,12,12),
-                        ),
-                        Center(
-                          child: Container(
-                            width: _width-72,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              color: Color(0xffF4F6F7),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(12,48,12,12),
+                          ),
+                          Center(
+                            child: Container(
+                              width: _width-72,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                color: Color(0xffF4F6F7),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
 
-                                Center(
-                                  child: Container(
-                                    width: _width-72,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                      color: Color(0xffF4F6F7),
+                                  Center(
+                                    child: Container(
+                                      width: _width-72,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        color: Color(0xffF4F6F7),
+                                      ),
+                                      child: currentPassword,
                                     ),
-                                    child: currentPassword,
-                                  ),
-                                ) ,
+                                  ) ,
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ) ,
+                          ) ,
 
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                        ),
-                        Center(
-                          child: Container(
-                            width: _width-72,
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                          ),
+                          Center(
+                            child: Container(
+                              width: _width-72,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                color: Color(0xffF4F6F7),
+                              ),
+                              child: newPassword,
+                            ),
+                          ) ,
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                          ),
+                          Center(
+                            child: Container(
+                              width: _width-72,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                color: Color(0xffF4F6F7),
+                              ),
+                              child: confirmNewPassword,
+                            ),
+                          ) ,
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                          ),
+                          SizedBox(
                             height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              color: Color(0xffF4F6F7),
-                            ),
-                            child: newPassword,
-                          ),
-                        ) ,
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                        ),
-                        Center(
-                          child: Container(
                             width: _width-72,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              color: Color(0xffF4F6F7),
+                            child: FlatButton.icon(
+                              label: Text('Reset Password',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Colors.white),),
+                              icon: Icon(
+                                Icons.threesixty,
+                                color: Colors.white,
+                              ),
+                              onPressed: null,
+                              disabledColor: Color(0xffEB5050),
+                              shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0),side: BorderSide(color: Color(0xffF4F6F7))),
                             ),
-                            child: confirmNewPassword,
                           ),
-                        ) ,
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                        ),
-                        SizedBox(
-                          height: 60,
-                          width: _width-72,
-                          child: FlatButton.icon(
-                            label: Text('Reset Password',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Colors.white),),
-                            icon: Icon(
-                              Icons.threesixty,
-                              color: Colors.white,
-                            ),
-                            onPressed: null,
-                            disabledColor: Color(0xffEB5050),
-                            shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0),side: BorderSide(color: Color(0xffF4F6F7))),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   )
                 ],),
