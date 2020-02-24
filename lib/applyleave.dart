@@ -17,7 +17,7 @@ class ApplyLeave extends StatefulWidget {
 
 class ApplyLeaveState extends State<ApplyLeave> {
   DateTime fromDate = DateTime.now();
-  DateTime toDate = DateTime.now();
+  DateTime toDate ;
   String toDateString = 'Click here to choose ...';
   String fromDateString = 'Click here to choose ...';
   BuildContext context;
@@ -41,19 +41,21 @@ class ApplyLeaveState extends State<ApplyLeave> {
             child: child,
           );
         });
-    if (picked != null && picked != fromDate)
+    if (picked != null)
       setState(() {
         fromDate = picked;
         fromDateString = new DateFormat("MMM dd, yyyy").format(picked);
+        toDate = picked;
+        toDateString = new DateFormat("MMM dd, yyyy").format(picked);
       });
   }
 
   Future<Null> _selectToDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: toDate,
-        firstDate: DateTime(toDate.year),
-        lastDate: new DateTime.now().add(new Duration(days: 365)),
+        initialDate: fromDate,
+        firstDate: fromDate,
+        lastDate: fromDate.add(new Duration(days: 365)),
         builder: (BuildContext context, Widget child) {
           return Theme(
             data: ThemeData.light().copyWith(
@@ -65,7 +67,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
             child: child,
           );
         });
-    if (picked != null && picked != toDate)
+    if (picked != null)
       setState(() {
         toDate = picked;
         toDateString = new DateFormat("MMM dd, yyyy").format(picked);
@@ -326,7 +328,16 @@ class ApplyLeaveState extends State<ApplyLeave> {
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   onPressed: () {
-                    _applyLeave();
+                    if (fromDateString==('Click here to choose ...')){
+                      Toast.show("Please select 'From Date'", context,
+                          textColor: Colors.black54,
+                          duration: Toast.LENGTH_SHORT,
+                          gravity: Toast.BOTTOM,
+                          backgroundColor: Colors.white,
+                          backgroundRadius: 16);
+                    }else {
+                      _applyLeave();
+                    }
                   },
                   disabledColor: Color(0xffEB5050),
                   color: Color(0xffEB5050),

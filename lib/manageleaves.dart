@@ -9,6 +9,8 @@ import 'package:dio/dio.dart';
 import 'package:toast/toast.dart';
 import 'package:bonafide_app/util/customdialog.dart';
 import 'package:bonafide_app/util/util.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 
 
@@ -119,7 +121,10 @@ class ManageLeavesState extends State<ManageLeaves> {
                               case ConnectionState.active:
                                 return Container(
                                   alignment: Alignment.center,
-                                  child: Text("Loading Leaves..."),
+                                  child: SpinKitHourGlass(
+                                    color:  Color(0xffEB5050),
+                                    size: 50.0,
+                                  ),
                                 );
                                 break;
                               case ConnectionState.done:
@@ -160,19 +165,31 @@ class ManageLeavesState extends State<ManageLeaves> {
                                                   Padding(
                                                     padding: const EdgeInsets
                                                         .fromLTRB(10, 0, 0, 0),
-                                                    child: Text(
-                                                      data[index].fromDate +
-                                                          " - " +
-                                                          data[index].toDate,
-                                                      style: TextStyle(
-                                                          color:
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Text(
+                                                          data[index].fromDate ,
+                                                          style: TextStyle(
+                                                              color:
                                                               Color(0xff656D71),
-                                                          fontWeight:
+                                                              fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 14,
-                                                          fontFamily:
+                                                              fontSize: 14,
+                                                              fontFamily:
                                                               'AvenirNext'),
-                                                    ),
+                                                        ),
+                                                        Text(
+                                                          " — " +data[index].toDate ,
+                                                          style: TextStyle(
+                                                              color:data[index].toDate == data[index].fromDate?Colors.white:Color(0xff656D71),
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                              'AvenirNext'),
+                                                        ),
+                                                      ],
+                                                    )
                                                   ),
                                                 ],
                                               ),
@@ -184,7 +201,7 @@ class ManageLeavesState extends State<ManageLeaves> {
                                         color: quickDescBackgroundColor(data[index].status),
                                         child: InkWell(
                                           onTap: () {
-                                            _showLeaveDetails(data[index].status,data[index].fromDate, data[index].toDate, data[index].reason );
+                                            _showLeaveDetails(data[index].status,data[index].fromToDate, data[index].reason );
                                           },
                                           child: Container(
                                             height: _width / 7.5,
@@ -270,11 +287,11 @@ class ManageLeavesState extends State<ManageLeaves> {
     }
   }
 
-  Widget _showLeaveDetails(status, fromDate, toDate, reason) {
+  Widget _showLeaveDetails(status, fromToDate, reason) {
     showDialog(
       context: context,
       builder: (BuildContext context) => CustomDialog(
-        date: "$fromDate - $toDate",
+        date: fromToDate,
         reason:reason,
         buttonText: "CLOSE",
         status: status,

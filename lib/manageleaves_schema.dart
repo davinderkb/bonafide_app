@@ -8,6 +8,8 @@ class ManageLeavesSchema{
 
   get toDate => _toDate;
 
+  get fromToDate => _fromdate==_toDate? _fromdate: "$_fromdate - $toDate";
+
   String get status => _status;
 
   String get reason => _reason;

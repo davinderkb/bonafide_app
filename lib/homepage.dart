@@ -7,6 +7,8 @@ import 'package:bonafide_app/mytimesheet.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -209,7 +211,10 @@ class HomePageState extends State<HomePage>{
                             case ConnectionState.active:
                               return Container(
                                 alignment: Alignment.center,
-                                child: Text("Loading announcements..."),
+                                child: SpinKitHourGlass(
+                                  color:  Color(0xffEB5050),
+                                  size: 50.0,
+                                ),
                               );
                               break;
                             case ConnectionState.done:
@@ -250,7 +255,27 @@ class HomePageState extends State<HomePage>{
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          Image.asset("assets/images/dummy_image.png",),
+                                          Container(
+                                            height:100,
+                                            width: _width/2.5,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(64)),
+                                              //border: Border.all()
+                                              //color: Colors.green,
+                                            ),
+                                        child:ClipRRect(
+                                          borderRadius: BorderRadius.circular(16.0),
+                                          child:CachedNetworkImage(
+                                            imageUrl: data[index].image,
+                                            placeholder: (context, url) => SpinKitCircle(
+                                              color:  Color(0xffEB5050),
+                                              size: 30.0,
+                                            ),
+                                            errorWidget: (context, url, error) =>Image.asset("assets/images/dummy_image.png",),
+                                          ),
+
+                                        )
+                                          ),
                                           //data[index].image,
                                         ],),
                                       Padding(
