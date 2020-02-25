@@ -79,9 +79,9 @@ class ResetPassword extends StatelessWidget {
                       )
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(8,0,0,8),
+                    padding: const EdgeInsets.fromLTRB(8,0,0,0),
                     child: Container(
-                      height: _height>_width?_height-_height/5-90: _height-_height/3+190,
+                      height: _height>_width?_height-_height/5-80: _height-_height/3+190,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(50.0),

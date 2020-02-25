@@ -64,12 +64,12 @@ class HomePageState extends State<HomePage>{
         backgroundColor: Colors.white,
         appBar: new AppBar(
           //iconTheme: new IconThemeData(color: Color(0xff262B31)),
-          iconTheme: new IconThemeData(color: Color(0xffEB5050)),
+          iconTheme: new IconThemeData(color: Color(0xff696969)),
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.home, size: 40,color: Color(0xffEB5050),),
+                Icon(Icons.home, size: 40,color: Color(0xff696969),),
                 SizedBox(width: 0,),
                 new Text(
                   "",

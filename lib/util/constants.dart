@@ -21,6 +21,8 @@ class Constants{
   static const BONAFIDE_COLOR = '0xfff7443e';
   static const MENU_ITEM_APPLY_LEAVE = 'Apply Leave';
   static const List<String> MANAGE_LEAVE_MENU_CHOICES = <String>[MENU_ITEM_APPLY_LEAVE];
+  static const MENU_ITEM_TIMESHEET = 'Update Timesheet';
+  static const List<String> TIMESHEET_MENU_CHOICES = <String>[MENU_ITEM_TIMESHEET];
 
 
 

@@ -44,9 +44,10 @@ class MainNavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    TextStyle listTileTextStyle = TextStyle(color:Colors.white,fontSize: 15, fontWeight:FontWeight.bold,fontFamily: 'AvenirNext');
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: Colors.white, //This will change the drawer background to blue.
+        canvasColor: Colors.orangeAccent, //This will change the drawer background to blue.
         //other styles
       ),
       child: new Drawer(
@@ -62,14 +63,14 @@ class MainNavigationDrawer extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text('Naresh Kumar',style: TextStyle(color:Color(0xff000000),fontSize: 18, fontFamily: 'AvenirNext')),
-                accountEmail: Text('naresh@bonafidetech.com',style: TextStyle(color:Color(0xff000000),fontSize: 13, fontFamily: 'AvenirNext')),
-                decoration: BoxDecoration(color: Colors.white, backgroundBlendMode: BlendMode.color,),
+                accountName: Text('Naresh Kumar',style: TextStyle(color:Color(0xffFFFFFF),fontSize: 18, fontWeight:FontWeight.bold, fontFamily: 'AvenirNext')),
+                accountEmail: Text('naresh@bonafidetech.com',style: TextStyle(color:Color(0xffFFFFFF),fontSize: 14, fontFamily: 'AvenirNext')),
+                decoration: BoxDecoration(color: Color(0xffEB5050), ),
 
               ),
               ListTile(
-                title: Text(Constants.HOME,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.home,color:Colors.black54),
+                title: Text(Constants.HOME,style: listTileTextStyle,),
+                leading: Icon(Icons.home,color:Colors.white),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -80,8 +81,8 @@ class MainNavigationDrawer extends StatelessWidget {
               ),
               //new Divider(height: 1.0, color: Colors.white,),
               ListTile(
-                title: Text(Constants.MY_REWARDS,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.card_giftcard,color:Colors.black54),
+                title: Text(Constants.MY_REWARDS,style: listTileTextStyle,),
+                leading: Icon(Icons.card_giftcard,color:Colors.white),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>MyRewards(true)));
@@ -89,24 +90,24 @@ class MainNavigationDrawer extends StatelessWidget {
               ),
 
               ListTile(
-                title: Text(Constants.ORGANIZATION_PROFILE,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.business,color:Colors.black54),
+                title: Text(Constants.ORGANIZATION_PROFILE,style:listTileTextStyle,),
+                leading: Icon(Icons.business,color:Colors.white),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>OrganizationProfile()));
                 },
               ),
               ListTile(
-                title: Text(Constants.CHANGE_PASSWORD,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.settings,color:Colors.black54),
+                title: Text(Constants.CHANGE_PASSWORD,style: listTileTextStyle,),
+                leading: Icon(Icons.settings,color:Colors.white),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>ResetPassword()));
                 },
               ),
               ListTile(
-                title: Text(Constants.LOGOUT,style: TextStyle(color:Colors.black54,fontSize: 14, fontFamily: 'AvenirNext'),),
-                leading: Icon(Icons.launch,color:Colors.black54),
+                title: Text(Constants.LOGOUT,style: listTileTextStyle,),
+                leading: Icon(Icons.launch,color:Colors.white),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) =>LoginPage()));
