@@ -107,7 +107,7 @@ class MainNavigationDrawer extends StatelessWidget {
                 leading: Icon(Icons.card_giftcard,color:Colors.white),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>MyRewards(true)));
+                      builder: (BuildContext context) =>MyRewards()));
                 },
               ),
 

@@ -20,7 +20,7 @@ class UserData{
   get email => _email;
 
   String get fixSalary => _fixSalary;
-
+  String get totalSalary => (int.parse(_fixSalary) + int.parse(_bonus)).toString();
   get basicSalary => _basicSalary;
 
   get bonus => _bonus;

@@ -1,10 +1,21 @@
+import 'package:bonafide_app/homepage.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:bonafide_app/userdata.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bonafide_app/util/constants.dart';
+import 'package:toast/toast.dart';
+
 
 class ResetPassword extends StatelessWidget {
   BuildContext context;
+  TextEditingController oldPasswordController = new TextEditingController();
+  TextEditingController newPasswordController = new TextEditingController();
+  TextEditingController confirmNewPasswordController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     this.context = context;
@@ -13,6 +24,8 @@ class ResetPassword extends StatelessWidget {
     TextStyle style = TextStyle(fontFamily: 'AvenirNext', fontSize: 14.0, color: Color(0xff707070));
     final currentPassword = TextField(
       style: style,
+      controller: oldPasswordController,
+      obscureText: true,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
           hintText: "Current Password",
@@ -22,6 +35,8 @@ class ResetPassword extends StatelessWidget {
     );
     final newPassword = TextField(
       style: style,
+      controller: newPasswordController,
+      obscureText: true,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
           hintText: "New Password",
@@ -31,6 +46,8 @@ class ResetPassword extends StatelessWidget {
     );
     final confirmNewPassword = TextField(
       style: style,
+      controller: confirmNewPasswordController,
+      obscureText: true,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
           hintText: "Confirm New Password",
@@ -166,7 +183,37 @@ class ResetPassword extends StatelessWidget {
                                 Icons.threesixty,
                                 color: Colors.white,
                               ),
-                              onPressed: null,
+                              onPressed: (){
+                                  if(oldPasswordController.text.length > 0 && newPasswordController.text.length > 0 && confirmNewPasswordController.text.length > 0) {
+                                      if(newPasswordController.text == confirmNewPasswordController.text) {
+                                        if(newPasswordController.text == oldPasswordController.text)
+                                          Toast.show("'Old Password' & 'New Password' are same", context,
+                                              textColor: Colors.white,
+                                              duration: Toast.LENGTH_LONG,
+                                              gravity: Toast.BOTTOM,
+                                              backgroundColor: Colors.orange,
+                                              backgroundRadius: 16);
+                                        else
+                                            _resetPassword(context);
+
+                                      }
+                                      else
+                                        Toast.show("'New Password' & 'Confirm New Password' fields do not match", context,
+                                            textColor: Colors.white,
+                                            duration: Toast.LENGTH_LONG,
+                                            gravity: Toast.BOTTOM,
+                                            backgroundColor: Colors.orange,
+                                            backgroundRadius: 16);
+                                  } else{
+                                    Toast.show("Field cannot be empty", context,
+                                        textColor: Colors.white,
+                                        duration: Toast.LENGTH_SHORT,
+                                        gravity: Toast.BOTTOM,
+                                        backgroundColor: Color(0xffEB5050),
+                                        backgroundRadius: 16);
+                                  }
+                                },
+                              color: Color(0xffEB5050),
                               disabledColor: Color(0xffEB5050),
                               shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0),side: BorderSide(color: Color(0xffF4F6F7))),
                             ),
@@ -182,4 +229,42 @@ class ResetPassword extends StatelessWidget {
   }
 
 
-}
+
+  Future<void> _resetPassword(BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String email = pref.getString(Constants.SHARED_PREF_USER_NAME);
+    if(oldPasswordController.text!=pref.getString(Constants.SHARED_PREF_PASSWORD)){
+      Toast.show("Enter correct current password", context,
+          textColor: Colors.white,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Color(0xffEB5050),
+          backgroundRadius: 16);
+      return;
+    }
+    var dio = Dio();
+    var resetPasswordUrl = 'http://boostmart.com/apiproject/reset_password.php';
+    FormData formData = new FormData.fromMap({
+      "email": email.trim(),
+      "old_password": oldPasswordController.text,
+      "new_password": newPasswordController.text
+    });
+    dynamic response = await dio.post(resetPasswordUrl, data: formData);
+    if (response.toString() == "Update Successful") {
+      pref.setString(Constants.SHARED_PREF_PASSWORD, newPasswordController.text);
+      Toast.show("Password changed successfully", context,
+          textColor: Colors.white,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Color(0xffEB5050),
+          backgroundRadius: 16);
+      Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    } else {
+      Toast.show("Password Reset Failed, Invalid Old Password", context,
+          textColor: Colors.white,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Color(0xffEB5050),
+          backgroundRadius: 16);
+    }
+  }}

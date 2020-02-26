@@ -1,30 +1,56 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:bonafide_app/main.dart';
+import 'package:bonafide_app/userdata.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:bonafide_app/util/util.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
-class MyRewards extends StatelessWidget {
-   List<charts.Series> seriesList;
-   bool animate;
-   int baseSalary = getBaseSalary();
-   int fbpAmount = getFbpAmount();
-   int bonusAmount = getBonusAmount();
-   int fixSalary;
-   int totalSalary;
-   TextStyle style = TextStyle(fontFamily: 'AvenirNext', fontSize: 14.0, color: Color(0xff696969));
-  MyRewards(bool animate){
-    fixSalary = getBaseSalary()+getFbpAmount();
-    totalSalary = fixSalary+getBonusAmount();
-   seriesList = getRewardList();
-   this.animate = animate;
+class MyRewards extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return MyRewardsState();
   }
 
+}
+
+class MyRewardsState extends State<MyRewards> {
+  dynamic userData;
+  bool animate;
+  TextStyle style = TextStyle(
+      fontFamily: 'AvenirNext', fontSize: 14.0, color: Color(0xff696969));
+
   /// Creates a [PieChart] with sample data and no transition.
-  factory MyRewards.withSampleData() {
-    return new MyRewards(true);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userData = _getRewardDetails(context);
+  }
+
+
+  Future<UserData> _getRewardDetails(BuildContext context) async {
+    var dio = Dio();
+    var loginUrl = 'http://boostmart.com/apiproject/login.php';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    FormData formData = new FormData.fromMap({
+      "email":prefs.getString(Constants.SHARED_PREF_USER_NAME),
+      "password":prefs.getString(Constants.SHARED_PREF_PASSWORD)
+    });
+    dynamic response = await dio.post(loginUrl, data: formData);
+    dynamic responseList = jsonDecode(response.toString());
+    if (responseList["data"]!=null) {
+      return UserData.fromJson(responseList["data"]);
+    } else {
+      Toast.show("Not able to fetch reward details, Try again", context, textColor: Colors.white,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM,backgroundColor: Color(0xffEB5050),backgroundRadius: 16);
+    }
   }
 
 
@@ -33,7 +59,7 @@ class MyRewards extends StatelessWidget {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xffEB5050),
+        backgroundColor: Color(0xffEB5050),
         appBar: new AppBar(
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +74,6 @@ class MyRewards extends StatelessWidget {
                       color: Color(0xffFFFFFF)),
                   textAlign: TextAlign.center,
                 ),
-
               ]),
           centerTitle: true,
           elevation: 0.0,
@@ -56,143 +81,143 @@ class MyRewards extends StatelessWidget {
         ),
         drawer: MainNavigationDrawer(),
         body: SingleChildScrollView(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-
-                Container(
-
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 8),
-                      child: Column(
-                        children: <Widget>[
-                          Center(
-                              child: Image.asset(
-                                  "assets/images/ic_rewards.png", height: _height/5.5,),),
-                          Container(
-                            width: _width,
-                            decoration: BoxDecoration(
-                              color: Color(0xffEB5050),
-                              borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                new Divider(
-                                  height: _height / 30,
-                                  color: Colors.white,
-                                ),
-                                new Row(
-                                  children: <Widget>[
-                                    rowCell("$fixSalary INR", 'Fixed Salary'),
-                                    rowCell('$bonusAmount INR','Bonus'),
-                                    rowCell('$totalSalary INR', "Total"),
-                                    rowCell('0.85', "Comp-Ratio"),
-                                  ],
-                                ),
-                                new Divider(
-                                    height: _height / 30,
-                                    color: Colors.white),
-                              ],
-
-
-                            ),
-                          ),
-                        ],
-                      )
-
-
-                    )),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0)),
-                      color: Colors.white
-                  ),
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          child: FutureBuilder(
+            future: userData,
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                  return Container(
+                    height: _height-120,
+                    alignment: Alignment.center,
+                    child: SpinKitHourGlass(
+                      color: Color(0xffFFFFFF),
+                      size: 50.0,
+                    ),
+                  );
+                  break;
+                case ConnectionState.done:
+                  if (snapshot.hasError) {
+                    // return whatever you'd do for this case, probably an error
+                    return Container(
+                      alignment: Alignment.center,
+                      child: Text("Error: ${snapshot.error}"),
+                    );
+                  }
+                  UserData data = snapshot.data as UserData;
+                  return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        SizedBox(
-                        width: _width,
-                        height: _height/1.75,
-                        child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: new charts.PieChart(seriesList,
-                              animate: animate,
-                              // Configure the width of the pie slices to 60px. The remaining space in
-                              // the chart will be left as a hole in the center.
-                              //
-                              // [ArcLabelDecorator] will automatically position the label inside the
-                              // arc if the label will fit. If the label will not fit, it will draw
-                              // outside of the arc with a leader line. Labels can always display
-                              // inside or outside using [LabelPosition].
-                              //
-                              // Text style for inside / outside can be controlled independently by
-                              // setting [insideLabelStyleSpec] and [outsideLabelStyleSpec].
-                              //
-                              // Example configuring different styles for inside/outside:
-                              //       new charts.ArcLabelDecorator(
-                              //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
-                              //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-                              defaultRenderer: new charts.ArcRendererConfig(
-                                  arcWidth: 60,
-                                  arcRendererDecorators: [new charts.ArcLabelDecorator(
-
-                                  )]),
-                            // Add the legend behavior to the chart to turn on legends.
-                            // This example shows how to change the position and justification of
-                            // the legend, in addition to altering the max rows and padding.
-                            behaviors: [
-                              new charts.DatumLegend(
-                                // Positions for "start" and "end" will be left and right respectively
-                                // for widgets with a build context that has directionality ltr.
-                                // For rtl, "start" and "end" will be right and left respectively.
-                                // Since this example has directionality of ltr, the legend is
-                                // positioned on the right side of the chart.
-                                position: charts.BehaviorPosition.bottom,
-                                // For a legend that is positioned on the left or right of the chart,
-                                // setting the justification for [endDrawArea] is aligned to the
-                                // bottom of the chart draw area.
-                                outsideJustification: charts.OutsideJustification.endDrawArea,
-                                // By default, if the position of the chart is on the left or right of
-                                // the chart, [horizontalFirst] is set to false. This means that the
-                                // legend entries will grow as new rows first instead of a new column.
-                                horizontalFirst: false,
-                                // By setting this value to 2, the legend entries will grow up to two
-                                // rows before adding a new column.
-                                desiredMaxRows: 3,
-                                // This defines the padding around each legend entry.
-                                cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-                                // Render the legend entry text with custom styles.
-                                entryTextStyle: charts.TextStyleSpec(
-                                    color: charts.MaterialPalette.purple.shadeDefault,
-                                    fontFamily: 'AvenirNext',
-                                    fontSize: 12,
-
-                                ),
-                              )
-                            ],
+                        Container(
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(8.0, 0, 8, 8),
+                                child: Column(
+                                  children: <Widget>[
+                                    Center(
+                                      child: Image.asset(
+                                        "assets/images/ic_rewards.png",
+                                        height: _height / 5.5,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: _width,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffEB5050),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16.0)),
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          new Divider(
+                                            height: _height / 30,
+                                            color: Colors.white,
+                                          ),
+                                          new Row(
+                                            children: <Widget>[
+                                              rowCell(data.fixSalary+" INR",
+                                                  'Fixed Salary'),
+                                              rowCell(
+                                                  data.bonus+' INR', 'Bonus'),
+                                              rowCell(
+                                                  data.totalSalary +' INR', "Total"),
+                                              rowCell(data.compRate, "Comp-Ratio"),
+                                            ],
+                                          ),
+                                          new Divider(
+                                              height: _height / 30,
+                                              color: Colors.white),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ))),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0)),
+                              color: Colors.white),
+                          child: Center(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: _width,
+                                    height: _height / 1.75,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: new charts.PieChart(
+                                        getRewardList(data.fixSalary, data.bonus, data.basicSalary),
+                                        animate: animate,
+                                        defaultRenderer:
+                                            new charts.ArcRendererConfig(
+                                                arcWidth: 60,
+                                                arcRendererDecorators: [
+                                              new charts.ArcLabelDecorator()
+                                            ]),
+                                        behaviors: [
+                                          new charts.DatumLegend(
+                                            position:
+                                                charts.BehaviorPosition.bottom,
+                                            outsideJustification: charts
+                                                .OutsideJustification
+                                                .endDrawArea,
+                                            horizontalFirst: false,
+                                            desiredMaxRows: 3,
+                                            cellPadding: new EdgeInsets.only(
+                                                right: 4.0, bottom: 4.0),
+                                            entryTextStyle:
+                                                charts.TextStyleSpec(
+                                              color: charts.MaterialPalette
+                                                  .purple.shadeDefault,
+                                              fontFamily: 'AvenirNext',
+                                              fontSize: 12,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ]),
                           ),
                         ),
-                      ),
-                   ] ),
-                  ),
-                ),
-
-              ]),
+                      ]);
+                  break;
+              }
+            },
+          ),
         ));
-
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<RewardItem, String>> getRewardList() {
-
+  static List<charts.Series<RewardItem, String>> getRewardList(String fixSalary, String bonus, String basicSalary ) {
     final data = [
-      new RewardItem("Baisc Salary", getBaseSalary()),
-      new RewardItem("Flexible Benfit Plan",getFbpAmount() ),
-      new RewardItem("Performance Bonus", getBonusAmount()),
+      new RewardItem("Baisc Salary",int.parse(basicSalary)),
+      new RewardItem("Flexible Benfit Plan", int.parse(fixSalary)),
+      new RewardItem("Performance Bonus", int.parse(bonus)),
     ];
 
     return [
@@ -205,18 +230,6 @@ class MyRewards extends StatelessWidget {
         labelAccessorFn: (RewardItem row, _) => '${row.amount}',
       )
     ];
-  }
-
-  static int getBaseSalary() {
-    return 113121;
-  }
-
-  static int getFbpAmount() {
-    return 471976;
-  }
-
-  static getBonusAmount() {
-    return  57988;
   }
 }
 
