@@ -57,233 +57,233 @@ class MyTimesheet extends StatelessWidget {
                   child: Center(
                       child: Image.asset(
                           "assets/images/timesheet_icon.png"))),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(6,0,6,0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24.0),
-                        topRight: Radius.circular(24.0)),
-                    color: Color(0xffFFFFFF),
-                  ),
-                  height: _height>_width?_height - _height/6 - 80  : _width - _width/6.5,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0,4, 0, 0),
-                    child: Column(
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24.0),
+                      topRight: Radius.circular(24.0)),
+                  color: Color(0xffFFFFFF),
+                ),
+                height: _height>_width?_height - _height/6 - 80  : _width - _width/6.5,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0,8, 0, 0),
+                  child: Column(
 
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
-                          mainAxisAlignment:
-                          MainAxisAlignment.center,
-                          children: <Widget>[
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(32.0),
-                                 // side: BorderSide(width:2,color: Color(0xffEB5050))
-                              ),
-                              color:Color(0xffEB5050   ),
-                              child: InkWell(
-                                onTap: () {
-
-                                },
-                                child: Container(
-                                  height: _width / 7.5,
-                                  width: _width / 7.5,
-                                  child: Center(
-                                    child: Container(
-                                      height: 16,
-                                      width: 16,
-                                      child: Image.asset(
-                                          "assets/images/wk_back.png",),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.center,
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                               // side: BorderSide(width:2,color: Color(0xffEB5050))
                             ),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(32.0),
-                                 // side: BorderSide(width:0,color: Color(0xffEB5050))
-                              ),
-                              color:Color(0xffEB5050),
+                            color:Color(0xffEB5050   ),
+                            elevation: 0,
+                            child: InkWell(
+                              onTap: () {
+
+                              },
                               child: Container(
-                                width: _width / 1.6,
-                                height: _width / 7,
+                                height: _width / 7.5,
+                                width: _width / 7.5,
                                 child: Center(
                                   child: Container(
-                                    height: _width / 7,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                            width: 0,
-                                            child: Image.asset(
-                                                "")),
-                                        Padding(
-                                            padding: const EdgeInsets
-                                                .fromLTRB(10, 0, 0, 0),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Text(
-                                                  "Feb 10, 2020" ,
-                                                  style: TextStyle(
-                                                      color:
-                                                      Colors.white,
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      fontSize: 15,
-                                                      fontFamily:
-                                                      'AvenirNext'),
-                                                ),
-                                                Text(
-                                                  " — " +"Feb 16, 2020" ,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      fontSize: 15,
-                                                      fontFamily:
-                                                      'AvenirNext'),
-                                                ),
-                                              ],
-                                            )
-                                        ),
-                                      ],
-                                    ),
+                                    height: 16,
+                                    width: 16,
+                                    child: Image.asset(
+                                        "assets/images/wk_back.png",),
                                   ),
                                 ),
                               ),
                             ),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(32.0),
 
-                              ),
-                              color: Color(0xffEB5050),
-                              child: InkWell(
-                                onTap: () {
-
-                                },
+                          ),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                               // side: BorderSide(width:0,color: Color(0xffEB5050))
+                            ),
+                            color:Color(0xffEB5050),
+                            elevation: 0,
+                            child: Container(
+                              width: _width / 1.6,
+                              height: _width / 7,
+                              child: Center(
                                 child: Container(
-                                  height: _width / 7.5,
-                                  width: _width / 7.5,
-                                  child: Center(
-                                    child: Container(
-                                      height: 16,
-                                      width: 16,
-                                      child: Image.asset(
-                                          "assets/images/wk_next.png"),
-                                    ),
+                                  height: _width / 7,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                          width: 0,
+                                          child: Image.asset(
+                                              "")),
+                                      Padding(
+                                          padding: const EdgeInsets
+                                              .fromLTRB(10, 0, 0, 0),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text(
+                                                "Feb 10, 2020" ,
+                                                style: TextStyle(
+                                                    color:
+                                                    Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    fontSize: 15,
+                                                    fontFamily:
+                                                    'AvenirNext'),
+                                              ),
+                                              Text(
+                                                " — " +"Feb 16, 2020" ,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    fontSize: 15,
+                                                    fontFamily:
+                                                    'AvenirNext'),
+                                              ),
+                                            ],
+                                          )
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-
                             ),
-                          ],
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: 7,
-                            itemBuilder: (BuildContext context, int index) => Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                            elevation: 0,
+                            color: Color(0xffEB5050),
+                            child: InkWell(
+                              onTap: () {
 
-                                  ),
+                              },
+                              child: Container(
+                                height: _width / 7.5,
+                                width: _width / 7.5,
+                                child: Center(
                                   child: Container(
-                                    width: _width - 32,
-                                    height: _width / 8,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                                height: 24,
-                                                width: 24,
-                                                child: Image.asset(
-                                                    "assets/images/ic_date.png")),
-                                            Padding(
-                                              padding: const EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
-                                              child: Text(
-                                                "Monday, Feb 10, 2020",
-                                                style: TextStyle(
-                                                    color: Color(0xff696969),
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'AvenirNext'),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                                height: 24,
-                                                width: 24,
-                                                child: Image.asset(
-                                                    "assets/images/ic_time_grey.png")),
-                                            Padding(
-                                              padding: const EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
-                                              child: Text(
-                                                "8.0 Hours",
-                                                style: TextStyle(
-                                                    color: Color(0xff696969),
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'AvenirNext'),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
+                                    height: 16,
+                                    width: 16,
+                                    child: Image.asset(
+                                        "assets/images/wk_next.png"),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
+
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: 7,
+                          itemBuilder: (BuildContext context, int index) => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+
+                                ),
+                                elevation: 1,
+                                child: Container(
+                                  width: _width - 32,
+                                  height: _width / 7,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                              height: 24,
+                                              width: 24,
+                                              child: Image.asset(
+                                                  "assets/images/ic_date.png")),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            child: Text(
+                                              "Monday, Feb 10, 2020",
+                                              style: TextStyle(
+                                                  color: Color(0xff696969),
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'AvenirNext'),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                              height: 24,
+                                              width: 24,
+                                              child: Image.asset(
+                                                  "assets/images/ic_time_grey.png")),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            child: Text(
+                                              "8.0 Hours",
+                                              style: TextStyle(
+                                                  color: Color(0xff696969),
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'AvenirNext'),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        /*Padding(
-                          padding: const EdgeInsets.fromLTRB(0,16,0,0),
-                          child: Container(
-                            height: 56,
-                            width:  _width / 1.1,
+                      ),
+                      /*Padding(
+                        padding: const EdgeInsets.fromLTRB(0,16,0,0),
+                        child: Container(
+                          height: 56,
+                          width:  _width / 1.1,
 
-                            child: FlatButton.icon(
-                              label: Text('Add Mssing Hours',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xffFFFFFF), fontWeight: FontWeight.bold),),
-                              onPressed: (){
-                                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>UpdateTimesheet()));
-                              },
-                              icon: Icon(Icons.access_time, color: Color(0xffFFFFFF),),
-                              disabledColor: Color(0xffEB5050),
-                              color: Color(0xffEB5050),
-                              shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(32.0),side: BorderSide(width:2,color: Color(0xffFFFFFF))),
-                            ),
+                          child: FlatButton.icon(
+                            label: Text('Add Mssing Hours',textAlign: TextAlign.start,style: TextStyle(fontSize: 14, color: Color(0xffFFFFFF), fontWeight: FontWeight.bold),),
+                            onPressed: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>UpdateTimesheet()));
+                            },
+                            icon: Icon(Icons.access_time, color: Color(0xffFFFFFF),),
+                            disabledColor: Color(0xffEB5050),
+                            color: Color(0xffEB5050),
+                            shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(32.0),side: BorderSide(width:2,color: Color(0xffFFFFFF))),
                           ),
-                        ),*/
-                      ],
-                    ),
+                        ),
+                      ),*/
+                    ],
                   ),
                 ),
               )

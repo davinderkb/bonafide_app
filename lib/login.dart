@@ -1,12 +1,23 @@
+import 'dart:convert';
+
 import 'package:bonafide_app/homepage.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/myrewards.dart';
 import 'package:bonafide_app/mytimesheet.dart';
 import 'package:bonafide_app/organizationprofile.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
+import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
+import 'package:bonafide_app/userdata.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bonafide_app/util/constants.dart';
+
 
 class LoginPage extends StatelessWidget {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 14.0);
+  TextEditingController passwordController = new TextEditingController();
+  TextEditingController userNameController = new TextEditingController();
 
 
   @override
@@ -24,6 +35,7 @@ class LoginPage extends StatelessWidget {
       style: TextStyle(fontSize: 14, color: Color(0xffBEC1C2)),
     );
     final userName = TextField(
+      controller: userNameController,
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
@@ -32,6 +44,7 @@ class LoginPage extends StatelessWidget {
     );
 
     final passwordField = TextField(
+      controller: passwordController,
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
@@ -39,6 +52,7 @@ class LoginPage extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),
+      obscureText: true,
     );
 
     final forgotPassword = Text(
@@ -109,6 +123,40 @@ class LoginPage extends StatelessWidget {
   }
 
   void onLoginPress(BuildContext context) {
-     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>HomePage()));
+    if(userNameController.text.length>0 && RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(userNameController.text)){
+      if(passwordController.text.length>0) {
+        initiateLoginRequest(context);
+      }else{
+        Toast.show("Enter Password", context,textColor: Colors.black54,duration: Toast.LENGTH_SHORT,gravity: Toast.BOTTOM,backgroundColor: Colors.white,backgroundRadius: 16);
+      }
+    } else{
+      Toast.show("Enter valid email", context,textColor: Colors.black54,duration: Toast.LENGTH_SHORT,gravity: Toast.BOTTOM,backgroundColor: Colors.white,backgroundRadius: 16);
+    }
+
   }
+
+
+
+  Future<void> initiateLoginRequest(BuildContext context) async {
+    var dio = Dio();
+    var loginUrl = 'http://boostmart.com/apiproject/login.php';
+    FormData formData = new FormData.fromMap({
+      "email":userNameController.text.trim(),
+      "password": passwordController.text
+    });
+    dynamic response = await dio.post(loginUrl, data: formData);
+    dynamic responseList = jsonDecode(response.toString());
+    if (responseList["data"]!=null) {
+      UserData user = UserData.fromJson(responseList["data"]);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool(Constants.SHARED_PREF_IS_LOGGED_IN, true);
+      prefs.setString(Constants.SHARED_PREF_USER_NAME, userNameController.text);
+      prefs.setString(Constants.SHARED_PREF_PASSWORD, passwordController.text);
+      prefs.setString(Constants.SHARED_PREF_NAME, user.name);
+      Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    } else {
+      Toast.show("Authentication Failed", context, textColor: Colors.white,duration: Toast.LENGTH_SHORT,gravity: Toast.BOTTOM,backgroundColor: Color(0xffEB5050),backgroundRadius: 16);
+    }
+  }
+
 }

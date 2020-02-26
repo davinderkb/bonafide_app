@@ -23,6 +23,10 @@ class Constants{
   static const List<String> MANAGE_LEAVE_MENU_CHOICES = <String>[MENU_ITEM_APPLY_LEAVE];
   static const MENU_ITEM_TIMESHEET = 'Update Timesheet';
   static const List<String> TIMESHEET_MENU_CHOICES = <String>[MENU_ITEM_TIMESHEET];
+  static const SHARED_PREF_IS_LOGGED_IN = "isLoggedIn";
+  static const SHARED_PREF_USER_NAME = "userName";
+  static const SHARED_PREF_PASSWORD = "password";
+  static const SHARED_PREF_NAME = "name";
 
 
 
