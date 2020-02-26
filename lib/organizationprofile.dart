@@ -129,7 +129,7 @@ class OrganizationDetailsState extends State<OrganizationProfile> {
                             return Container(
                               alignment: Alignment.center,
                               child: SpinKitHourGlass(
-                                color: Color(0xffEB5050),
+                                color: Color(0xffFFFFFF),
                                 size: 50.0,
                               ),
                             );

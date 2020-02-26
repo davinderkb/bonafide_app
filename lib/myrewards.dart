@@ -172,19 +172,17 @@ class MyRewardsState extends State<MyRewards> {
                                       child: new charts.PieChart(
                                         getRewardList(data.fixSalary, data.bonus, data.basicSalary),
                                         animate: animate,
+
                                         defaultRenderer:
                                             new charts.ArcRendererConfig(
-                                                arcWidth: 60,
+                                                arcWidth: 70,
                                                 arcRendererDecorators: [
                                               new charts.ArcLabelDecorator()
                                             ]),
                                         behaviors: [
                                           new charts.DatumLegend(
-                                            position:
-                                                charts.BehaviorPosition.bottom,
-                                            outsideJustification: charts
-                                                .OutsideJustification
-                                                .endDrawArea,
+                                            position:charts.BehaviorPosition.bottom,
+                                            outsideJustification: charts.OutsideJustification.endDrawArea,
                                             horizontalFirst: false,
                                             desiredMaxRows: 3,
                                             cellPadding: new EdgeInsets.only(
@@ -225,6 +223,7 @@ class MyRewardsState extends State<MyRewards> {
         id: 'Rewards',
         domainFn: (RewardItem reward, _) => reward.component,
         measureFn: (RewardItem sales, _) => sales.amount,
+        //colorFn: (_, __) => charts.MaterialPalette.lime.shadeDefault,
         data: data,
         // Set a label accessor to control the text of the arc label.
         labelAccessorFn: (RewardItem row, _) => '${row.amount}',
