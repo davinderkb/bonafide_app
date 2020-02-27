@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
 import 'package:bonafide_app/util/customdialog.dart';
 import 'package:bonafide_app/util/util.dart';
@@ -223,6 +224,17 @@ class ManageLeavesState extends State<ManageLeaves> {
                                       Card(
                                         child: InkWell(
                                           onTap: () {
+                                            /*DateFormat format = new DateFormat("MMM dd, yyyy");
+                                            if(format.parse(data[index].toDate).isBefore(new DateTime.now())){
+                                              Toast.show("Cannot delete past leaves", context,
+                                                  textColor: Colors.white,
+                                                  duration: Toast.LENGTH_SHORT,
+                                                  gravity: Toast.BOTTOM,
+                                                  backgroundColor: Color(0xffEB5050),
+                                                  backgroundRadius: 16);
+                                            } else{
+
+                                            }*/
                                             _deleteLeave(data[index].id);
                                           },
                                           child: Container(

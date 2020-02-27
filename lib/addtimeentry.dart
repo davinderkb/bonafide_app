@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
@@ -18,8 +20,45 @@ class AddTimesheetEntry extends StatefulWidget {
 
 class AddTimesheetEntryState extends State<AddTimesheetEntry> {
   DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedDuration =  TimeOfDay.now();
 
   BuildContext context;
+
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay picked = await showTimePicker(
+
+      context: context,
+      initialTime: TimeOfDay(hour: 8, minute: 0),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            primaryColor: const Color(0xffEB5050),//Head background
+            accentColor: const Color(0xffEB5050),//color you want at header
+            buttonTheme: ButtonTheme.of(context).copyWith(
+              colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xffEB5050), primarySwatch: Colors.red),
+            ),
+          ),
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child,
+          ),
+        );
+      },
+    );
+    if (picked != null){
+      setState(() {
+        selectedDuration = picked;
+      });
+    }else{
+      setState(() {
+        selectedDuration = TimeOfDay(hour: 0, minute: 0);
+      });
+
+    }
+
+  }
+
+
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -28,11 +67,12 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
         lastDate: new DateTime.now().add(new Duration(days: 0)),
         builder: (BuildContext context, Widget child){
           return Theme(
-            data: ThemeData.light().copyWith(
-             // primarySwatch: const Color(0xffEB5050),//OK/Cancel button text color
+            data: Theme.of(context).copyWith(
               primaryColor: const Color(0xffEB5050),//Head background
-                accentColor: const Color(0xffEB5050),//selection color
-              //dialogBackgroundColor: Colors.white,//Background color
+              accentColor: const Color(0xffEB5050),//color you want at header
+              buttonTheme: ButtonTheme.of(context).copyWith(
+                colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xffEB5050), primarySwatch: Colors.red),
+              ),
             ),
             child: child,
           );
@@ -52,7 +92,6 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
-          hintText: "Enter time (hh:mm)",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),
@@ -163,7 +202,7 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
                       padding: const EdgeInsets.all(12),
                     ),
                     Center(
-                      child: Container(
+                      /*child: Container(
                         width: _width-72,
                         height: 60,
                         decoration: BoxDecoration(
@@ -171,6 +210,40 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
                           color: Color(0xffF4F6F7),
                         ),
                         child: timeHours,
+                      ),*/
+                      child: GestureDetector(
+                        onTap: (){_selectTime(context);},
+                        child: Container(
+                          width: _width-72,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            color: Color(0xffF4F6F7),
+                            border:Border.all(color: Color(0xff707070)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(12,0,0,0),
+                                child: Text(selectedDuration!=null?selectedDuration.toString().substring(selectedDuration.toString().indexOf("(")+1,selectedDuration.toString().indexOf(")")):"00:00",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.fromLTRB(0,0,8,0),
+                                  child: Container(
+                                    height: 40,
+                                    width: 40,
+                                    child: Icon(Icons.timelapse, color: Color(0xffEB5050),size: 32,),
+
+                                  )
+
+                              ),
+
+                            ],
+                          ),
+                        ),
                       ),
                     ) ,
 

@@ -95,7 +95,7 @@ class OrganizationDetailsState extends State<OrganizationProfile> {
                       style: new TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'AvenirNext',
-                          fontSize: _width / 15,
+                          fontSize: 25,
                           color: Colors.blue[50]),
                     ),
                     new Padding(
@@ -110,7 +110,7 @@ class OrganizationDetailsState extends State<OrganizationProfile> {
                         style: new TextStyle(
                             fontWeight: FontWeight.normal,
                             fontFamily: 'AvenirNext',
-                            fontSize: _width / 26,
+                            fontSize: 15,
                             color: Colors.blue[50]),
                         textAlign: TextAlign.center,
                       ),

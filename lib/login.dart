@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
-          hintText: "Username",
+          labelText: "Username",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
-          hintText: "Password",
+          labelText: "Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),

@@ -28,7 +28,7 @@ class ResetPassword extends StatelessWidget {
       obscureText: true,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
-          hintText: "Current Password",
+          labelText: "Current Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),
@@ -39,7 +39,7 @@ class ResetPassword extends StatelessWidget {
       obscureText: true,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
-          hintText: "New Password",
+          labelText: "New Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),
@@ -50,7 +50,7 @@ class ResetPassword extends StatelessWidget {
       obscureText: true,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(18.0, 20.0, 18.0, 20.0),
-          hintText: "Confirm New Password",
+          labelText: "Confirm New Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),

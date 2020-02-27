@@ -32,11 +32,12 @@ class ApplyLeaveState extends State<ApplyLeave> {
         lastDate: new DateTime.now().add(new Duration(days: 365)),
         builder: (BuildContext context, Widget child) {
           return Theme(
-            data: ThemeData.light().copyWith(
-              // primarySwatch: const Color(0xffEB5050),//OK/Cancel button text color
-              primaryColor: const Color(0xffEB5050), //Head background
-              accentColor: const Color(0xffEB5050), //selection color
-              //dialogBackgroundColor: Colors.white,//Background color
+            data: Theme.of(context).copyWith(
+              primaryColor: const Color(0xffEB5050),//Head background
+              accentColor: const Color(0xffEB5050),//color you want at header
+              buttonTheme: ButtonTheme.of(context).copyWith(
+                colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xffEB5050), primarySwatch: Colors.red),
+              ),
             ),
             child: child,
           );
@@ -58,11 +59,12 @@ class ApplyLeaveState extends State<ApplyLeave> {
         lastDate: fromDate.add(new Duration(days: 365)),
         builder: (BuildContext context, Widget child) {
           return Theme(
-            data: ThemeData.light().copyWith(
-              // primarySwatch: const Color(0xffEB5050),//OK/Cancel button text color
-              primaryColor: const Color(0xffEB5050), //Head background
-              accentColor: const Color(0xffEB5050), //selection color
-              //dialogBackgroundColor: Colors.white,//Background color
+            data: Theme.of(context).copyWith(
+              primaryColor: const Color(0xffEB5050),//Head background
+              accentColor: const Color(0xffEB5050),//color you want at header
+              buttonTheme: ButtonTheme.of(context).copyWith(
+                colorScheme: ColorScheme.fromSwatch(accentColor: const Color(0xffEB5050), primarySwatch: Colors.red),
+              ),
             ),
             child: child,
           );

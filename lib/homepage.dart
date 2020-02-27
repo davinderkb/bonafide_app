@@ -10,7 +10,7 @@ import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget  {
 
   HomePage() {
 
