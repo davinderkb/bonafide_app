@@ -5,6 +5,7 @@ import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
 
 
 class AddTimesheetEntry extends StatefulWidget {
@@ -21,7 +22,8 @@ class AddTimesheetEntry extends StatefulWidget {
 class AddTimesheetEntryState extends State<AddTimesheetEntry> {
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedDuration =  TimeOfDay.now();
-
+  String selectedDateString = 'Click to select date ..';
+  String selectedDurationString = 'Click to set duration ..';
   BuildContext context;
 
   Future<Null> _selectTime(BuildContext context) async {
@@ -48,12 +50,8 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
     if (picked != null){
       setState(() {
         selectedDuration = picked;
+        selectedDurationString = selectedDuration.toString().substring(selectedDuration.toString().indexOf("(")+1,selectedDuration.toString().indexOf(")"));
       });
-    }else{
-      setState(() {
-        selectedDuration = TimeOfDay(hour: 0, minute: 0);
-      });
-
     }
 
   }
@@ -79,10 +77,12 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
         }
     );
 
-    if (picked != null && picked != selectedDate)
+    if (picked != null)
       setState(() {
         selectedDate = picked;
+        selectedDateString = new DateFormat("MMM dd, yyyy").format(picked);
       });
+
   }
 
   @override
@@ -167,26 +167,27 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
                         child: Container(
                           width: _width-72,
                           height: 60,
+
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                            color: Color(0xffF4F6F7),
-                              border:Border.all(color: Color(0xff707070)),
+                            color: Colors.white,
+                            border:Border.all(color: Color(0xFFEB5050)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(12,0,0,0),
-                                child: Text("${selectedDate.toLocal()}".split(' ')[0],
+                                child: Text(selectedDateString,
                                   textAlign: TextAlign.start,
-                                  style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
+                                  style: TextStyle(fontFamily:"AvenirNext",fontSize: 15, fontWeight: FontWeight.bold, color: Colors.blue),),
                               ),
                               Padding(
                                   padding: const EdgeInsets.fromLTRB(0,0,8,0),
                                   child: Container(
                                     height: 40,
                                     width: 40,
-                                    child: Image.asset("assets/images/ic_date.png",color: Color(0xffEB5050),),
+                                    child: Icon(Icons.calendar_today, color: Color(0xFFEB5050), size: 32,),
 
                                   )
 
@@ -218,24 +219,23 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
                           height: 60,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                            color: Color(0xffF4F6F7),
-                            border:Border.all(color: Color(0xff707070)),
+                            color: Colors.white,
+                            border:Border.all(color: Color(0xFFEB5050)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(12,0,0,0),
-                                child: Text(selectedDuration!=null?selectedDuration.toString().substring(selectedDuration.toString().indexOf("(")+1,selectedDuration.toString().indexOf(")")):"00:00",
+                                child: Text(selectedDurationString,
                                   textAlign: TextAlign.start,
-                                  style: TextStyle(fontSize: 14, color: Color(0xff707070)),),
-                              ),
+                                  style: TextStyle(fontFamily :"AvenirNext",fontSize: 15, fontWeight: FontWeight.bold, color: Colors.blue),),                                ),
                               Padding(
                                   padding: const EdgeInsets.fromLTRB(0,0,8,0),
                                   child: Container(
                                     height: 40,
                                     width: 40,
-                                    child: Icon(Icons.timelapse, color: Color(0xffEB5050),size: 32,),
+                                    child: Icon(Icons.timelapse, color: Color(0xFFEB5050),size: 32,),
 
                                   )
 
