@@ -70,6 +70,7 @@ class MyTimesheetState extends State<MyTimesheet>{
                   child: Center(
                       child: Image.asset(
                           "assets/images/timesheet_icon.png"))),
+              SizedBox(height: 8,),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -91,7 +92,7 @@ class MyTimesheetState extends State<MyTimesheet>{
                         children: <Widget>[
                           Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32.0),
+                              borderRadius: BorderRadius.circular(12.0),
                               // side: BorderSide(width:2,color: Color(0xffEB5050))
                             ),
                             color:Color(0xffEB5050   ),
@@ -175,7 +176,7 @@ class MyTimesheetState extends State<MyTimesheet>{
                           ),
                           Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32.0),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
                             elevation: 0,
                             color: Color(0xffEB5050),
@@ -208,14 +209,10 @@ class MyTimesheetState extends State<MyTimesheet>{
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
 
-                                ),
-                                elevation: 1,
                                 child: Container(
                                   width: _width - 32,
-                                  height: _width / 7,
+                                  height: _width / 6,
                                   child: Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -229,8 +226,7 @@ class MyTimesheetState extends State<MyTimesheet>{
                                           Container(
                                               height: 24,
                                               width: 24,
-                                              child: Image.asset(
-                                                  "assets/images/ic_date.png")),
+                                              child: Icon(Icons.calendar_today, size: 18, color: Colors.blueGrey,)),
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 10, 0, 0, 0),
@@ -254,8 +250,7 @@ class MyTimesheetState extends State<MyTimesheet>{
                                           Container(
                                               height: 24,
                                               width: 24,
-                                              child: Image.asset(
-                                                  "assets/images/ic_time_grey.png")),
+                                              child: Icon(Icons.access_time, color: Colors.blueGrey,size: 18,)),
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 10, 0, 0, 0),

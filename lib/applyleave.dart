@@ -361,8 +361,8 @@ class ApplyLeaveState extends State<ApplyLeave> {
     FormData formData = new FormData.fromMap({
       "user_id": "1",
       "reason": reason.text,
-      "from_date": fromDateString,
-      "to_date": toDateString
+      "from_date": new DateFormat("yyyy-MM-dd").format(fromDate),
+      "to_date": new DateFormat("yyyy-MM-dd").format(toDate)
     });
     dynamic response = await dio.post(manageLeavesUrl, data: formData);
     if (response.toString() == "New record created successfully") {
@@ -373,8 +373,9 @@ class ApplyLeaveState extends State<ApplyLeave> {
           backgroundColor: Color(0xffEB5050),
           backgroundRadius: 16);
       Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => ManageLeaves()));
-    } else {
-      Toast.show("Leave request failed, Try again !!", context,
+    }
+    else {
+      Toast.show(response.toString(), context,
           textColor: Colors.white,
           duration: Toast.LENGTH_SHORT,
           gravity: Toast.BOTTOM,
