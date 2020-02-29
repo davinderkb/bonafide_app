@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:bonafide_app/manageleaves.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
 class ApplyLeave extends StatefulWidget {
@@ -357,9 +358,10 @@ class ApplyLeaveState extends State<ApplyLeave> {
 
   Future<void> _applyLeave() async {
     var dio = Dio();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     var manageLeavesUrl = 'http://boostmart.com/apiproject/apply_leave.php';
     FormData formData = new FormData.fromMap({
-      "user_id": "1",
+      "user_id": prefs.getString(Constants.SHARED_PREF_USER_ID),
       "reason": reason.text,
       "from_date": new DateFormat("yyyy-MM-dd").format(fromDate),
       "to_date": new DateFormat("yyyy-MM-dd").format(toDate)

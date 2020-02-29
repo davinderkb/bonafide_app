@@ -158,15 +158,8 @@ class LoginPage extends StatelessWidget {
       dynamic responseList = jsonDecode(response.toString());
       if (responseList["data"] != null) {
         UserData user = UserData.fromJson(responseList["data"]);
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setBool(Constants.SHARED_PREF_IS_LOGGED_IN, true);
-        prefs.setString(
-            Constants.SHARED_PREF_USER_NAME, userNameController.text);
-        prefs.setString(
-            Constants.SHARED_PREF_PASSWORD, passwordController.text);
-        prefs.setString(Constants.SHARED_PREF_NAME, user.name);
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+        await saveUserDetailsInSharedPref(user);
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => HomePage()));
       } else {
         Toast.show("Authentication Failed", context,
             textColor: Colors.white,
@@ -183,5 +176,14 @@ class LoginPage extends StatelessWidget {
           backgroundColor: Color(0xffEB5050),
           backgroundRadius: 16);
     }
+  }
+
+  Future saveUserDetailsInSharedPref(UserData user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(Constants.SHARED_PREF_IS_LOGGED_IN, true);
+    prefs.setString(Constants.SHARED_PREF_USER_NAME, userNameController.text);
+    prefs.setString(Constants.SHARED_PREF_PASSWORD, passwordController.text);
+    prefs.setString(Constants.SHARED_PREF_NAME, user.name);
+    prefs.setString(Constants.SHARED_PREF_USER_ID, user.id);
   }
 }

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:bonafide_app/util/customdialog.dart';
 import 'package:bonafide_app/util/util.dart';
@@ -27,9 +28,10 @@ class ManageLeaves extends StatefulWidget {
 var manageLeavesUrl = 'http://boostmart.com/apiproject/manage-leave.php';
 Future<List<ManageLeavesSchema>> _appliedLeaves() async {
   final list = List<ManageLeavesSchema>();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   var dio = Dio();
   FormData formData = new FormData.fromMap({
-    "user_id": "1",
+    "user_id": prefs.getString(Constants.SHARED_PREF_USER_ID),
   });
   dynamic response = await dio.post(manageLeavesUrl, data: formData);
   Map<String, dynamic> responseList = jsonDecode(response.toString());

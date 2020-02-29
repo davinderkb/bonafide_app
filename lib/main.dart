@@ -178,13 +178,10 @@ class MainNavigationDrawerState extends State<MainNavigationDrawer>{
                 title: Text(Constants.LOGOUT,style: listTileTextStyle,),
                 leading: Icon(Icons.launch,color:Colors.white),
                 onTap: () async {
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  prefs.setBool(Constants.SHARED_PREF_IS_LOGGED_IN, false);
-                  prefs.setString(Constants.SHARED_PREF_USER_NAME, null);
-                  prefs.setString(Constants.SHARED_PREF_PASSWORD, null);
-                  prefs.setString(Constants.SHARED_PREF_NAME, null);
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>LoginPage()));
+                  await cleanUpSharedPref();
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
+                 // Navigator.pop(context,true);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()),);
                 },
               ),
 
@@ -193,6 +190,15 @@ class MainNavigationDrawerState extends State<MainNavigationDrawer>{
         ),
       ),
     );
+  }
+
+  Future cleanUpSharedPref() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(Constants.SHARED_PREF_IS_LOGGED_IN, false);
+    prefs.setString(Constants.SHARED_PREF_USER_NAME, null);
+    prefs.setString(Constants.SHARED_PREF_PASSWORD, null);
+    prefs.setString(Constants.SHARED_PREF_NAME, null);
+    prefs.setString(Constants.SHARED_PREF_USER_ID, null);
   }
 
   Future<Map<dynamic,dynamic>> _getUserData(BuildContext context) async {
