@@ -5,7 +5,20 @@ import 'package:bonafide_app/updatetimesheet.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
-class MyTimesheet extends StatelessWidget {
+import 'dart:ui';
+
+
+class MyTimesheet extends StatefulWidget {
+  @override
+  MyTimesheetState createState() {
+    return MyTimesheetState();
+  }
+
+}
+
+
+class MyTimesheetState extends State<MyTimesheet>{
+
   BuildContext context;
   @override
   Widget build(BuildContext context) {
@@ -79,7 +92,7 @@ class MyTimesheet extends StatelessWidget {
                           Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32.0),
-                               // side: BorderSide(width:2,color: Color(0xffEB5050))
+                              // side: BorderSide(width:2,color: Color(0xffEB5050))
                             ),
                             color:Color(0xffEB5050   ),
                             elevation: 0,
@@ -95,7 +108,7 @@ class MyTimesheet extends StatelessWidget {
                                     height: 16,
                                     width: 16,
                                     child: Image.asset(
-                                        "assets/images/wk_back.png",),
+                                      "assets/images/wk_back.png",),
                                   ),
                                 ),
                               ),
@@ -105,7 +118,7 @@ class MyTimesheet extends StatelessWidget {
                           Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32.0),
-                               // side: BorderSide(width:0,color: Color(0xffEB5050))
+                              // side: BorderSide(width:0,color: Color(0xffEB5050))
                             ),
                             color:Color(0xffEB5050),
                             elevation: 0,
@@ -300,5 +313,4 @@ class MyTimesheet extends StatelessWidget {
           MaterialPageRoute(builder: (BuildContext context) => UpdateTimesheet()));
     }
   }
-
 }

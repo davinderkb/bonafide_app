@@ -35,7 +35,7 @@ Future<List<Announcement>>_announcements() async {
   for(dynamic item in responseList["data"]){
     list.add(Announcement.fromJson(item));
   }
-  return list;
+    return list;
 }
 
 class HomePageState extends State<HomePage>{

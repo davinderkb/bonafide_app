@@ -1,12 +1,51 @@
 import 'package:bonafide_app/addtimeentry.dart';
 import 'package:bonafide_app/applyleave.dart';
+import 'package:bonafide_app/edittimeentry.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:bonafide_app/timesheet_entry.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class UpdateTimesheet extends StatelessWidget {
+final _timeSheetEntries = new List<TimesheetEntry>();
+class UpdateTimesheet extends StatefulWidget {
+
+
+
+  var updateTimesheetState = new UpdateTimesheetState();
+  @override
+  UpdateTimesheetState createState() {
+    return updateTimesheetState;
+  }
+
+
+
+  void addRow(TimesheetEntry entry) {
+    updateTimesheetState._addTimesheetList(entry);
+  }
+  void deleteRow(int index) {
+    updateTimesheetState._deleteRowTimesheetList(index);
+  }
+
+  List<TimesheetEntry> getTimesheetEntries() {
+    return _timeSheetEntries;
+  }
+
+  void updateRow(TimesheetEntry entry, int index) {
+    updateTimesheetState._updateRowTimesheetList(entry, index);
+  }
+}
+
+class UpdateTimesheetState extends State<UpdateTimesheet>{
   BuildContext context;
+  Future<List<TimesheetEntry>> futureTimesheetEntries;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    futureTimesheetEntries = fetchSheetEntries();
+  }
   @override
   Widget build(BuildContext context) {
     this.context = context;
@@ -40,12 +79,12 @@ class UpdateTimesheet extends StatelessWidget {
                       height: 48,
                       width: 48,
                       child: RaisedButton(
-                        disabledColor:Color(0xffEB5050) ,
+                          disabledColor:Color(0xffEB5050) ,
                           color: Color(0xffEB5050) ,
 
                           elevation: 1.0,
                           onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>AddTimesheetEntry()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>AddTimesheetEntry(this.widget)));
                           },
                           child: new Text(
                             "+",
@@ -86,101 +125,137 @@ class UpdateTimesheet extends StatelessWidget {
                         height: _height / 1.35,
                         child: Column(
                           children: <Widget>[
-                            Expanded(
-                              child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: 1,
-                                itemBuilder:
-                                    (BuildContext context, int index) => Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    Card(
+                            FutureBuilder(
+                              future: futureTimesheetEntries,
+                              builder: (context, snapshot) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.none:
+                                  case ConnectionState.waiting:
+                                  case ConnectionState.active:
+                                    return Center(
                                       child: Container(
-                                        width: _width - _width / 7.5 - 32,
-                                        height: _width / 7.5,
-                                        child: Row(
+                                        height: _height-200,
+                                        alignment: Alignment.center,
+                                        child: SpinKitCircle(
+                                          color: Color(0xFFEB5050),
+                                          size: 50.0,
+                                        ),
+                                      ),
+                                    );
+                                    break;
+                                  case ConnectionState.done:
+                                    if (snapshot.hasError) {
+                                      // return whatever you'd do for this case, probably an error
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        child: Text("Error: ${snapshot.error}"),
+                                      );
+                                    }
+                                    var data = snapshot.data;
+                                    return  Expanded(
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: data.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) => Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Container(
-                                                    height: 20,
-                                                    width: 20,
-                                                    child: Image.asset(
-                                                        "assets/images/ic_date.png")),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          10, 0, 0, 0),
-                                                  child: Text(
-                                                    "Tue, Feb 11, 2020",
-                                                    style: TextStyle(
-                                                        color:
-                                                            Color(0xff656D71),
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontFamily:
-                                                            'AvenirNext'),
+                                            InkWell(
+                                              onTap: (){
+                                                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>EditTimesheetEntry(this.widget, data[index], index)));
+                                              },
+                                              child: Card(
+                                                child: Container(
+                                                  width: _width - _width / 7.5 - 32,
+                                                  height: _width / 7.5,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.spaceEvenly,
+                                                    children: <Widget>[
+                                                      Row(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                        children: <Widget>[
+                                                          Container(
+                                                              height: 20,
+                                                              width: 20,
+                                                              child:Icon(Icons.calendar_today, color: Colors.blue,size: 16,)),
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets.fromLTRB(
+                                                                10, 0, 0, 0),
+                                                            child: Text(
+                                                              data[index].date,
+                                                              style: TextStyle(
+                                                                  fontFamily: "AvenirNext",
+                                                                  fontSize: 15,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: Colors.blue),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                        children: <Widget>[
+                                                          Container(
+                                                              height: 20,
+                                                              width: 20,
+                                                              child: Icon(Icons.timelapse, color: Colors.blue,size: 16,)),
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets.fromLTRB(
+                                                                10, 0, 0, 0),
+                                                            child: Text(
+                                                              data[index].duration,
+                                                              style: TextStyle(
+                                                                  fontFamily: "AvenirNext",
+                                                                  fontSize: 15,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: Colors.blue),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Container(
-                                                    height: 20,
-                                                    width: 20,
-                                                    child: Image.asset(
-                                                        "assets/images/ic_time_grey.png")),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          10, 0, 0, 0),
-                                                  child: Text(
-                                                    "8.0 Hours",
-                                                    style: TextStyle(
-                                                        color:
-                                                            Color(0xff656D71),
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontFamily:
-                                                            'AvenirNext'),
+                                            InkWell(
+                                              onTap: (){
+                                                  widget.deleteRow(index);
+                                              },
+                                              child: Card(
+                                                child: Container(
+                                                  height: _width / 7.5,
+                                                  width: _width / 7.5,
+                                                  child: Center(
+                                                    child: Container(
+                                                      height: 22,
+                                                      width: 22,
+                                                      child: Image.asset(
+                                                          "assets/images/ic_delete.png"),
+                                                    ),
                                                   ),
                                                 ),
-                                              ],
-                                            )
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                    Card(
-                                      child: Container(
-                                        height: _width / 7.5,
-                                        width: _width / 7.5,
-                                        child: Center(
-                                          child: Container(
-                                            height: 22,
-                                            width: 22,
-                                            child: Image.asset(
-                                                "assets/images/ic_delete.png"),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                    );
+                                    break;
+                                }
+                              },
                             ),
+
                           ],
                         ),
                       ),
@@ -194,7 +269,7 @@ class UpdateTimesheet extends StatelessWidget {
                               'Submit Timesheet',
                               textAlign: TextAlign.start,
                               style:
-                                  TextStyle(fontSize: 14, color: Colors.white),
+                              TextStyle(fontSize: 14, color: Colors.white),
                             ),
                             onPressed: () {},
                             icon: Icon(
@@ -216,5 +291,32 @@ class UpdateTimesheet extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+   _addTimesheetList(TimesheetEntry entry) {
+    _timeSheetEntries.add(entry);
+      setState(() {
+        futureTimesheetEntries = fetchSheetEntries();
+      });
+
+  }
+
+  _deleteRowTimesheetList(int index) {
+    _timeSheetEntries.removeAt(index);
+    setState(() {
+      futureTimesheetEntries = fetchSheetEntries();
+    });
+
+  }
+  _updateRowTimesheetList(TimesheetEntry entry, int index) {
+    _timeSheetEntries[index] = entry;
+    setState(() {
+      futureTimesheetEntries = fetchSheetEntries();
+    });
+
+  }
+
+  Future<List<TimesheetEntry>>fetchSheetEntries() async {
+    return _timeSheetEntries;
   }
 }
