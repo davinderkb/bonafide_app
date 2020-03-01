@@ -2,11 +2,15 @@ import 'package:bonafide_app/addtimeentry.dart';
 import 'package:bonafide_app/applyleave.dart';
 import 'package:bonafide_app/edittimeentry.dart';
 import 'package:bonafide_app/main.dart';
+import 'package:bonafide_app/mytimesheet.dart';
 import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:bonafide_app/timesheet_entry.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 final _timeSheetEntries = new List<TimesheetEntry>();
 class UpdateTimesheet extends StatefulWidget {
@@ -271,7 +275,9 @@ class UpdateTimesheetState extends State<UpdateTimesheet>{
                               style:
                               TextStyle(fontSize: 14, color: Colors.white),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              _onPressSubmitTimesheet();
+                            },
                             icon: Icon(
                               Icons.playlist_add_check,
                               color: Colors.white,
@@ -318,5 +324,31 @@ class UpdateTimesheetState extends State<UpdateTimesheet>{
 
   Future<List<TimesheetEntry>>fetchSheetEntries() async {
     return _timeSheetEntries;
+  }
+
+  void _onPressSubmitTimesheet() async{
+    var dio = Dio();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var submitTimesheetUrl = 'http://boostmart.com/apiproject/submit_timesheet.php';
+    FormData formData = new FormData.fromMap({
+      "user_id": prefs.getString(Constants.SHARED_PREF_USER_ID),
+      "timesheet_entries":'{"timesheet_entries":'+encondeTimesheetListToJson().toString()+'}'
+    });
+    dynamic response = await dio.post(submitTimesheetUrl, data: formData);
+    if(response!= null){
+      Toast.show("Timesheet updated successfully", context,
+          textColor: Colors.white,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Color(0xffEB5050),
+          backgroundRadius: 16);
+          _timeSheetEntries.clear();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => MyTimesheet()));
+    }
+  }
+  List encondeTimesheetListToJson() {
+    List jsonList = List();
+    _timeSheetEntries.map((item) => jsonList.add(item.toJson())).toList();
+    return jsonList;
   }
 }
