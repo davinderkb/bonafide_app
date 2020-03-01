@@ -48,7 +48,7 @@ class MyTimesheetState extends State<MyTimesheet>{
     final list = List<TimesheetEntry>();
     if(responseList["data"]!=null){
       for (dynamic item in responseList["data"]) {
-        list.add(TimesheetEntry(item['date'],item['time']));
+        list.add(TimesheetEntry(item['date'],item['time'], true));
       }
     }
     weekTimesheet.preUrl = responseList["preUrl"];

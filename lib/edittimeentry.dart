@@ -253,7 +253,7 @@ class EditTimesheetEntryState extends State<EditTimesheetEntry> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  updateEntryToTimesheetList(new TimesheetEntry(widget._oldEntry.date,selectedDurationString), widget._index);
+                  updateEntryToTimesheetList(new TimesheetEntry(widget._oldEntry.date,selectedDurationString, false), widget._index);
                 },
                 disabledColor: Color(0xffEB5050),
                 color: Color(0xffEB5050),

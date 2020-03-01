@@ -314,7 +314,7 @@ class AddTimesheetEntryState extends State<AddTimesheetEntry> {
                               if(!isRepeated) {
                                 addEntryToTimesheetList(new TimesheetEntry(
                                     selectedDateString,
-                                    selectedDurationString));
+                                    selectedDurationString, false));
                               }
                             }
                 },
