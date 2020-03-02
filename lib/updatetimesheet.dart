@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:bonafide_app/addtimeentry.dart';
 import 'package:bonafide_app/applyleave.dart';
 import 'package:bonafide_app/edittimeentry.dart';
@@ -11,6 +14,8 @@ import 'package:bonafide_app/timesheet_entry.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
+import 'package:http/http.dart' as http;
+
 
 final _timeSheetEntries = new List<TimesheetEntry>();
 class UpdateTimesheet extends StatefulWidget {
@@ -327,28 +332,48 @@ class UpdateTimesheetState extends State<UpdateTimesheet>{
   }
 
   void _onPressSubmitTimesheet() async{
-    var dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var submitTimesheetUrl = 'http://boostmart.com/apiproject/submit_timesheet.php';
-    FormData formData = new FormData.fromMap({
-      "user_id": prefs.getString(Constants.SHARED_PREF_USER_ID),
-      "timesheet_entries":'{"timesheet_entries":'+encondeTimesheetListToJson().toString()+'}'
-    });
-    dynamic response = await dio.post(submitTimesheetUrl, data: formData);
-    if(response!= null){
+    var body = json.encode(encondeTimesheetListToJson(prefs.getString(Constants.SHARED_PREF_USER_ID)));
+    var response = await http.post(submitTimesheetUrl,
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+    
+    if(!response.body.contains("Failed")){
       Toast.show("Timesheet updated successfully", context,
           textColor: Colors.white,
           duration: Toast.LENGTH_SHORT,
           gravity: Toast.BOTTOM,
           backgroundColor: Color(0xffEB5050),
           backgroundRadius: 16);
-          _timeSheetEntries.clear();
+      _timeSheetEntries.clear();
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => MyTimesheet()));
+    } else{
+      Toast.show("Something went wrong.. Try again", context,
+          textColor: Colors.white,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Color(0xffEB5050),
+          backgroundRadius: 16);
     }
   }
-  List encondeTimesheetListToJson() {
+
+  void _onPressSubmit() async{
+    var dio = Dio();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var submitTimesheetUrl = 'http://boostmart.com/apiproject/submit_timesheet.php';
+
+    FormData formData = new FormData.fromMap({
+      "user_id": prefs.getString(Constants.SHARED_PREF_USER_ID),
+      "timesheet_entries":jsonEncode(encondeTimesheetListToJson(prefs.getString(Constants.SHARED_PREF_USER_ID)))
+    });
+    dynamic response = await dio.post(submitTimesheetUrl, data: formData  );
+
+  }
+  List encondeTimesheetListToJson(String userId) {
     List jsonList = List();
-    _timeSheetEntries.map((item) => jsonList.add(item.toJson())).toList();
+    _timeSheetEntries.map((item) => jsonList.add(item.toJson(userId))).toList();
     return jsonList;
   }
 }

@@ -88,7 +88,7 @@ class TimesheetEntry {
       _date = value;
     }
 
-  Map<String, dynamic> toJson() => {'"date"': '"'+parseStringDateToDbFormat(_date)+'"', '"time"': '"'+_duration+'"'};
+  Map<String, dynamic> toJson(String userId) => {'date': parseStringDateToDbFormat(_date), 'time': _duration, 'user_id':userId};
 
   String parseStringDateToDbFormat(String date)  {
       String dateInDbFormat = date.split(" ")[2] +"-" + parseMonth(date.split(" ")[0]) +"-" +date.split(" ")[1].split(',')[0];

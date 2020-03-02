@@ -20,7 +20,7 @@ class ManageLeavesSchema{
 
   factory ManageLeavesSchema.fromJson(dynamic json) {
 
-    return ManageLeavesSchema(json['id'] as String, DateFormat("MMM dd, yyyy").format(DateTime.parse(json['from_date'])) as String, DateFormat("MMM dd, yyyy").format(DateTime.parse(json['to_date'])) as String,json['reason'] as String, json['status'] as String);
+    return ManageLeavesSchema(json['id'] as String, DateFormat("MMM dd, yyyy").format(DateTime.parse(json['from_date'])), DateFormat("MMM dd, yyyy").format(DateTime.parse(json['to_date'])),json['reason'] as String, json['status'] as String);
   }
 
 
