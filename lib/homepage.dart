@@ -1,14 +1,19 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:ui';
 
 import 'package:bonafide_app/announcements.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/manageleaves.dart';
 import 'package:bonafide_app/mytimesheet.dart';
+import 'package:dynamic_widget/dynamic_widget/basic/row_column_widget_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:toast/toast.dart';
+import 'package:connectivity/connectivity.dart';
 
 class HomePage extends StatefulWidget  {
 
@@ -214,6 +219,10 @@ class HomePageState extends State<HomePage>{
                         builder: (context, snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.none:
+                              return Container(
+                                alignment: Alignment.center,
+                                child: Text("Error: ${snapshot.error}"),
+                              );
                             case ConnectionState.waiting:
                             case ConnectionState.active:
                               return Container(
@@ -227,9 +236,36 @@ class HomePageState extends State<HomePage>{
                             case ConnectionState.done:
                               if (snapshot.hasError) {
                                 // return whatever you'd do for this case, probably an error
-                                return Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Error: ${snapshot.error}"),
+                                return Column(
+                                  children: <Widget>[
+                                    Container(
+                                      alignment: Alignment.topCenter,
+                                      width: _width,
+                                      child: Image.asset("assets/images/no_internet.png",),
+                                    ),
+                                    SizedBox(height: 8,),
+                                    Container(
+                                      alignment: Alignment.topCenter,
+                                      height: _width/8,
+                                      width: _width,
+                                      child:    InkWell(
+                                        onTap: () async {
+                                            var connectivityResult = await (Connectivity().checkConnectivity());
+                                            if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+                                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>HomePage()));
+                                            } else  {
+                                              Toast.show("Internet is still not up yet.. Try again", context,
+                                                  textColor: Colors.white,
+                                                  duration: Toast.LENGTH_LONG,
+                                                  gravity: Toast.BOTTOM,
+                                                  backgroundColor: Colors.blue,
+                                                  backgroundRadius: 16);
+                                            }
+                                        },
+                                        child: Image.asset("assets/images/ic_refresh.png",),
+                                      ),
+                                    ),
+                                  ],
                                 );
                               }
                               var data = snapshot.data;
