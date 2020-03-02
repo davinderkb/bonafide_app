@@ -246,7 +246,7 @@ class HomePageState extends State<HomePage>{
                                     SizedBox(height: 8,),
                                     Container(
                                       alignment: Alignment.topCenter,
-                                      height: _width/8,
+                                      height: _width/6,
                                       width: _width,
                                       child:    InkWell(
                                         onTap: () async {
