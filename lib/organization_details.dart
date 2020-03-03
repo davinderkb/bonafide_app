@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 class OrganizationDetails{
   String _companyName, _companyId, _employees,_projects, _clients;

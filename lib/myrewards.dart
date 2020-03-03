@@ -103,7 +103,6 @@ class MyRewardsState extends State<MyRewards> {
                   break;
                 case ConnectionState.done:
                   if (snapshot.hasError) {
-                    // return whatever you'd do for this case, probably an error
                     return SingleChildScrollView(
                       child: Container(
                         height: _height,

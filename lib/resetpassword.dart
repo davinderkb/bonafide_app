@@ -1,10 +1,8 @@
 import 'package:bonafide_app/homepage.dart';
 import 'package:bonafide_app/main.dart';
-import 'package:bonafide_app/organizationprofile.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:bonafide_app/userdata.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:toast/toast.dart';

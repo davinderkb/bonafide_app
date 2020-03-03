@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 class UserData{
   String _id, _name, _email;
