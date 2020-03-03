@@ -12,13 +12,13 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:toast/toast.dart';
 import 'package:connectivity/connectivity.dart';
 
 class HomePage extends StatefulWidget  {
 
   HomePage() {
-
   }
 
 
@@ -45,6 +45,8 @@ Future<List<Announcement>>_announcements() async {
 
 class HomePageState extends State<HomePage>{
   Future<List<Announcement>> futureListOfAnnouncements;
+  RefreshController _refreshControllerOnErrorReload = RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void onManageLeavePress(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) =>ManageLeaves()));
@@ -236,107 +238,115 @@ class HomePageState extends State<HomePage>{
                             case ConnectionState.done:
                               if (snapshot.hasError) {
                                 // return whatever you'd do for this case, probably an error
-                                return Column(
-                                  children: <Widget>[
-                                    Container(
-                                      alignment: Alignment.topCenter,
-                                      width: _width,
-                                      child: Image.asset("assets/images/no_internet.png",),
-                                    ),
-                                    SizedBox(height: 8,),
-                                    Container(
-                                      alignment: Alignment.topCenter,
-                                      height: _width/6,
-                                      width: _width,
-                                      child:    InkWell(
-                                        onTap: () async {
-                                            var connectivityResult = await (Connectivity().checkConnectivity());
-                                            if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-                                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>HomePage()));
-                                            } else  {
-                                              Toast.show("Internet is still not up yet.. Try again", context,
-                                                  textColor: Colors.white,
-                                                  duration: Toast.LENGTH_LONG,
-                                                  gravity: Toast.BOTTOM,
-                                                  backgroundColor: Colors.blue,
-                                                  backgroundRadius: 16);
-                                            }
-                                        },
-                                        child: Image.asset("assets/images/ic_refresh.png",),
+                                return SmartRefresher(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        //height: _height/2 - 80,
+                                        alignment: Alignment.topCenter,
+                                        width: _width,
+                                        child: Image.asset("assets/images/no_internet.png",),
                                       ),
-                                    ),
-                                  ],
+
+                                      Image.asset("assets/images/pulldown_refresh.png", height: 32,color: Colors.blue,),
+                                      SizedBox(height: 8,),
+                                      Text("Pull Down To Refresh", style: TextStyle(fontFamily: 'AvenirNext',fontSize: 13,color: Colors.blue,fontWeight: FontWeight.bold),),
+                                    ],
+                                  ),
+
+                                  controller: _refreshControllerOnErrorReload,
+                                  onRefresh: ()async{
+                                    var connectivityResult = await (Connectivity().checkConnectivity());
+                                    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>HomePage()));
+                                    } else  {
+                                      Toast.show("Internet is still not up yet.. Try again", context,
+                                          textColor: Colors.white,
+                                          duration: Toast.LENGTH_LONG,
+                                          gravity: Toast.BOTTOM,
+                                          backgroundColor: Colors.blue,
+                                          backgroundRadius: 16);
+                                    }
+                                    _refreshControllerOnErrorReload.refreshCompleted();
+                                  },
                                 );
                               }
                               var data = snapshot.data;
-                              return new ListView.builder(
-                                reverse: false,
-                                scrollDirection: Axis.vertical,
-                                itemCount: data.length,
-                                itemBuilder: (BuildContext context, int index) => Card(
-                                  elevation: 3,
-                                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(16.0),),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(15.0,15.0,0,0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(data[index].title,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 14,color: Color(0xff393939),fontWeight: FontWeight.bold)),
-                                            Text(data[index].subjectLine,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 14,color: Color(0xff666666),fontWeight: FontWeight.normal)),
-                                            new SizedBox(width: _width-55,height: 15),
+                              return SmartRefresher(
+                                child: new ListView.builder(
+                                  reverse: false,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: data.length,
+                                  itemBuilder: (BuildContext context, int index) => Card(
+                                    elevation: 3,
+                                    shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(16.0),),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(15.0,15.0,0,0),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(data[index].title,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 14,color: Color(0xff393939),fontWeight: FontWeight.bold)),
+                                              Text(data[index].subjectLine,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 14,color: Color(0xff666666),fontWeight: FontWeight.normal)),
+                                              new SizedBox(width: _width-55,height: 15),
 
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            height:100,
-                                            width: _width/2.5,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(Radius.circular(64)),
-                                              //border: Border.all()
-                                              //color: Colors.green,
-                                            ),
-                                        child:ClipRRect(
-                                          borderRadius: BorderRadius.circular(16.0),
-                                          child:CachedNetworkImage(
-                                            imageUrl: data[index].image,
-                                            placeholder: (context, url) => SpinKitCircle(
-                                              color:  Color(0xffEB5050),
-                                              size: 30.0,
-                                            ),
-                                            errorWidget: (context, url, error) =>Image.asset("assets/images/dummy_image.png",),
-                                          ),
-
-                                        )
-                                          ),
-                                          //data[index].image,
-                                        ],),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,25.0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            new SizedBox(width: _width-50,height: 15),
-                                            Container(width: _width - 65,child: Text(data[index].description,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 13,color:Color(0xff666666),fontWeight: FontWeight.normal))),
-                                          ],
+                                            Container(
+                                              height:100,
+                                              width: _width/2.5,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(Radius.circular(64)),
+                                                //border: Border.all()
+                                                //color: Colors.green,
+                                              ),
+                                          child:ClipRRect(
+                                            borderRadius: BorderRadius.circular(16.0),
+                                            child:CachedNetworkImage(
+                                              imageUrl: data[index].image,
+                                              placeholder: (context, url) => SpinKitCircle(
+                                                color:  Color(0xffEB5050),
+                                                size: 30.0,
+                                              ),
+                                              errorWidget: (context, url, error) =>Image.asset("assets/images/dummy_image.png",),
+                                            ),
+
+                                          )
+                                            ),
+                                            //data[index].image,
+                                          ],),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(15.0,15.0,15.0,25.0),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              new SizedBox(width: _width-50,height: 15),
+                                              Container(width: _width - 65,child: Text(data[index].description,style: TextStyle(fontFamily: 'AvenirNext',fontSize: 13,color:Color(0xff666666),fontWeight: FontWeight.normal))),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
 
+                                ),
+                                controller: _refreshController,
+                                onRefresh: ()async{
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>HomePage()));
+                                  _refreshController.refreshCompleted();
+                                },
                               );
                               break;
                           }

@@ -7,13 +7,16 @@ import 'package:bonafide_app/timesheet_entry.dart';
 import 'package:bonafide_app/updatetimesheet.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:bonafide_app/weekly_timesheet.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'dart:ui';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 
 class MyTimesheet extends StatefulWidget {
@@ -26,7 +29,8 @@ class MyTimesheet extends StatefulWidget {
 
 
 class MyTimesheetState extends State<MyTimesheet>{
-
+  RefreshController _refreshControllerOnErrorReload = RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
   BuildContext context;
   Future<WeeklyTimesheet> timesheetEntries;
   var timesheetUrl = 'timesheet.php';
@@ -141,9 +145,37 @@ class MyTimesheetState extends State<MyTimesheet>{
                         case ConnectionState.done:
                           if (snapshot.hasError) {
                             // return whatever you'd do for this case, probably an error
-                            return Container(
-                              alignment: Alignment.center,
-                              child: Text("Error: ${snapshot.error}"),
+                            return SmartRefresher(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    //height: _height/2 - 80,
+                                    alignment: Alignment.topCenter,
+                                    width: _width,
+                                    child: Image.asset("assets/images/no_internet.png",),
+                                  ),
+
+                                  Image.asset("assets/images/pulldown_refresh.png", height: 32,color: Colors.blue,),
+                                  SizedBox(height: 8,),
+                                  Text("Pull Down To Refresh", style: TextStyle(fontFamily: 'AvenirNext',fontSize: 13,color: Colors.blue,fontWeight: FontWeight.bold),),
+                                ],
+                              ),
+
+                              controller: _refreshControllerOnErrorReload,
+                              onRefresh: ()async{
+                                var connectivityResult = await (Connectivity().checkConnectivity());
+                                if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>MyTimesheet()));
+                                } else  {
+                                  Toast.show("Internet is still not up yet.. Try again", context,
+                                      textColor: Colors.white,
+                                      duration: Toast.LENGTH_LONG,
+                                      gravity: Toast.BOTTOM,
+                                      backgroundColor: Colors.blue,
+                                      backgroundRadius: 16);
+                                }
+                                _refreshControllerOnErrorReload.refreshCompleted();
+                              },
                             );
                           }
                           var data = snapshot.data as WeeklyTimesheet;
@@ -267,75 +299,82 @@ class MyTimesheetState extends State<MyTimesheet>{
                               data.weekEntries.length==0?
                               Expanded(child: Image.asset("assets/images/empty_view.png")):
                               Expanded(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: data.weekEntries.length,
-                                  itemBuilder: (BuildContext context, int index) => Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Card(
+                                child: SmartRefresher(
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: data.weekEntries.length,
+                                    itemBuilder: (BuildContext context, int index) => Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Card(
 
-                                        child: Container(
-                                          width: _width - 32,
-                                          height: _width / 6,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            children: <Widget>[
-                                              Row(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Container(
-                                                      height: 24,
-                                                      width: 24,
-                                                      child: Icon(Icons.calendar_today, size: 18, color: Colors.blueGrey,)),
-                                                  Padding(
-                                                    padding: const EdgeInsets.fromLTRB(
-                                                        10, 0, 0, 0),
-                                                    child: Text(
-                                                      data.weekEntries[index].day+" "+data.weekEntries[index].date,
-                                                      style: TextStyle(
-                                                          color: Color(0xff696969),
-                                                          fontSize: 15,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontFamily: 'AvenirNext'),
+                                          child: Container(
+                                            width: _width - 32,
+                                            height: _width / 6,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                        height: 24,
+                                                        width: 24,
+                                                        child: Icon(Icons.calendar_today, size: 18, color: Colors.blueGrey,)),
+                                                    Padding(
+                                                      padding: const EdgeInsets.fromLTRB(
+                                                          10, 0, 0, 0),
+                                                      child: Text(
+                                                        data.weekEntries[index].day+" "+data.weekEntries[index].date,
+                                                        style: TextStyle(
+                                                            color: Color(0xff696969),
+                                                            fontSize: 15,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontFamily: 'AvenirNext'),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Container(
-                                                      height: 24,
-                                                      width: 24,
-                                                      child: Icon(Icons.access_time, color: Colors.blueGrey,size: 18,)),
-                                                  Padding(
-                                                    padding: const EdgeInsets.fromLTRB(
-                                                        10, 0, 0, 0),
-                                                    child: Text(
-                                                      data.weekEntries[index].duration +" Hours",
-                                                      style: TextStyle(
-                                                          color: Color(0xff696969),
-                                                          fontSize: 15,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontFamily: 'AvenirNext'),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                        height: 24,
+                                                        width: 24,
+                                                        child: Icon(Icons.access_time, color: Colors.blueGrey,size: 18,)),
+                                                    Padding(
+                                                      padding: const EdgeInsets.fromLTRB(
+                                                          10, 0, 0, 0),
+                                                      child: Text(
+                                                        data.weekEntries[index].duration +" Hours",
+                                                        style: TextStyle(
+                                                            color: Color(0xff696969),
+                                                            fontSize: 15,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontFamily: 'AvenirNext'),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
+                                  controller: _refreshController,
+                                  onRefresh: ()async{
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>MyTimesheet()));
+                                    _refreshController.refreshCompleted();
+                                  },
                                 ),
                               ),
 

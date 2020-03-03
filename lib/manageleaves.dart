@@ -2,11 +2,13 @@ import 'package:bonafide_app/applyleave.dart';
 import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/manageleaves_schema.dart';
 import 'package:bonafide_app/util/constants.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:bonafide_app/util/customdialog.dart';
@@ -43,7 +45,8 @@ Future<List<ManageLeavesSchema>> _appliedLeaves() async {
 
 class ManageLeavesState extends State<ManageLeaves> {
   Future<List<ManageLeavesSchema>> futureListOfAppliedLeaves;
-
+  RefreshController _refreshControllerOnErrorReload = RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
   @override
   void initState() {
     super.initState();
@@ -135,126 +138,161 @@ class ManageLeavesState extends State<ManageLeaves> {
                               case ConnectionState.done:
                                 if (snapshot.hasError) {
                                   // return whatever you'd do for this case, probably an error
-                                  return Container(
-                                    alignment: Alignment.center,
-                                    child: Text("Error: ${snapshot.error}"),
+                                  return SmartRefresher(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          //height: _height/2 - 80,
+                                          alignment: Alignment.topCenter,
+                                          width: _width,
+                                          child: Image.asset("assets/images/no_internet.png",),
+                                        ),
+
+                                        Image.asset("assets/images/pulldown_refresh.png", height: 32,color: Colors.blue,),
+                                        SizedBox(height: 8,),
+                                        Text("Pull Down To Refresh", style: TextStyle(fontFamily: 'AvenirNext',fontSize: 13,color: Colors.blue,fontWeight: FontWeight.bold),),
+                                      ],
+                                    ),
+
+                                    controller: _refreshControllerOnErrorReload,
+                                    onRefresh: ()async{
+                                      var connectivityResult = await (Connectivity().checkConnectivity());
+                                      if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+                                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>ManageLeaves()));
+                                      } else  {
+                                        Toast.show("Internet is still not up yet.. Try again", context,
+                                            textColor: Colors.white,
+                                            duration: Toast.LENGTH_LONG,
+                                            gravity: Toast.BOTTOM,
+                                            backgroundColor: Colors.blue,
+                                            backgroundRadius: 16);
+                                      }
+                                      _refreshControllerOnErrorReload.refreshCompleted();
+                                    },
                                   );
                                 }
                                 var data = snapshot.data;
-                                return new ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: data.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Card(
-                                        child: Container(
-                                          width: _width / 1.5,
-                                          height: _width / 7.5,
-                                          child: Center(
+                                return SmartRefresher(
+                                  child: new ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: data.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) => Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Card(
+                                          child: Container(
+                                            width: _width / 1.5,
+                                            height: _width / 7.5,
+                                            child: Center(
+                                              child: Container(
+                                                height: _width / 7,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Container(
+                                                        height: 24,
+                                                        width: 24,
+                                                        child: Image.asset(
+                                                            "assets/images/ic_date.png")),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .fromLTRB(10, 0, 0, 0),
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Text(
+                                                            data[index].fromDate ,
+                                                            style: TextStyle(
+                                                                color:
+                                                                Color(0xff666666),
+                                                                fontWeight:
+                                                                FontWeight.bold,
+                                                                fontSize: 14,
+                                                                fontFamily:
+                                                                'AvenirNext'),
+                                                          ),
+                                                          Text(
+                                                            " - " +data[index].toDate ,
+                                                            style: TextStyle(
+                                                                color:data[index].toDate == data[index].fromDate?Colors.white:Color(0xff666666),
+                                                                fontWeight:
+                                                                FontWeight.bold,
+                                                                fontSize: 14,
+                                                                fontFamily:
+                                                                'AvenirNext'),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Card(
+                                          color: quickDescBackgroundColor(data[index].status),
+                                          child: InkWell(
+                                            onTap: () {
+                                                  child: _showLeaveDetails(data[index].status,data[index].fromToDate, data[index].reason );
+                                            },
                                             child: Container(
-                                              height: _width / 7,
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Container(
-                                                      height: 24,
-                                                      width: 24,
-                                                      child: Image.asset(
-                                                          "assets/images/ic_date.png")),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(10, 0, 0, 0),
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        Text(
-                                                          data[index].fromDate ,
-                                                          style: TextStyle(
-                                                              color:
-                                                              Color(0xff666666),
-                                                              fontWeight:
-                                                              FontWeight.bold,
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                              'AvenirNext'),
-                                                        ),
-                                                        Text(
-                                                          " - " +data[index].toDate ,
-                                                          style: TextStyle(
-                                                              color:data[index].toDate == data[index].fromDate?Colors.white:Color(0xff666666),
-                                                              fontWeight:
-                                                              FontWeight.bold,
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                              'AvenirNext'),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ),
-                                                ],
+                                              height: _width / 7.5,
+                                              width: _width / 7.5,
+                                              child: Center(
+                                                child: Container(
+                                                  height: 16,
+                                                  width: 16,
+                                                  child: Image.asset(
+                                                      "assets/images/ic_short_desc.png"),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      Card(
-                                        color: quickDescBackgroundColor(data[index].status),
-                                        child: InkWell(
-                                          onTap: () {
-                                                child: _showLeaveDetails(data[index].status,data[index].fromToDate, data[index].reason );
-                                          },
-                                          child: Container(
-                                            height: _width / 7.5,
-                                            width: _width / 7.5,
-                                            child: Center(
-                                              child: Container(
-                                                height: 16,
-                                                width: 16,
-                                                child: Image.asset(
-                                                    "assets/images/ic_short_desc.png"),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
 
-                                      ),
-                                      Card(
-                                        child: InkWell(
-                                          onTap: () {
-                                            /*DateFormat format = new DateFormat("MMM dd, yyyy");
-                                            if(format.parse(data[index].toDate).isBefore(new DateTime.now())){
-                                              Toast.show("Cannot delete past leaves", context,
-                                                  textColor: Colors.white,
-                                                  duration: Toast.LENGTH_SHORT,
-                                                  gravity: Toast.BOTTOM,
-                                                  backgroundColor: Color(0xffEB5050),
-                                                  backgroundRadius: 16);
-                                            } else{
+                                        ),
+                                        Card(
+                                          child: InkWell(
+                                            onTap: () {
+                                              /*DateFormat format = new DateFormat("MMM dd, yyyy");
+                                              if(format.parse(data[index].toDate).isBefore(new DateTime.now())){
+                                                Toast.show("Cannot delete past leaves", context,
+                                                    textColor: Colors.white,
+                                                    duration: Toast.LENGTH_SHORT,
+                                                    gravity: Toast.BOTTOM,
+                                                    backgroundColor: Color(0xffEB5050),
+                                                    backgroundRadius: 16);
+                                              } else{
 
-                                            }*/
-                                            _deleteLeave(data[index].id);
-                                          },
-                                          child: Container(
-                                            height: _width / 7.5,
-                                            width: _width / 7.5,
-                                            child: Center(
-                                              child: Container(
-                                                height: 16,
-                                                width: 16,
-                                                child: Image.asset(
-                                                    "assets/images/ic_delete.png"),
+                                              }*/
+                                              _deleteLeave(data[index].id);
+                                            },
+                                            child: Container(
+                                              height: _width / 7.5,
+                                              width: _width / 7.5,
+                                              child: Center(
+                                                child: Container(
+                                                  height: 16,
+                                                  width: 16,
+                                                  child: Image.asset(
+                                                      "assets/images/ic_delete.png"),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
+                                  controller: _refreshController,
+                                  onRefresh: ()async{
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>ManageLeaves()));
+                                    _refreshController.refreshCompleted();
+                                  },
                                 );
                                 break;
                             }

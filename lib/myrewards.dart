@@ -5,10 +5,12 @@ import 'package:bonafide_app/main.dart';
 import 'package:bonafide_app/userdata.dart';
 import 'package:bonafide_app/util/constants.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:bonafide_app/util/util.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
@@ -26,6 +28,8 @@ class MyRewardsState extends State<MyRewards> {
   bool animate;
   TextStyle style = TextStyle(
       fontFamily: 'AvenirNext', fontSize: 14.0, color: Color(0xff696969));
+
+  RefreshController _refreshControllerOnErrorReload = RefreshController(initialRefresh: false);
 
   /// Creates a [PieChart] with sample data and no transition.
   @override
@@ -100,9 +104,46 @@ class MyRewardsState extends State<MyRewards> {
                 case ConnectionState.done:
                   if (snapshot.hasError) {
                     // return whatever you'd do for this case, probably an error
-                    return Container(
-                      alignment: Alignment.center,
-                      child: Text("Error: ${snapshot.error}"),
+                    return SingleChildScrollView(
+                      child: Container(
+                        height: _height,
+                        width: _width,
+                        color: Colors.white,
+                        child: SmartRefresher(
+                          child: Container(
+                            height:_height>_width?_height:_width,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  alignment: Alignment.topCenter,
+                                  width: _width,
+                                  child: Image.asset("assets/images/no_internet.png",fit: BoxFit.fill,),
+                                ),
+
+                                Image.asset("assets/images/pulldown_refresh.png", height: 32,color: Colors.blue,),
+                                SizedBox(height: 8,),
+                                Text("Pull Down To Refresh", style: TextStyle(fontFamily: 'AvenirNext',fontSize: 13,color: Colors.blue,fontWeight: FontWeight.bold),),
+                              ],
+                            ),
+                          ),
+
+                          controller: _refreshControllerOnErrorReload,
+                          onRefresh: ()async{
+                            var connectivityResult = await (Connectivity().checkConnectivity());
+                            if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>MyRewards()));
+                            } else  {
+                              Toast.show("Internet is still not up yet.. Try again", context,
+                                  textColor: Colors.white,
+                                  duration: Toast.LENGTH_LONG,
+                                  gravity: Toast.BOTTOM,
+                                  backgroundColor: Colors.blue,
+                                  backgroundRadius: 16);
+                            }
+                            _refreshControllerOnErrorReload.refreshCompleted();
+                          },
+                        ),
+                      ),
                     );
                   }
                   UserData data = snapshot.data as UserData;
