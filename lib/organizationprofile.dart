@@ -210,7 +210,7 @@ class OrganizationDetailsState extends State<OrganizationProfile> {
     final Email email = Email(
       body: '',
       subject: 'Employee Feedback',
-      recipients: ['dkb37023@gmail.com'],
+      recipients: ['naresh@bonafidetech.com'],
       isHTML: false,
     );
     await FlutterEmailSender.send(email);

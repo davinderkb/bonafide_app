@@ -339,6 +339,7 @@ class ApplyLeaveState extends State<ApplyLeave> {
                           backgroundColor: Colors.white,
                           backgroundRadius: 16);
                     }else {
+                      FocusScope.of(context).unfocus();
                       _applyLeave();
                     }
                   },

@@ -182,7 +182,8 @@ class ResetPassword extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               onPressed: (){
-                                  if(oldPasswordController.text.length > 0 && newPasswordController.text.length > 0 && confirmNewPasswordController.text.length > 0) {
+                                FocusScope.of(context).unfocus();
+                                if(oldPasswordController.text.length > 0 && newPasswordController.text.length > 0 && confirmNewPasswordController.text.length > 0) {
                                       if(newPasswordController.text == confirmNewPasswordController.text) {
                                         if(newPasswordController.text == oldPasswordController.text)
                                           Toast.show("'Old Password' & 'New Password' are same", context,

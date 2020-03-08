@@ -68,6 +68,7 @@ class LoginPage extends StatelessWidget {
         minWidth: 265,
         padding: EdgeInsets.fromLTRB(20.0, 18.0, 20.0, 18.0),
         onPressed: () {
+          FocusScope.of(context).unfocus();
           onLoginPress(context);
         },
         child: Text("Login",
